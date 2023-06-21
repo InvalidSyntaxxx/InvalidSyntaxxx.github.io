@@ -1,15 +1,16 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: 王远昭
- * @Date: 2023-06-21 12:57:13
- * @LastEditors: 王远昭
- * @LastEditTime: 2023-06-21 12:59:42
--->
 ---
-title: 快速入门 WSL2
-date: 2023-06-21 12:57:13
-tags: Linux
+title: 优雅地使用WSL2
+tags:
+  - Linux
+  - Windows
+id: '1035'
+categories:
+  - - 学习笔记
+  - - 工具
+date: 2022-04-24 12:24:26
+# cover: https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424002629616.png
+thumbnail: https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424002629616.png
+toc: true
 ---
 
 记录一次安装WSL 2的过程...
@@ -19,7 +20,7 @@ tags: Linux
 WSL全称为Windows Subsystem for Linux，官网译为：适用于 Linux 的 Windows 子系统 (WSL)。
 
 官方文档直达：[适用于 Linux 的 Windows 子系统文档 | Microsoft Docs](https://docs.microsoft.com/zh-cn/windows/wsl/)
-
+<!-- more -->
 [WSL1和WSL2的比较](https://docs.microsoft.com/zh-cn/windows/wsl/compare-versions):
 
 | 功能                                           | WSL 1 | WSL 2 |
