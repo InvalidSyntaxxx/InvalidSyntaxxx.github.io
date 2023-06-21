@@ -1,0 +1,55 @@
+widgets:
+    -   
+        position: right
+        type: profile
+        # Author name
+        author: 挚夏
+        # Author title
+        author_title: 若结局非你所愿，就在尘埃落定前奋力一搏.
+        # Author's current location
+        location: 中国-北京
+        # URL or path to the avatar image
+        avatar: https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png
+        # Whether show the rounded avatar image
+        avatar_rounded: false
+        # Email address for the Gravatar
+        gravatar: 
+        # URL or path for the follow button
+        follow_link: https://github.com/InvalidSyntaxxx
+        # Links to be shown on the bottom of the profile widget
+        social_links:
+            Github:
+                icon: fab fa-github
+                url: https://github.com/InvalidSyntaxxx
+            Zhihu:
+                icon: fab fa-zhihu
+                url: https://www.zhihu.com/people/wang-zhi-yuan-64-19
+            # Twitter:
+                # icon: fab fa-twitter
+                # url: https://twitter.com
+            # Dribbble:
+                # icon: fab fa-dribbble
+                # url: https://dribbble.com
+            RSS:
+                icon: fas fa-rss
+                url: /
+                # Table of contents widget configurations
+    -
+        # Where should the widget be placed, left sidebar or right sidebar
+        position: right
+        type: toc
+        # Whether to show the index of each heading
+        index: true
+        # Whether to collapse sub-headings when they are out-of-view
+        collapsed: false
+        # Maximum level of headings to show (1-6)
+        depth: 6
+    -
+        type: recent_posts
+        position: right
+    -
+        type: categories
+        position: right
+    -
+        type: tags
+        position: right
