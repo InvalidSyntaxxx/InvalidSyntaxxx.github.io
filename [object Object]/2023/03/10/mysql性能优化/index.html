@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>MySQL性能优化 - 掉发收集站</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="掉发收集站"><meta name="msapplication-TileImage" content="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="掉发收集站"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="MySQL性能调优 存储数据类型优化  尽量避免使用 NULL  尽量使用可以的最小数据类型。但也要确保没有低估需要存储的范围  整型比字符串操作代价更低  使用 MySQL 内建的数据类型（比如date、time、datetime），比用字符串更快  基本数据类型"><meta property="og:type" content="blog"><meta property="og:title" content="MySQL性能优化"><meta property="og:url" content="https://wangwangyz.site/[object%20Object]/2023/03/10/mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><meta property="og:site_name" content="掉发收集站"><meta property="og:description" content="MySQL性能调优 存储数据类型优化  尽量避免使用 NULL  尽量使用可以的最小数据类型。但也要确保没有低估需要存储的范围  整型比字符串操作代价更低  使用 MySQL 内建的数据类型（比如date、time、datetime），比用字符串更快  基本数据类型"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://n.sinaimg.cn/games/3ece443e/20161013/MySQLXingNenDiaoYou.jpg"><meta property="og:image" content="http://n.sinaimg.cn/games/3ece443e/20160916/MySQLJiaGouTu1.png"><meta property="article:published_time" content="2023-03-10T10:24:11.000Z"><meta property="article:modified_time" content="2023-06-21T10:55:01.269Z"><meta property="article:author" content="挚夏"><meta property="article:tag" content="MySQL"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://n.sinaimg.cn/games/3ece443e/20161013/MySQLXingNenDiaoYou.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://wangwangyz.site/[object%20Object]/2023/03/10/mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"},"headline":"MySQL性能优化","image":["http://n.sinaimg.cn/games/3ece443e/20161013/MySQLXingNenDiaoYou.jpg","http://n.sinaimg.cn/games/3ece443e/20160916/MySQLJiaGouTu1.png"],"datePublished":"2023-03-10T10:24:11.000Z","dateModified":"2023-06-21T10:55:01.269Z","author":{"@type":"Person","name":"挚夏"},"publisher":{"@type":"Organization","name":"掉发收集站","logo":{"@type":"ImageObject","url":"https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png"}},"description":"MySQL性能调优 存储数据类型优化  尽量避免使用 NULL  尽量使用可以的最小数据类型。但也要确保没有低估需要存储的范围  整型比字符串操作代价更低  使用 MySQL 内建的数据类型（比如date、time、datetime），比用字符串更快  基本数据类型"}</script><link rel="canonical" href="https://wangwangyz.site/[object%20Object]/2023/03/10/mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><link rel="icon" href="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png" alt="掉发收集站" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/InvalidSyntaxxx"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2023-03-10T10:24:11.000Z" title="3/10/2023, 10:24:11 AM">2023-03-10</time>发表</span><span class="level-item"><time dateTime="2023-06-21T10:55:01.269Z" title="6/21/2023, 10:55:01 AM">2023-06-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a><span> / </span><a class="link-muted" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span><span class="level-item">16 分钟读完 (大约2362个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">MySQL性能优化</h1><div class="content"><h2 id="MySQL性能调优"><a href="#MySQL性能调优" class="headerlink" title="MySQL性能调优"></a>MySQL性能调优</h2><p><img src="http://n.sinaimg.cn/games/3ece443e/20161013/MySQLXingNenDiaoYou.jpg" alt="MYSQL性能优化"></p>
+<h3 id="存储数据类型优化"><a href="#存储数据类型优化" class="headerlink" title="存储数据类型优化"></a>存储数据类型优化</h3><ol>
+<li> 尽量避免使用 NULL</li>
+<li> 尽量使用可以的最小数据类型。但也要确保没有低估需要存储的范围</li>
+<li> 整型比字符串操作代价更低</li>
+<li> 使用 MySQL 内建的数据类型（比如date、time、datetime），比用字符串更快</li>
+</ol>
+<h4 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h4><span id="more"></span>
+<ol>
+<li>数字</li>
+<li>整数 - TINYINT (8) - SMALLINT (16) - MEDIUMINT (24) - INT (32) - BIGINT (64)<ul>
+<li>  整数类型有可选的 unsigned 属性</li>
+<li>  int(1)与int(11)，对于存储和计算来说，这两者本质是没有区别的</li>
+</ul>
+</li>
+<li>实数（存储小数、存储比 BIGINT 更大的数）<ul>
+<li>float</li>
+<li>double<blockquote>
+<p>float 和 double支持使用标准的浮点运算进行近似的计算。</p>
+</blockquote>
+</li>
+<li>decimal<blockquote>
+<p>decimal 类型用于存储精确的小数，支持精确的计算。 因为在进行精确计算时需要额外的空间和计算开销，所以尽量只对小数才使用decimal。比如，财务数据。另外如果数据量大的话，可以考虑使用bigint代替decimal，只需将存储的货币单位根据小数的位数乘以相应的倍数即可。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>字符串<ul>
+<li>CHAR<blockquote>
+<p>1、char 类型是定长的；2、适合存储很短的字符串，例如：密码的 md5 值；3、适合存储经常进行变更的值。</p>
+</blockquote>
+</li>
+<li>VARCHAR<blockquote>
+<p>1、字符串列的长度比平均长度大很多；2、列的更新很少，所以碎片不是问题；3、使用了像 UTF-8 这样复杂的字符集，因为该字符集中每个字符可能使用不同的字节来进行存储；4、存储可变长的字符串。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>BLOB 和 TEXT 两者都是为存储很大的数据而设计的字符串数据类型，不同的是两者分别采用二进制和字符方式存储。 MySQL 在处理两个类型的值时，处理基本相同，仅有的不同是 BLOB 类型是以二进制格式来存储的，所以没有排序规则和字符集，而 text 类型有排序规则和字符集。</li>
+<li>枚举 枚举可以把一些不重复的字符串存储成一个预定义的集合。 MySQL 会在存储枚举类型时粉肠紧凑，会根据列的值的数量压缩到一个或者两个字节中。 MySQL 会在内部将每个值在列表中的位置保存成整数，而这些『数字–字符串』的对应关系，会保存在 .frm 文件中。 所以当该列需要新添加一个新的枚举值时，必须添加在之前枚举列表的最后面，否则就会出现数据错乱的问题。切记。</li>
+<li>日期类型<ul>
+<li>DATETIME<blockquote>
+<p>该类型能保存大范围的值，从 1001 年到 9999 年，精度为秒。他会把时间封装到 YYYYMMDDHHIISS 的整数中，没有时区概念。使用 8 个字节的存储空间。</p>
+</blockquote>
+</li>
+<li>TIMESTAMP<blockquote>
+<p>该类型保存了从 1970-01-01 00：00：00（格林威治时间）以来的秒数。该类型使用 4 个字节的存储空间，所以只能表示 1970 到 2023 年，其值还具有时区的概念。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>BIT 存储更紧凑。但所有这些位类型，不管底层存储格式和存储方式，从技术上来说都是字符串类型。虽然用它存储数据更紧凑，但是对于大部分应用来说，最好避免使用该类型。</li>
+<li>SET 特殊类型的数据<blockquote>
+<p>某些数据的类型并不直接和内置的类型一致。所以需要一定的转换进行存储。</p>
+</blockquote>
+ 低于秒级的时间戳<blockquote>
+<p>低于秒级的时间需要在引用层做处理，一般可以通过存储两个或者多个列来存储（一个存储秒级的时间戳，另外的存储秒级以下的）</p>
+</blockquote>
+ ipv4 地址<blockquote>
+<p>我们常见到有人会用 varchar (15) 来存错一个 IP 地址，IP 地址实际是一个 32 位的无符号整数，所以应该用无符号整数来存储 IP 地址。MySQL 提供了 INET_ATON () 和 INET_NTOA () 函数在这两表示方法之间转换。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="IP地址存储"><a href="#IP地址存储" class="headerlink" title="IP地址存储"></a>IP地址存储</h4><p>通过在应用程序中进行 <strong>字符型</strong> 到 <strong>无符号整型</strong> 的转换，而不是使用MySQL的 <code>INET_ATON()</code> 函数，插入整数IP时MySQL的负载可能会稍微降低。</p>
+<p><a target="_blank" rel="noopener" href="https://bafford.com/2009/03/09/mysql-performance-benefits-of-storing-integer-ip-addresses/">https://bafford.com/2009/03/09/mysql-performance-benefits-of-storing-integer-ip-addresses/</a></p>
+<h2 id="三层架构说明"><a href="#三层架构说明" class="headerlink" title="三层架构说明"></a>三层架构说明</h2><ul>
+<li>  第一层，用于连接处理、授权认证、安全认证等等。大多数基于客户端 / 服务器端的工具或者服务器都有类似架构。</li>
+<li>  第二层，是 MySQL 架构的核心部分。MySQL 的大部分核心服务功能大都在这一层。包括查询解析、分析、优化、缓存以及所有的内置函数的实现，还有所有的跨存储引擎的功能都在这一层实现：存储过程、触发器、试图等。</li>
+<li>  第三层，存储引擎层。存储引擎负责 MySQL 中数据的存储和读取。每个存储引擎都有自己的优势和劣势。MySQL 服务器层通过 API 与存储引擎进行通信。存储引擎本身是不会解析 SQL，且不同的存储引擎之间也是不会相互通信。</li>
+</ul>
+<p><img src="http://n.sinaimg.cn/games/3ece443e/20160916/MySQLJiaGouTu1.png" alt="img"></p>
+<h2 id="MySQL-服务器接收-处理一个查询请求的过程"><a href="#MySQL-服务器接收-处理一个查询请求的过程" class="headerlink" title="MySQL 服务器接收 / 处理一个查询请求的过程"></a>MySQL 服务器接收 / 处理一个查询请求的过程</h2><ol>
+<li> 当 MySQL 服务器接收到一个查询请求，首先会对当前的连接请求进行认证，认证其用户名和密码信息。</li>
+<li> 连接成功之后，会继续验证该连接是否具有执行某个特定查询的权限。</li>
+<li> 所有的验证都通过，如果是 select 操作，MySQL 会先检查查询缓存中是否存在该缓存，如果存在直接返回结果。不存在继续下一步。</li>
+<li> 解析查询，并创建内部数据结构（生成 解析树），然后对解析树进行各种优化（包括，重写查询，决定表的读取顺序、选择合适的索引等等）。</li>
+<li> 通过存储引擎存储或者提取结果。</li>
+<li> 如果是 select 操作，生成查询缓存。</li>
+<li> 返回结果。</li>
+</ol>
+<p>根据控制的不同层次，MySQL 的并发控制可以分为：</p>
+<ul>
+<li>  服务器层</li>
+<li>  存储引擎层</li>
+</ul>
+<p>实现并发控制的方法策略：**<em>锁机制</em>**</p>
+<ul>
+<li>  共享锁（shared lock）&lt;======&gt; 读锁（read lock）</li>
+<li>  排它锁（exclusive lock） &lt;======&gt; 写锁（write lock）</li>
+</ul>
+<p>如何选择适合的锁？**<em>锁策略</em>**</p>
+<ul>
+<li>锁的粒度越小，系统的并发性越高</li>
+<li>所得操作越多，系统的开销越大<blockquote>
+<p>所以所谓的锁策略，就是在锁的开销和数据的安全性之间寻求平衡。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="MySQL并发控制"><a href="#MySQL并发控制" class="headerlink" title="MySQL并发控制"></a>MySQL并发控制</h2><h3 id="MySQL-中锁策略类型"><a href="#MySQL-中锁策略类型" class="headerlink" title="MySQL 中锁策略类型"></a>MySQL 中锁策略类型</h3><p>MySQL 不同的存储引擎中用到的锁策略基本有两种。一种是表级锁，另一种是行级锁。</p>
+<ul>
+<li>表锁，一种开销最小的锁策略。<blockquote>
+<p>一个用户对表进行写操作时，需要先获得写锁，这是其他用户读该表进行的读写操作都会进行阻塞。只有当前写操作被释放之后，其他人才能活的读锁。当当前表有读锁时，其他人也可以继续获得读锁。读锁是共享性的不同的读锁之间是互相不阻塞的。 另外，写锁的优先级高于读锁。所以当有多个锁请求存在是，读锁的请求会被优先插入到锁队列的前边。</p>
+</blockquote>
+</li>
+<li>行锁，最大程度支持并发处理，同时也是锁开销最大的锁策略。<blockquote>
+<p>顾名思义，行级锁只在将要修改的记录行上进行锁操作，对其他的行的操作没有影响。</p>
+</blockquote>
+</li>
+</ul>
+<p>尽管我们一般提到的锁，都处于存储引擎这一层，但是 MySQL 本身在某些情况下，也会对锁策略进行控制。比如表的 alter table 操作，会对表本身使用表锁，而直接忽略存储引擎的锁机制。</p>
+<h3 id="MySQL-中死锁问题解决方法"><a href="#MySQL-中死锁问题解决方法" class="headerlink" title="MySQL 中死锁问题解决方法"></a>MySQL 中死锁问题解决方法</h3><blockquote>
+<p>死锁，即两个或者多个事务在同一资源上相互占用，并请求占用对方已经占用的资源的情况。</p>
+</blockquote>
+<p>既然有锁存在，当然就会有死锁的情况发生。那么 MySQL 中是如何处理死锁问题的呢？ 死锁的通常解决方案有两种，即：</p>
+<ul>
+<li>  死锁检测机制</li>
+<li>  超时机制</li>
+</ul>
+<p>InnoDB 存储引擎在检测到有死锁发生的处理方法是，将当前持有最少的行级锁的事务进行回滚。待打破死锁后，重新执行因为死锁而回滚的事务。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>MySQL性能优化</p><p><a href="https://wangwangyz.site/[object Object]/2023/03/10/mysql性能优化/">https://wangwangyz.site/[object Object]/2023/03/10/mysql性能优化/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>挚夏</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2023-03-10</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-06-21</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/MySQL/">MySQL</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/%5Bobject%20Object%5D/2023/03/10/vue%E5%88%B6%E4%BD%9Cchatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">制作网页ChatGPT聊天机器人</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/%5Bobject%20Object%5D/2023/03/08/nginx%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%EF%BC%88%E4%B8%80%EF%BC%89/"><span class="level-item">Nginx原理剖析（一）</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://wangwangyz.site/[object%20Object]/2023/03/10/mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/';
+            this.page.identifier = '/[object Object]/2023/03/10/mysql性能优化/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + '你猜' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png" alt="挚夏"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">挚夏</p><p class="is-size-6 is-block">若结局非你所愿，就在尘埃落定前奋力一搏.</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国-北京</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">39</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">7</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">27</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/InvalidSyntaxxx" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/InvalidSyntaxxx"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Zhihu" href="https://www.zhihu.com/people/wang-zhi-yuan-64-19"><i class="fab fa-zhihu"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/%5Bobject%20Object%5D/2023/06/20/hello-world/"><img src="/../static/images/image.png" alt="Hello World"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-06-20T16:12:21.816Z">2023-06-21</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/06/20/hello-world/">Hello World</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-05-15T16:13:04.000Z">2023-05-16</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/05/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%A7%E4%BD%9C%E4%B8%9A/">计算机网络大作业</a></p><p class="categories"><a href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a> / <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-03-11T15:40:59.000Z">2023-03-11</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/03/11/ipfs%E7%AE%80%E4%BB%8B/">IPFS简介</a></p><p class="categories"><a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a> / <a href="/categories/%E6%80%9D%E6%83%B3%E6%84%9F%E6%82%9F/">思想感悟</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-03-10T16:23:56.000Z">2023-03-11</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/03/10/%E5%B8%B8%E8%A7%81http%E7%8A%B6%E6%80%81%E7%A0%81%E5%8F%8A%E7%AE%80%E4%BB%8B/">常见HTTP状态码及简介</a></p><p class="categories"><a href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a> / <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-03-10T10:35:54.000Z">2023-03-10</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/03/10/vue%E5%88%B6%E4%BD%9Cchatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/">制作网页ChatGPT聊天机器人</a></p><p class="categories"><a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">专业技术</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">学习笔记</span></span><span class="level-end"><span class="level-item tag">30</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%B7%A5%E5%85%B7/"><span class="level-start"><span class="level-item">工具</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%80%9D%E6%83%B3%E6%84%9F%E6%82%9F/"><span class="level-start"><span class="level-item">思想感悟</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%96%87%E5%AD%A6%E6%91%98%E5%BD%95/"><span class="level-start"><span class="level-item">文学摘录</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%96%87%E7%AB%A0/"><span class="level-start"><span class="level-item">文章</span></span><span class="level-end"><span class="level-item tag">18</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/"><span class="level-start"><span class="level-item">生活点滴</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Apache/"><span class="tag">Apache</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Argon/"><span class="tag">Argon</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C/"><span class="tag">C</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HTTP/"><span class="tag">HTTP</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Javascript/"><span class="tag">Javascript</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MySQL/"><span class="tag">MySQL</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NestJS/"><span class="tag">NestJS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Nginx/"><span class="tag">Nginx</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Numpy/"><span class="tag">Numpy</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PHP/"><span class="tag">PHP</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Python/"><span class="tag">Python</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/TypeScript/"><span class="tag">TypeScript</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vue/"><span class="tag">Vue</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Windows/"><span class="tag">Windows</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WordPress/"><span class="tag">WordPress</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/html/"><span class="tag">html</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%88%86%E4%BA%AB/"><span class="tag">分享</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%84%9F%E6%82%9F/"><span class="tag">感悟</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"><span class="tag">树莓派</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%B4%BB/"><span class="tag">生活</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BA%BF%E7%A8%8B/"><span class="tag">线程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="tag">计算机网络</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%BF%9B%E7%A8%8B/"><span class="tag">进程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%94%81/"><span class="tag">锁</span><span class="tag">1</span></a></div></div></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png" alt="掉发收集站" height="28"></a><p class="is-size-7"><span>&copy; 2023 挚夏</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">CopyRight © wangwangyz.site All rights reserved. | 京ICP备2021034217号 | 用❤️💓💕发电</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/InvalidSyntaxxx"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Linux学习笔记 - 掉发收集站</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="掉发收集站"><meta name="msapplication-TileImage" content="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="掉发收集站"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="整理了一下学习Linux命令的笔记，特发此文，后续继续更新。 在初学Linux时推荐两种方法：  去相关社区、在线查询网站学习交流，我推荐两个： Linux工具快速教程 — Linux Tools Quick Tutorial (linuxtools-rst.readthedocs.io) Linux命令大全(手册) – 真正好用的Linux命令在线查询网站 (linuxcool.com) 使用m"><meta property="og:type" content="blog"><meta property="og:title" content="Linux学习笔记"><meta property="og:url" content="https://wangwangyz.site/[object%20Object]/2022/04/17/linux%E5%AD%A6%E4%B9%A0/"><meta property="og:site_name" content="掉发收集站"><meta property="og:description" content="整理了一下学习Linux命令的笔记，特发此文，后续继续更新。 在初学Linux时推荐两种方法：  去相关社区、在线查询网站学习交流，我推荐两个： Linux工具快速教程 — Linux Tools Quick Tutorial (linuxtools-rst.readthedocs.io) Linux命令大全(手册) – 真正好用的Linux命令在线查询网站 (linuxcool.com) 使用m"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160502862.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411172602554.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409195301371.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411181826008.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411105352232.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220416233152507.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417103032111.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409194409671.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414102213730.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414102305203.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407151622771.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160526521.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407141532576.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407233817307.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409193721743.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220415181954137.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417163830390.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417164549862.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417174359704.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417173635469.png"><meta property="article:published_time" content="2022-04-17T02:27:53.000Z"><meta property="article:modified_time" content="2023-06-21T10:54:47.544Z"><meta property="article:author" content="挚夏"><meta property="article:tag" content="Linux"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160502862.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://wangwangyz.site/[object%20Object]/2022/04/17/linux%E5%AD%A6%E4%B9%A0/"},"headline":"Linux学习笔记","image":["https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160502862.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411172602554.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409195301371.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411181826008.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411105352232.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220416233152507.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417103032111.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409194409671.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414102213730.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414102305203.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407151622771.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160526521.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407141532576.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407233817307.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409193721743.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220415181954137.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417163830390.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417164549862.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417174359704.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417173635469.png"],"datePublished":"2022-04-17T02:27:53.000Z","dateModified":"2023-06-21T10:54:47.544Z","author":{"@type":"Person","name":"挚夏"},"publisher":{"@type":"Organization","name":"掉发收集站","logo":{"@type":"ImageObject","url":"https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png"}},"description":"整理了一下学习Linux命令的笔记，特发此文，后续继续更新。 在初学Linux时推荐两种方法：  去相关社区、在线查询网站学习交流，我推荐两个： Linux工具快速教程 — Linux Tools Quick Tutorial (linuxtools-rst.readthedocs.io) Linux命令大全(手册) – 真正好用的Linux命令在线查询网站 (linuxcool.com) 使用m"}</script><link rel="canonical" href="https://wangwangyz.site/[object%20Object]/2022/04/17/linux%E5%AD%A6%E4%B9%A0/"><link rel="icon" href="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png" alt="掉发收集站" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/InvalidSyntaxxx"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-04-17T02:27:53.000Z" title="4/17/2022, 2:27:53 AM">2022-04-17</time>发表</span><span class="level-item"><time dateTime="2023-06-21T10:54:47.544Z" title="6/21/2023, 10:54:47 AM">2023-06-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span><span class="level-item">25 分钟读完 (大约3761个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Linux学习笔记</h1><div class="content"><p>整理了一下学习Linux命令的笔记，特发此文，后续继续更新。</p>
+<p>在初学Linux时推荐两种方法：</p>
+<ol>
+<li>去相关社区、在线查询网站学习交流，我推荐两个： <a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/">Linux工具快速教程 — Linux Tools Quick Tutorial (linuxtools-rst.readthedocs.io)</a> <a target="_blank" rel="noopener" href="https://www.linuxcool.com/">Linux命令大全(手册) – 真正好用的Linux命令在线查询网站 (linuxcool.com)</a></li>
+<li>使用<code>man 命令</code> 查看帮助文档</li>
+</ol>
+<h3 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h3><span id="more"></span>
+<h5 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h5><p>输出字符串或提取Shell变量的值</p>
+<p><code>$变量</code> ：提取变量的值</p>
+<p><code>echo $PATH</code> ：提取PATH环境变量并输出</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160502862.png" alt="image-20220407160502862"></p>
+<p><code>$?</code>：提取最近一次Shell命令的返回值（退出状态）</p>
+<p>0表示没有错误，其它表示有错误</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411172602554.png" alt="image-20220411172602554"></p>
+<h5 id="一般变量"><a href="#一般变量" class="headerlink" title="一般变量"></a>一般变量</h5><p>Linux下变量无需声明，一般做字符串处理，数值计算时转化为数字</p>
+<ul>
+<li>创建或修改变量：<code>变量名=变量值</code> (中间不能有空格)</li>
+<li>显式变量值：<code>echo $变量名</code></li>
+<li>删除变量：<code>unset 变量名</code></li>
+<li>导出变量名：<code>export 变量名</code></li>
+</ul>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409195301371.png" alt="image-20220409195301371"></p>
+<h5 id="特殊的Shell变量"><a href="#特殊的Shell变量" class="headerlink" title="特殊的Shell变量"></a>特殊的Shell变量</h5><p><code>$!</code>:后台运行的最后一个进程的ID号</p>
+<p><code>$@</code>:与$*相同，但是使用时加引号，并在引号中返回每个参数，所有参数分解为包含若干个字符串的数组</p>
+<p><code>$#</code>:传递给脚本或者函数的参数个数</p>
+<p><code>$$</code>:执行本脚本程序的PID值</p>
+<p><code>$*</code>:所有参数组合成的一个字符串</p>
+<p><code>$?</code>:上一条语句的返回值</p>
+<p><code>$0</code>:脚本程序自身的名称(命令行名称)</p>
+<p><code>$1</code>、<code>$2</code>、<code>$3</code>:传给脚本或者函数的第一、二、三个参数</p>
+<p>编写一个shell脚本：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -gt 1 ];</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;\$0程序名称:<span class="variable">$0</span>,\$1第一个参数是:<span class="variable">$1</span>&quot;</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;\$2第二个参数是:<span class="variable">$2</span>,\$*所有参数组合的字符串:$*&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;you need input beyond 2 pram&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;\$$程序运行的PID值:$$&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>分别用<code>./specialshell.sh</code>和<code>source specialshell.sh</code>执行脚本，结果：</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411181826008.png" alt="image-20220411181826008"></p>
+<h5 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h5><p>当前目录创建一个test.sh, 加入:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">for x in apple banna cake fruits</span><br><span class="line">do</span><br><span class="line">        echo &quot;I love eat $x&quot;</span><br><span class="line">        sleep 1</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>执行 <code>source test.sh</code></p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411105352232.png" alt="image-20220411105352232"></p>
+<h5 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> var <span class="keyword">in</span> list</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">     statements</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="until语句"><a href="#until语句" class="headerlink" title="until语句"></a>until语句</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">until</span> [expression]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    statements</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [expression];</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    statements</span><br><span class="line"><span class="keyword">elif</span> [expression];</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    statements</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    statements</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> expression</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    statements</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> 函数名()</span><br><span class="line">&#123;</span><br><span class="line">    statements</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="test命令"><a href="#test命令" class="headerlink" title="test命令"></a>test命令</h5><p>用来做字符串比较、数值比较、文件测试、逻辑操作符。</p>
+<p>字符串比较</p>
+<p>符号</p>
+<p>含义</p>
+<p>=</p>
+<p>比较两个字符串是否相等。如：test “1” = “2”</p>
+<p>!=</p>
+<p>比较两个字符串是否不等</p>
+<p>-n</p>
+<p>检查字符串长度是否大于0。如：test -n “”</p>
+<p>-z</p>
+<p>检查字符串长度是否等于0</p>
+<p>数值比较</p>
+<p>符号</p>
+<p>含义</p>
+<p>-eq</p>
+<p>比较两个数值是否相等</p>
+<p>-ge</p>
+<p>比较前者是否大于等于后者</p>
+<p>-le</p>
+<p>比较后者是否大于等于前者</p>
+<p>-ne</p>
+<p>比较两个数值是否不等</p>
+<p>-gt</p>
+<p>比较前者是否大于后者</p>
+<p>-lt</p>
+<p>比较前者是否小于后者</p>
+<p>文件测试</p>
+<p>符号</p>
+<p>含义</p>
+<p>-d</p>
+<p>检查是否是一个目录。如：test -d .inputrc</p>
+<p>-f</p>
+<p>检查是否是一个文件</p>
+<p>-e</p>
+<p>检查文件名或者目录名是否存在</p>
+<p>-r</p>
+<p>检查对此文件是否有”读”权限</p>
+<p>-s</p>
+<p>检查文件长度是否大于0</p>
+<p>-w</p>
+<p>检查对此文件是否有”写”权限</p>
+<p>-x</p>
+<p>检查对此文件是否有”执行”权限</p>
+<p>逻辑操作</p>
+<p>符号</p>
+<p>含义</p>
+<p>!</p>
+<p>逻辑非（NOT）。如：test ! 1 -lt 2</p>
+<p>-a</p>
+<p>逻辑与（AND）。如：test 1 -lt 2 -a 2 -gt 3</p>
+<p>-o</p>
+<p>逻辑或（OR）。如：test 1 -lt 2 -o 2 -lt 3</p>
+<h3 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a><strong>GCC</strong></h3><p>gcc是多种语言、自由、跨平台的编译器</p>
+<h5 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h5><p>GCC将源代码便以为可执行程序的流程</p>
+<ol>
+<li>预处理(Preproccessing)</li>
+<li>编译(Compilation)</li>
+<li>汇编(Assemble)</li>
+<li>链接(Linking)</li>
+</ol>
+<p>常用参数</p>
+<ol>
+<li> -version 查看版本</li>
+<li> -v 输出编译的详细信息</li>
+<li> -std 指定标准</li>
+<li> -o 指定输出文件的名称</li>
+<li> -Wall 输出所有警告信息</li>
+<li> -c 直将源文件编译为object文件(.o)，而不进行链接，之后可用<code>gcc -o 可执行文件名称 out1.o out2.o out3.o</code>链接为可执行文件</li>
+<li> -shared 编译为共享库(*.dll，.so)</li>
+<li> -S 编译为汇编代码</li>
+</ol>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a><strong>命令</strong></h3><h5 id="useradd-参数-用户名"><a href="#useradd-参数-用户名" class="headerlink" title="useradd [参数] 用户名"></a>useradd [参数] 用户名</h5><p>新建一个用户</p>
+<p>参数</p>
+<p>作用</p>
+<p>-D</p>
+<p>改变新建用户的预设值</p>
+<p>-c</p>
+<p>添加备注文字</p>
+<p>-d</p>
+<p>新用户每次登录时所使用的家目录</p>
+<p>-e</p>
+<p>用户终止日期，格式为YYYY-MM-DD</p>
+<p>-f</p>
+<p>用户过期几日后永久停权。当值为0时用户立即被停权，而值为-1时则关闭此功能，预设值为-1</p>
+<p>-g</p>
+<p>指定用户对应的用户组</p>
+<p>-G</p>
+<p>定义此用户为多个不同组的成员</p>
+<p>-m</p>
+<p>用户目录不存在时自动创建</p>
+<p>-M</p>
+<p>不建立用户家目录，优先于/etc/login.defs文件设定</p>
+<p>-n</p>
+<p>取消建立以用户名称为名的群组</p>
+<p>-r</p>
+<p>建立系统账号</p>
+<p>-u</p>
+<p>指定用户id</p>
+<p>仅仅只是用<code>useradd 用户名</code>这个命令不能创建一个可以登录使用的用户，/home目录下没有对应的用户，也创建不了密码。</p>
+<p>需要用<code>useradd -m 用户名</code>创建一个可登录的，可以创建密码的用户。创建后可以在etc目录下的passwd添加这个新用户的相关信息。</p>
+<p>添加新用户www：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# useradd www</span><br></pre></td></tr></table></figure>
+
+<p>不创建家目录，并且禁止登陆：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# useradd -M -s /sbin/nologin www</span><br></pre></td></tr></table></figure>
+
+<p>添加新用户www，指定UID为666，指定shell类型为/bin/bash，指定归属用户组为root，cool成员：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# useradd -u 666 -s /bin/bash -G root,cool www</span><br></pre></td></tr></table></figure>
+
+<p>添加新用户www，设置家目录为/tmp/www，用户过期时间为2030/01/01.过期后两天停权：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# useradd -e &quot;2030/01/01&quot; -f 2 -d /tmp/www www</span><br></pre></td></tr></table></figure>
+
+<p>此外，新增的用户不具有<code>sudo</code>权限，需要手动在<code>/etc/sudoer</code>增加新用户权限</p>
+<p>选项</p>
+<p>说明</p>
+<p>user ALL=(ALL) ALL</p>
+<p>允许用户user执行sudo命令(需要输入密码).</p>
+<p>%user ALL=(ALL) ALL</p>
+<p>允许用户组user里面的用户执行sudo命令(需要输入密码).</p>
+<p>user ALL=(ALL) NOPASSWD: ALL</p>
+<p>允许用户user执行sudo命令,并且在执行的时候不输入密码.</p>
+<p>%user ALL=(ALL) NOPASSWD: ALL</p>
+<p>ALL=(ALL)允许用户组user里面的用户执行sudo命令,并且在执行的时候不输入密码.</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220416233152507.png" alt="image-20220416233152507"></p>
+<p>更多信息查看文档 <code>man useradd</code></p>
+<h5 id="usermod-参数-用户名"><a href="#usermod-参数-用户名" class="headerlink" title="usermod [参数] 用户名"></a>usermod [参数] 用户名</h5><p>改变用户的信息。其中参数选项的作用与 <code>useradd</code> 类似。</p>
+<h5 id="who"><a href="#who" class="headerlink" title="who"></a>who</h5><p>产看当前shell用户</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417103032111.png" alt="image-20220417103032111"></p>
+<h5 id="id"><a href="#id" class="headerlink" title="id"></a>id</h5><p>查看当前用户的身份以及权限</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409194409671.png" alt="image-20220409194409671"></p>
+<h5 id="make"><a href="#make" class="headerlink" title="make"></a>make</h5><p>Makefile 支持多线程并发操作make 命令只会编译我们修改过的文件，没有修改的文件不用重新编译</p>
+<p>Makefile 描述的是文件编译的相关规则，它的规则主要是两个部分组成，分别是依赖的关系和执行的命令</p>
+<h5 id="umask-S-权限掩码"><a href="#umask-S-权限掩码" class="headerlink" title="umask [-S] (权限掩码)"></a>umask [-S] (权限掩码)</h5><p>新建初始化文件的权限掩码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">umask #获取当前权限掩码</span><br><span class="line">umask -S #获取当前权限的可读权限信息</span><br><span class="line">umask 0000 #修改新建初始化目录文件的权限</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414102213730.png" alt="image-20220414102213730"></p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414102305203.png" alt="image-20220414102305203"></p>
+<p>666&amp; umask</p>
+<p>新建初始化目录的权限</p>
+<p>777&amp; umask</p>
+<h5 id="ls-参数-正则表达式"><a href="#ls-参数-正则表达式" class="headerlink" title="ls [参数] (正则表达式)"></a>ls [参数] (正则表达式)</h5><p>文件的分类</p>
+<p>普通文件 <code>-</code> , 目录文件 <code>d</code> , （软）链接文件 <code>l</code> , 字符设备文件 <code>c</code> , 块设备文件 <code>b</code> , 管道文件 <code>p</code></p>
+<p>目录不是目录，是一种目录文件</p>
+<p>目录</p>
+<ul>
+<li>  r: 可以ls目录中的内容</li>
+<li>  w: 可以删除增加目录文件</li>
+<li>  x: 可以cd进入这个目录</li>
+</ul>
+<p>文件</p>
+<ul>
+<li>  r：read 可读</li>
+<li>  w：write 可写</li>
+<li>  x：增删</li>
+<li>  r：可运行</li>
+</ul>
+<p><code>ls -ld /etc</code> ： 查看目录拥有权限</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407151622771.png" alt="image-20220407151622771"></p>
+<h5 id="chmod-选项-文件或目录"><a href="#chmod-选项-文件或目录" class="headerlink" title="chmod [选项] [文件或目录]"></a>chmod [选项] [文件或目录]</h5><p>赋予文件或目录权限</p>
+<p><code>chmod u=wx etc</code> ：赋予etc目录 <code>w:增删</code> 和 <code>x:进入</code> 的权限</p>
+<p><code>chmod u-r etc</code> ：删去etc目录 <code>r：可ls</code> 的权限</p>
+<p>其中还可以用三位十进制数表示不同权限</p>
+<blockquote>
+<p>r :含义为 “可读”，用数字 4 表示 w:含义为 “可写”用数字 2 表示 x：含义为“可执行”用数字 1 表示 -：含义为“无权限”用数字0 表示</p>
+</blockquote>
+<p>所有者</p>
+<p>群组</p>
+<p>其他</p>
+<p>三位代表权限的数字</p>
+<p>rwx</p>
+<p>rwx</p>
+<p>rwx</p>
+<p>实际结果</p>
+<p>421</p>
+<p>421</p>
+<p>421</p>
+<p>777</p>
+<p>421</p>
+<p>401</p>
+<p>401</p>
+<p>705</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 777 a.out </span><br><span class="line"><span class="comment">#777给auth.log文件赋予任何可读，可写，可执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> 755 a.out</span><br><span class="line"><span class="comment">#755代表用户对该文件拥有读，写，执行的权限，同组和其它用户有读和执行权限，没有写权限</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="which-命令"><a href="#which-命令" class="headerlink" title="which [命令]"></a>which [命令]</h5><p>查看命令的安装路径</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160526521.png" alt="image-20220407160526521"></p>
+<h5 id="mout-参数"><a href="#mout-参数" class="headerlink" title="mout [参数]"></a>mout [参数]</h5><p>挂载文件系统</p>
+<blockquote>
+<p>挂载：是指由操作系统使一个 <code>存储设备</code> (如硬盘、CD-ROM或共享资源)上的计算机文件或目录可供用户通过计算机的 <code>文件系统</code> 访问的一个过程。</p>
+<p>引自——<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%8C%82%E8%BD%BD">挂载_百度百科 (baidu.com)</a></p>
+</blockquote>
+<p>当访问挂载点的时候，系统就知道要用哪些数据组织形式访问哪些类型的文件系统(或者说是哪些物理设备)。</p>
+<blockquote>
+<p>作用：将一个具体存储设备上的具体文件系统和操作系统中对应的文件系统驱动(模块)关联起来，并将这个具体文件系统中的文件和目录关系挂载到全局目录树上，形成一个“激活运行状态”的文件系统。</p>
+<p>引自——<a target="_blank" rel="noopener" href="https://www.zhihu.com/answer/2437952746">https://www.zhihu.com/answer/2437952746</a></p>
+</blockquote>
+<p>将/dev/sdb1分区挂载到/wg目录上的命令：<code>mount /dev/sdb1 /wg</code></p>
+<p>umount实现文件系统的卸载</p>
+<p>卸载/wg上的文件系统的命令：<code>umount /wg</code></p>
+<h5 id="export-参数"><a href="#export-参数" class="headerlink" title="export [参数]"></a>export [参数]</h5><p>将shell变量/函数输出为环境变量</p>
+<p><code>-p</code> ：列出所有shell赋予程序的环境变量</p>
+<p><code>-n</code> ：删除指定变量</p>
+<p>定义环境变量：<code># export MYENV</code></p>
+<p>赋值：<code># export MYENV=1111</code></p>
+<h5 id="fdisk-选项-设备"><a href="#fdisk-选项-设备" class="headerlink" title="fdisk [选项] [设备]"></a>fdisk [选项] [设备]</h5><p>操纵磁盘分区表</p>
+<p><code>-l</code>：列出所有分区表</p>
+<h5 id="df-参数-指定文件"><a href="#df-参数-指定文件" class="headerlink" title="df [参数] [指定文件]"></a>df [参数] [指定文件]</h5><p>显示磁盘空间使用情况</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407141532576.png" alt="image-20220407141532576"></p>
+<p><code>-a</code> ：显示所有系统文件</p>
+<p><code>-h</code> ：以易于human的阅读方式显示</p>
+<p><code>-l</code> ：只显示本地文件</p>
+<h5 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h5><p>打印当前工作目录(print working directory)</p>
+<h5 id="source-指定文件"><a href="#source-指定文件" class="headerlink" title="source [指定文件]"></a>source [指定文件]</h5><p>source命令通常用于执行刚修改的 <code>初始化</code> 文件，使之立即生效，不用注销重新登陆？</p>
+<h5 id="env"><a href="#env" class="headerlink" title="env"></a>env</h5><p>查看Shell环境变量</p>
+<h5 id="stat"><a href="#stat" class="headerlink" title="stat"></a>stat</h5><h5 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h5><p><code>netstat -ant grep 3306</code></p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407233817307.png" alt="image-20220407233817307"></p>
+<h5 id="fflush"><a href="#fflush" class="headerlink" title="fflush"></a>fflush</h5><h5 id="kill-参数"><a href="#kill-参数" class="headerlink" title="kill [参数]"></a>kill [参数]</h5><h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a><strong>文件</strong></h3><h5 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h5><p>系统用户配置文件，存储了系统中所有用户的基本信息。</p>
+<p>权限：所有用户可读</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409193721743.png" alt="image-20220409193721743"></p>
+<p>名称</p>
+<p>说明</p>
+<p>用户名</p>
+<p>已创建的用户名</p>
+<p>加密口令</p>
+<p>x代表加密密码保存在<code>/etc/shadow</code>文件中</p>
+<p>用户ID</p>
+<p>代表用户的ID号，每个用户都有一个唯一的ID</p>
+<p>组ID</p>
+<p>代表群组的ID好，每个群组都有一个唯一的ID</p>
+<p>账号说明</p>
+<p>描述用户的信息</p>
+<p>主目录</p>
+<p>代表用户所在的家目录</p>
+<p>登录Shell</p>
+<p>代表用户使用Shell的类型</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220415181954137.png" alt="image-20220415181954137"></p>
+<h5 id="etc-profile"><a href="#etc-profile" class="headerlink" title="/etc/profile"></a>/etc/profile</h5><p>建立全系统通用的初始环境变量，每次用户登录时 <code>第一个</code> 被执行</p>
+<h5 id="etc-fstab"><a href="#etc-fstab" class="headerlink" title="/etc/fstab"></a>/etc/fstab</h5><p>系统启动时自动挂载。当系统启动时，系统会自动地从这个文件读取信息，并且会自动将此文件中指定的文件系统挂载到指定内目录。</p>
+<h3 id="额外"><a href="#额外" class="headerlink" title="额外"></a>额外</h3><h5 id="禁止root用户"><a href="#禁止root用户" class="headerlink" title="禁止root用户"></a>禁止root用户</h5><p>禁止root用户登录，并新建一个自己的用户</p>
+<ol>
+<li>新建wyz用户（具体查看useradd）</li>
+<li>赋予wyz 用户 sudo权限</li>
+<li>禁止root登录 <code>$ sudo vim /etc/ssh/sshd_config</code> 将<code>PermitRootLogin yes</code>更改为 <code>no</code> <img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417163830390.png" alt="image-20220417163830390"></li>
+</ol>
+<h5 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h5><p>可执行(二进制)程序被系统加载到内存空间运行时，就是 <code>进程</code>。</p>
+<p>每个进程都有唯一的标识号—— <code>PID</code>，进程可以产生新的进程，构成父子关系并形成进程树(pstree)。</p>
+<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417164549862.png" alt="image-20220417164549862"></p>
+<p>进程都有一个 <code>用户标识</code>——对应运行此程序的用户ID。如果可执行文件没有设置<code>suid</code>和<code>sgid</code>，则进程的 <code>有效用户标识</code> 为此用户，否则为文件的所有者。</p>
+<p>每一个进程属于且仅属于一个 <code>进程组</code>，向进程组发送信号，则组内所有进程都能收到。</p>
+<p>每个进程都属于一个唯一的 <code>会话</code> 。用户登录后产生一个<code>会话</code>，会话包含若干进程组。会话的id是首进程组的id。一个会话中只有一个进程组是前台进程组，和控制终端交互，获取输入，接收信号。</p>
+<p>控制终端关闭时，进程会收到 <code>SIGHUP</code> 信号。</p>
+<p>除了PID为 0 的进程外，所有进程都有父进程。</p>
+<p>进程优先级 = 优先级别(PR) + 谦让值(NI)。优先级别从父进程继承而来，不可更改，可以用 <code>nice</code> 将进程默认的谦让值从 0 改大(或改小)。</p>
+<h5 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h5><p>全局的环境变量：存放在 <code>/etc/profile</code><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417174359704.png" alt="image-20220417174359704"></p>
+<p>特定用户的环境变量：存放在home目录的 <code>.profile</code>或 <code>.bashhrc</code>中<img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417173635469.png" alt="image-20220417173635469"></p>
+<p>临时的环境变量：<code>export</code>定义，特定于此会话</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Linux学习笔记</p><p><a href="https://wangwangyz.site/[object Object]/2022/04/17/linux学习/">https://wangwangyz.site/[object Object]/2022/04/17/linux学习/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>挚夏</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-04-17</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-06-21</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Linux/">Linux</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/%5Bobject%20Object%5D/2022/04/18/python%E8%84%9A%E6%9C%AC%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0pip%E6%BA%90/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Python脚本自动更新PIP源</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/%5Bobject%20Object%5D/2022/04/08/apache2-4%E8%AE%BE%E7%BD%AEwordpress%E4%BC%AA%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5/"><span class="level-item">设置Wordpress伪静态链接</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://wangwangyz.site/[object%20Object]/2022/04/17/linux%E5%AD%A6%E4%B9%A0/';
+            this.page.identifier = '/[object Object]/2022/04/17/linux学习/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + '你猜' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png" alt="挚夏"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">挚夏</p><p class="is-size-6 is-block">若结局非你所愿，就在尘埃落定前奋力一搏.</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国-北京</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">39</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">7</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">27</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/InvalidSyntaxxx" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/InvalidSyntaxxx"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Zhihu" href="https://www.zhihu.com/people/wang-zhi-yuan-64-19"><i class="fab fa-zhihu"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/%5Bobject%20Object%5D/2023/06/20/hello-world/"><img src="/../static/images/image.png" alt="Hello World"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-06-20T16:12:21.816Z">2023-06-21</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/06/20/hello-world/">Hello World</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-05-15T16:13:04.000Z">2023-05-16</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/05/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%A7%E4%BD%9C%E4%B8%9A/">计算机网络大作业</a></p><p class="categories"><a href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a> / <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-03-11T15:40:59.000Z">2023-03-11</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/03/11/ipfs%E7%AE%80%E4%BB%8B/">IPFS简介</a></p><p class="categories"><a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a> / <a href="/categories/%E6%80%9D%E6%83%B3%E6%84%9F%E6%82%9F/">思想感悟</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-03-10T16:23:56.000Z">2023-03-11</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/03/10/%E5%B8%B8%E8%A7%81http%E7%8A%B6%E6%80%81%E7%A0%81%E5%8F%8A%E7%AE%80%E4%BB%8B/">常见HTTP状态码及简介</a></p><p class="categories"><a href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a> / <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-03-10T10:35:54.000Z">2023-03-10</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/03/10/vue%E5%88%B6%E4%BD%9Cchatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/">制作网页ChatGPT聊天机器人</a></p><p class="categories"><a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">专业技术</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">学习笔记</span></span><span class="level-end"><span class="level-item tag">30</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%B7%A5%E5%85%B7/"><span class="level-start"><span class="level-item">工具</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%80%9D%E6%83%B3%E6%84%9F%E6%82%9F/"><span class="level-start"><span class="level-item">思想感悟</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%96%87%E5%AD%A6%E6%91%98%E5%BD%95/"><span class="level-start"><span class="level-item">文学摘录</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%96%87%E7%AB%A0/"><span class="level-start"><span class="level-item">文章</span></span><span class="level-end"><span class="level-item tag">18</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/"><span class="level-start"><span class="level-item">生活点滴</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Apache/"><span class="tag">Apache</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Argon/"><span class="tag">Argon</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C/"><span class="tag">C</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HTTP/"><span class="tag">HTTP</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Javascript/"><span class="tag">Javascript</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MySQL/"><span class="tag">MySQL</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NestJS/"><span class="tag">NestJS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Nginx/"><span class="tag">Nginx</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Numpy/"><span class="tag">Numpy</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PHP/"><span class="tag">PHP</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Python/"><span class="tag">Python</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/TypeScript/"><span class="tag">TypeScript</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vue/"><span class="tag">Vue</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Windows/"><span class="tag">Windows</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WordPress/"><span class="tag">WordPress</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/html/"><span class="tag">html</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%88%86%E4%BA%AB/"><span class="tag">分享</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%84%9F%E6%82%9F/"><span class="tag">感悟</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"><span class="tag">树莓派</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%B4%BB/"><span class="tag">生活</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BA%BF%E7%A8%8B/"><span class="tag">线程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="tag">计算机网络</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%BF%9B%E7%A8%8B/"><span class="tag">进程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%94%81/"><span class="tag">锁</span><span class="tag">1</span></a></div></div></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png" alt="掉发收集站" height="28"></a><p class="is-size-7"><span>&copy; 2023 挚夏</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">CopyRight © wangwangyz.site All rights reserved. | 京ICP备2021034217号 | 用❤️💓💕发电</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/InvalidSyntaxxx"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
