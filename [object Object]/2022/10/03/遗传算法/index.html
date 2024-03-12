@@ -1,35 +1,106 @@
-<!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>遗传算法 - 掉发收集站</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="掉发收集站"><meta name="msapplication-TileImage" content="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="掉发收集站"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="数学公式完整版：https:&amp;#x2F;&amp;#x2F;blog.csdn.net&amp;#x2F;weixin_51245887&amp;#x2F;article&amp;#x2F;details&amp;#x2F;126918727 遗传算法概述背景知识生物遗传概念 遗传算法中的作用 适应度（Fitness）"><meta property="og:type" content="blog"><meta property="og:title" content="遗传算法"><meta property="og:url" content="https://wangwangyz.site/[object%20Object]/2022/10/03/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/"><meta property="og:site_name" content="掉发收集站"><meta property="og:description" content="数学公式完整版：https:&amp;#x2F;&amp;#x2F;blog.csdn.net&amp;#x2F;weixin_51245887&amp;#x2F;article&amp;#x2F;details&amp;#x2F;126918727 遗传算法概述背景知识生物遗传概念 遗传算法中的作用 适应度（Fitness）"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220917173131637.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213710525.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213726845.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012221848724.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220928234410284.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220929083709177.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172723469.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172903979.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003173710535.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221007234228946.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008143428436.png"><meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008152328932.png"><meta property="article:published_time" content="2022-10-03T15:18:36.000Z"><meta property="article:modified_time" content="2023-06-21T10:54:07.879Z"><meta property="article:author" content="挚夏"><meta property="article:tag" content="算法"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220917173131637.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://wangwangyz.site/[object%20Object]/2022/10/03/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/"},"headline":"遗传算法","image":["https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220917173131637.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213710525.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213726845.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012221848724.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220928234410284.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220929083709177.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172723469.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172903979.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003173710535.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221007234228946.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008143428436.png","https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008152328932.png"],"datePublished":"2022-10-03T15:18:36.000Z","dateModified":"2023-06-21T10:54:07.879Z","author":{"@type":"Person","name":"挚夏"},"publisher":{"@type":"Organization","name":"掉发收集站","logo":{"@type":"ImageObject","url":"https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png"}},"description":"数学公式完整版：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_51245887&#x2F;article&#x2F;details&#x2F;126918727 遗传算法概述背景知识生物遗传概念 遗传算法中的作用 适应度（Fitness）"}</script><link rel="canonical" href="https://wangwangyz.site/[object%20Object]/2022/10/03/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/"><link rel="icon" href="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
-  (function () {
-      function switchTab() {
-          if (!location.hash) {
-            return;
-          }
 
-          const id = '#' + CSS.escape(location.hash.substring(1));
-          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
-          if (!$tabMenu) {
-            return;
-          }
+<!DOCTYPE html><html lang="zh-CN">
 
-          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
-          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
-          Array.from($tabMenuContainer.querySelectorAll('a'))
-              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
-              .forEach($content => $content.classList.add('is-hidden'));
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.27.0" theme-name="Stellar" theme-version="1.27.0">
+  
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>遗传算法 - 掉发收集站</title>
 
-          if ($tabMenu) {
-              $tabMenu.parentElement.classList.add('is-active');
-          }
-          const $activeTab = document.querySelector(id);
-          if ($activeTab) {
-              $activeTab.classList.remove('is-hidden');
-          }
-      }
-      switchTab();
-      window.addEventListener('hashchange', switchTab, false);
-  })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png" alt="掉发收集站" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/InvalidSyntaxxx"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-10-03T15:18:36.000Z" title="10/3/2022, 3:18:36 PM">2022-10-03</time>发表</span><span class="level-item"><time dateTime="2023-06-21T10:54:07.879Z" title="6/21/2023, 10:54:07 AM">2023-06-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a><span> / </span><a class="link-muted" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span><span class="level-item">1 小时读完 (大约9868个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">遗传算法</h1><div class="content"><p>数学公式完整版：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51245887/article/details/126918727">https://blog.csdn.net/weixin_51245887/article/details/126918727</a></p>
+  
+    <meta name="description" content="数学公式完整版：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_51245887&#x2F;article&#x2F;details&#x2F;126918727 遗传算法概述背景知识生物遗传概念 遗传算法中的作用 适应度（Fitness）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="遗传算法">
+<meta property="og:url" content="https://wangwangyz.site/[object%20Object]/2022/10/03/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="掉发收集站">
+<meta property="og:description" content="数学公式完整版：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_51245887&#x2F;article&#x2F;details&#x2F;126918727 遗传算法概述背景知识生物遗传概念 遗传算法中的作用 适应度（Fitness）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220917173131637.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213710525.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213726845.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012221848724.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220928234410284.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220929083709177.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172723469.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172903979.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003173710535.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221007234228946.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008143428436.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008152328932.png">
+<meta property="article:published_time" content="2022-10-03T15:18:36.000Z">
+<meta property="article:modified_time" content="2024-03-12T02:24:18.688Z">
+<meta property="article:author" content="挚夏">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220917173131637.png">
+  
+  
+  
+  <meta name="keywords" content="算法">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.27.0">
+
+  
+
+  
+
+  
+</head>
+<body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">掉发收集站</div><div class="sub cap">若结局非你所愿，就在尘埃落定前奋力一搏.</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/%5Bobject%20Object%5D/2022/05/07/typescriptvue3-0%E7%AC%94%E8%AE%B0/"><span class="title">TypeScript+Vue3.0笔记</span></a><a class="item title" href="/%5Bobject%20Object%5D/2023/03/10/vue%E5%88%B6%E4%BD%9Cchatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/"><span class="title">制作网页ChatGPT聊天机器人</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/02/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B/"><span class="title">WordPress完整建站过程(一)</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/10/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B%E4%BA%8C/"><span class="title">wordpress完整建站过程(二)</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/01/wordpress%E6%B3%A8%E6%84%8F%E9%97%AE%E9%A2%98/"><span class="title">遇到的Wordpress问题集</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/04/24/%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8WSL2/"><span class="title">优雅地使用WSL2</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/05/09/%E5%AE%89%E5%88%A9%E5%87%A0%E6%AC%BEwin10%E5%B0%8F%E8%BD%AF%E4%BB%B6/"><span class="title">安利几款Win10小软件</span></a><a class="item title" href="/%5Bobject%20Object%5D/2023/03/10/%E5%B8%B8%E8%A7%81http%E7%8A%B6%E6%80%81%E7%A0%81%E5%8F%8A%E7%AE%80%E4%BB%8B/"><span class="title">常见HTTP状态码及简介</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/01/%E5%BB%BA%E7%AB%99%E6%88%90%E5%8A%9F%E4%BA%86%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B/"><span class="title">建站成功了记录一下</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/11/12/%E6%91%84%E5%BD%B1%E5%B1%95-%E5%B0%8F%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/"><span class="title">小网页开发</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2022-10-03T15:18:36.000Z">2022-10-03</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-03-12T02:24:18.688Z">2024-03-12</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>遗传算法</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>数学公式完整版：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51245887/article/details/126918727">https://blog.csdn.net/weixin_51245887/article/details/126918727</a></p>
 <h1 id="遗传算法概述"><a href="#遗传算法概述" class="headerlink" title="遗传算法概述"></a>遗传算法概述</h1><h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><p>生物遗传概念</p>
 <p>遗传算法中的作用</p>
 <p>适应度（Fitness）</p>
@@ -74,7 +145,7 @@
 <li>交叉运算。将交叉算子作用于群体。</li>
 <li>变异运算。将变异算子作用于群体。群体P(t)经过选择、交叉、变异运算之后得到下一代群体P(t+1)。</li>
 <li>终止条件判断。若t≤T，则：t⭠t+1，转到步骤二；若t&gt;T，则以进化过程中所得到的具有最大适应度的个体作为最优解输出，终止计算。</li>
-<li>示意图 <img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220917173131637.png" alt="image-20220917173131637"></li>
+<li>示意图 <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220917173131637.png" alt="image-20220917173131637"></li>
 </ol>
 <h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
 <li><strong>遗传算法以 决策变量的编码 作为运算对象</strong></li>
@@ -96,8 +167,8 @@
 <p>所有个体适应度必须为正数或零，不能为负数。</p>
 </blockquote>
 <h4 id="适应度函数变换常用方法"><a href="#适应度函数变换常用方法" class="headerlink" title="适应度函数变换常用方法"></a>适应度函数变换常用方法</h4><p>但实际优化问题中的目标函数值有正也有负，优化目标有求函数最大 值，也有求函数最小值，显然上面两式保证不了所有情况下个体的适应度 都是非负数这个要求，需要进行适应度函数尺度转换，将 <strong>目标函数值 f(x) 变换为个体的适应度F(x) 。</strong></p>
-<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213710525.png" alt="image-20221012213710525"></p>
-<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213726845.png" alt="image-20221012213726845"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213710525.png" alt="image-20221012213710525"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213726845.png" alt="image-20221012213726845"></p>
 <p>比例选择又称为轮盘赌选择（Roulette Wheel ）</p>
 <h2 id="遗传算法的应用步骤"><a href="#遗传算法的应用步骤" class="headerlink" title="遗传算法的应用步骤"></a>遗传算法的应用步骤</h2><ol>
 <li> 确定决策变量及其各种约束条件，即确定出个体的表现型 X 和问题的解空间。</li>
@@ -108,7 +179,7 @@
 <li> 设计遗传算子，即确定选择运算、交叉运算和变异运算等遗传算子的操作方法。</li>
 <li> 确定遗传算法的有关运行参数，即确定出遗传算法的 $M,T,p_{c},p_{m}$ 等参数。</li>
 </ol>
-<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012221848724.png" alt="image-20221012221848724"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012221848724.png" alt="image-20221012221848724"></p>
 <h2 id="模式定理"><a href="#模式定理" class="headerlink" title="模式定理"></a>模式定理</h2><p><strong>模式</strong></p>
 <p>模式（schema）表示一些相似的模块。他描述了在某些位置上的具有相似结构特征的个体编码串的一个子集。</p>
 <p>例如：模式 $H = 1**11$，模式 $H = 00**<em>$ ，“$</em>$”代表通配符。</p>
@@ -151,7 +222,7 @@
 <p>假设某一个体的编码是： $$ X:b_{i}b_{i-1}b_{i-2}····b_{2}b_{1} $$ 则解码公式为： $$ x = U_{min}+(\sum_{i=1}^{n}b·2^{i-1})· \frac{U_{max}-U_{min}}{2^{n}-1} $$</p>
 <p><strong>[例]</strong> 设 -3.0 ≤ x ≤ 12.1 , 精度要求 δ = 1/10000</p>
 <p>由编码公式</p>
-<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220928234410284.png" alt="image-20220928234410284"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220928234410284.png" alt="image-20220928234410284"></p>
 <blockquote>
 <p><strong>格雷码编码</strong></p>
 <p>格雷码特点：两个相邻的编码串之间只有一位编码值不同。</p>
@@ -160,7 +231,7 @@
 <h4 id="浮点数编码"><a href="#浮点数编码" class="headerlink" title="浮点数编码"></a>浮点数编码</h4><p>个体的每个基因值用_某一范围内_的一个浮点数来表示，个体的编码长度等于其决策变量的个数。</p>
 <p><strong>编码方法</strong></p>
 <p>某一个优化问题含有5个变量 $x_{i}(i=1,2, … ,5)$，每个变量都有其对应的上下限$[U_{min}^{i}, U_{max}^{i}]$，则：</p>
-<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220929083709177.png" alt="image-20220929083709177"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220929083709177.png" alt="image-20220929083709177"></p>
 <p>就表示一个个体的基因型，其对应的表现型是： $x = [5.80,6.90,3.50,3.80,5.00]^{T}$</p>
 <h4 id="符号编码"><a href="#符号编码" class="headerlink" title="符号编码"></a>符号编码</h4><p>个体染色体编码串中基因值取自一个无数值含义、只有代码含义的符号集。</p>
 <h4 id="多参数级联编码"><a href="#多参数级联编码" class="headerlink" title="多参数级联编码"></a>多参数级联编码</h4><p>将各个参数分别以某种编码方法进行编码，然后再将它们的编码按一 定顺序联接在一起就组成了表示全部参数的个体编码。这种编码方法 称为多参数级联编码方法。 $$ \underbrace{b_{11}b_{12}···b_{1l_{1}}}<em>{x</em>{1}}\underbrace{b_{21}b_{22}···b_{2l_{2 }}}<em>{x</em>{2}}····\underbrace{b_{n1}b_{n2}···b_{nl_{1}}}<em>{x</em>{n}} $$</p>
@@ -221,10 +292,10 @@
 <h4 id="双点交叉"><a href="#双点交叉" class="headerlink" title="双点交叉"></a>双点交叉</h4><p>在个体编码串中<strong>随机设置两个交叉点</strong>，然后再进行部分基因交换。</p>
 <ol>
 <li>在相互配对的两个个体编码串中随机设置两个交叉点</li>
-<li>交换两个个体在所设定的两个交叉点之间的部分染色体 <img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172723469.png" alt="image-20221003172723469"></li>
+<li>交换两个个体在所设定的两个交叉点之间的部分染色体 <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172723469.png" alt="image-20221003172723469"></li>
 </ol>
 <h4 id="多点交叉"><a href="#多点交叉" class="headerlink" title="多点交叉"></a>多点交叉</h4><p>在个体编码串中 <strong>随机设置两个交叉点</strong>，然后进行基因交换。</p>
-<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172903979.png" alt="image-20221003172903979"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172903979.png" alt="image-20221003172903979"></p>
 <h4 id="均匀交叉"><a href="#均匀交叉" class="headerlink" title="均匀交叉"></a>均匀交叉</h4><p>两个配对个体的每一个基因座上的基因都以相同的交叉概率进行交换。</p>
 <ol>
 <li>随机产生一个与个体编码串长度等长的屏蔽字 $W=w_{1}w_{2}…w_{i}…w_{l}$，其中 $l$ 为个体编码串长度。</li>
@@ -232,7 +303,7 @@
 <li>  若 $w_{i}=0$，则 A’ 在第 i 个基因座上的基因值继承 A 的对应基因值，B’ 在第 i 个基因座上的基因值继承 B 的对应基因值。</li>
 <li>  若 $w_{i} =1$，则 A’ 在第 i 个基因座上的基因值继承 B 的对应基因值，B’ 在第 i 个基因座上的基因值继承 A 的对应基因值。</li>
 </ul>
- <img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003173710535.png" alt="image-20221003173710535"></li>
+ <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003173710535.png" alt="image-20221003173710535"></li>
 </ol>
 <h4 id="算术交叉"><a href="#算术交叉" class="headerlink" title="算术交叉"></a>算术交叉</h4><p>由两个个体的线性组合而产生出两个新的个体。</p>
 <p>假设有两个个体$X_{A}$和$X_{B}$之间进行算术交叉，则交叉运算后所产生的两个新个体是: $$ \left{\begin{matrix}</p>
@@ -261,7 +332,7 @@
 <li> 在个体编码串中随机指定两个基因座之后的位置为倒位点。</li>
 <li> 以倒位概率 $P_{i}$ 颠倒这两个倒位点之间的基因排列顺序。</li>
 </ol>
-<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221007234228946.png" alt="image-20221007234228946"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221007234228946.png" alt="image-20221007234228946"></p>
 <h2 id="二倍体"><a href="#二倍体" class="headerlink" title="二倍体"></a>二倍体</h2><blockquote>
 <p>生物学中，二倍体是指含有两个同源基因组的个体。</p>
 <p><strong>重要特性</strong></p>
@@ -272,7 +343,7 @@
 </blockquote>
 <h4 id="双基因座显性映射"><a href="#双基因座显性映射" class="headerlink" title="双基因座显性映射"></a>双基因座显性映射</h4><p>由 Hollstien 提出，每个二进制基因用两个基因来描述，一个称为 <strong>函数基因</strong>，取通常含义的 1 或 0；另一个称为 <strong>修饰基因</strong>，取值为 M（显性） 或 m（隐形）。当两个同源染色体中至少有一个修饰基因是M时，呈显性，否则为隐性。</p>
 <p>之后 Hollstien 简化为 单基因座显性映射 ，描述基 因的字符集为${0, 1, 1_{0}}$，其中 $1_{0}$ 为隐性的 1，1 为显性的 1。</p>
-<p><img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008143428436.png" alt="image-20221008143428436"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008143428436.png" alt="image-20221008143428436"></p>
 <h4 id="与GA不同"><a href="#与GA不同" class="headerlink" title="与GA不同"></a>与GA不同</h4><ol>
 <li> 显性形状也能进化，同源染色体之间需进行交叉操作</li>
 <li> 变异操作需考虑隐性性状</li>
@@ -291,7 +362,7 @@
 <li>终止条件判断。若不满足终止条件，则：ｔ⬅ｔ＋１，转到第３步，继续进行进化操作过程；若满足终止条件，则输出当前最优个体，结束。</li>
 </ol>
 <h4 id="变长度染色体遗传算法"><a href="#变长度染色体遗传算法" class="headerlink" title="变长度染色体遗传算法"></a>变长度染色体遗传算法</h4><ul>
-<li>编码 $$ X^{m}:(i_{1},v_{i})(i_{2},v_{2})···(i_{k},v_{k})···(i_{n},v_{n}) $$ $i_{k}$是所描述的基因在原常规染色体中的 <strong>基因座编号</strong>，$v_{k}$为对应的基因值。  例：  <img src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008152328932.png" alt="image-20221008152328932"></li>
+<li>编码 $$ X^{m}:(i_{1},v_{i})(i_{2},v_{2})···(i_{k},v_{k})···(i_{n},v_{n}) $$ $i_{k}$是所描述的基因在原常规染色体中的 <strong>基因座编号</strong>，$v_{k}$为对应的基因值。  例：  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008152328932.png" alt="image-20221008152328932"></li>
 <li>解码  这能有什么用？？？？这么能扯</li>
 </ul>
 <h4 id="算法步骤-MessyGA"><a href="#算法步骤-MessyGA" class="headerlink" title="算法步骤(MessyGA)"></a>算法步骤(MessyGA)</h4><ol>
@@ -474,57 +545,401 @@
 <li>更新 根据公式 $$ v_{k+1}=c_{0}v_{k}+c_{1}\xi (p_{k}-x_{k})+c_{2}\eta(p_{g}-x_{k})\ x_{k+1}=x_{k}+v_{k+1} $$ 更新每个粒子的速度和位置</li>
 <li> 若未达终止条件，则回到第2步</li>
 </ol>
-</div><div class="article-licensing box"><div class="licensing-title"><p>遗传算法</p><p><a href="https://wangwangyz.site/[object Object]/2022/10/03/遗传算法/">https://wangwangyz.site/[object Object]/2022/10/03/遗传算法/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>挚夏</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-10-03</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-06-21</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/%5Bobject%20Object%5D/2022/11/06/less%E5%88%9D%E5%AD%A6/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Less初学</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/%5Bobject%20Object%5D/2022/05/09/%E5%AE%89%E5%88%A9%E5%87%A0%E6%AC%BEwin10%E5%B0%8F%E8%BD%AF%E4%BB%B6/"><span class="level-item">安利几款Win10小软件</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
-            this.page.url = 'https://wangwangyz.site/[object%20Object]/2022/10/03/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/';
-            this.page.identifier = '/[object Object]/2022/10/03/遗传算法/';
-        };
-        (function() {
-            var d = document, s = d.createElement('script');  
-            s.src = '//' + '你猜' + '.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png" alt="挚夏"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">挚夏</p><p class="is-size-6 is-block">若结局非你所愿，就在尘埃落定前奋力一搏.</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国-北京</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">39</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">7</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">27</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/InvalidSyntaxxx" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/InvalidSyntaxxx"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Zhihu" href="https://www.zhihu.com/people/wang-zhi-yuan-64-19"><i class="fab fa-zhihu"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/%5Bobject%20Object%5D/2023/06/20/hello-world/"><img src="/../static/images/image.png" alt="Hello World"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-06-20T16:12:21.816Z">2023-06-21</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/06/20/hello-world/">Hello World</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-05-15T16:13:04.000Z">2023-05-16</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/05/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%A7%E4%BD%9C%E4%B8%9A/">计算机网络大作业</a></p><p class="categories"><a href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a> / <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-03-11T15:40:59.000Z">2023-03-11</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/03/11/ipfs%E7%AE%80%E4%BB%8B/">IPFS简介</a></p><p class="categories"><a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a> / <a href="/categories/%E6%80%9D%E6%83%B3%E6%84%9F%E6%82%9F/">思想感悟</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-03-10T16:23:56.000Z">2023-03-11</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/03/10/%E5%B8%B8%E8%A7%81http%E7%8A%B6%E6%80%81%E7%A0%81%E5%8F%8A%E7%AE%80%E4%BB%8B/">常见HTTP状态码及简介</a></p><p class="categories"><a href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a> / <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-03-10T10:35:54.000Z">2023-03-10</time></p><p class="title"><a href="/%5Bobject%20Object%5D/2023/03/10/vue%E5%88%B6%E4%BD%9Cchatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/">制作网页ChatGPT聊天机器人</a></p><p class="categories"><a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">专业技术</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">学习笔记</span></span><span class="level-end"><span class="level-item tag">30</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%B7%A5%E5%85%B7/"><span class="level-start"><span class="level-item">工具</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%80%9D%E6%83%B3%E6%84%9F%E6%82%9F/"><span class="level-start"><span class="level-item">思想感悟</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%96%87%E5%AD%A6%E6%91%98%E5%BD%95/"><span class="level-start"><span class="level-item">文学摘录</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%96%87%E7%AB%A0/"><span class="level-start"><span class="level-item">文章</span></span><span class="level-end"><span class="level-item tag">18</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/"><span class="level-start"><span class="level-item">生活点滴</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Apache/"><span class="tag">Apache</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Argon/"><span class="tag">Argon</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C/"><span class="tag">C</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HTTP/"><span class="tag">HTTP</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Javascript/"><span class="tag">Javascript</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MySQL/"><span class="tag">MySQL</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NestJS/"><span class="tag">NestJS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Nginx/"><span class="tag">Nginx</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Numpy/"><span class="tag">Numpy</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PHP/"><span class="tag">PHP</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Python/"><span class="tag">Python</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/TypeScript/"><span class="tag">TypeScript</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vue/"><span class="tag">Vue</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Windows/"><span class="tag">Windows</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WordPress/"><span class="tag">WordPress</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/html/"><span class="tag">html</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%88%86%E4%BA%AB/"><span class="tag">分享</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%84%9F%E6%82%9F/"><span class="tag">感悟</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"><span class="tag">树莓派</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%9F%E6%B4%BB/"><span class="tag">生活</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BA%BF%E7%A8%8B/"><span class="tag">线程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="tag">计算机网络</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%BF%9B%E7%A8%8B/"><span class="tag">进程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%94%81/"><span class="tag">锁</span><span class="tag">1</span></a></div></div></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://wangwangyz.site/my/static/cropped-%E7%AB%99%E7%82%B9logo.png" alt="掉发收集站" height="28"></a><p class="is-size-7"><span>&copy; 2023 挚夏</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">CopyRight © wangwangyz.site All rights reserved. | 京ICP备2021034217号 | 用❤️💓💕发电</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/InvalidSyntaxxx"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
-            article: {
-                highlight: {
-                    clipboard: true,
-                    fold: 'unfolded'
-                }
-            }
-        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
-      window.cookieconsent.initialise({
-        type: "info",
-        theme: "edgeless",
-        static: false,
-        position: "bottom-left",
-        content: {
-          message: "此网站使用Cookie来改善您的体验。",
-          dismiss: "知道了！",
-          allow: "允许使用Cookie",
-          deny: "拒绝",
-          link: "了解更多",
-          policy: "Cookie政策",
-          href: "https://www.cookiesandyou.com/",
-        },
-        palette: {
-          popup: {
-            background: "#edeff5",
-            text: "#838391"
-          },
-          button: {
-            background: "#4b81e8"
-          },
-        },
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/%5Bobject%20Object%5D/2022/11/06/less%E5%88%9D%E5%AD%A6/">Less初学</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/%5Bobject%20Object%5D/2022/05/09/%E5%AE%89%E5%88%A9%E5%87%A0%E6%AC%BEwin10%E5%B0%8F%E8%BD%AF%E4%BB%B6/">安利几款Win10小软件</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">挚夏</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.27.0">Stellar 1.27.0</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-text">遗传算法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-text">背景知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%EF%BC%88GA%EF%BC%89"><span class="toc-text">遗传算法（GA）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E8%A6%81"><span class="toc-text">概要</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%BF%87%E7%A8%8B"><span class="toc-text">算法过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-text">特点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="toc-text">基本遗传算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E6%88%90%E8%A6%81%E7%B4%A0"><span class="toc-text">构成要素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E4%BB%A3%E7%A0%81%E6%8F%8F%E8%BF%B0"><span class="toc-text">伪代码描述</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AA%E4%BD%93%E9%80%82%E5%BA%94%E5%BA%A6%E8%AF%84%E4%BB%B7"><span class="toc-text">个体适应度评价</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E5%BA%A6%E5%87%BD%E6%95%B0%E5%8F%98%E6%8D%A2%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-text">适应度函数变换常用方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84%E5%BA%94%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-text">遗传算法的应用步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%AE%9A%E7%90%86"><span class="toc-text">模式定理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E9%80%89%E6%8B%A9%E7%AE%97%E5%AD%90%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8B"><span class="toc-text">在选择算子的作用下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8B"><span class="toc-text">在交叉算子的作用下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E5%8F%98%E5%BC%82%E7%AE%97%E5%AD%90%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8B"><span class="toc-text">在变异算子的作用下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E7%AE%97%E5%AD%90%E6%80%BB%E4%BD%9C%E7%94%A8%E4%B8%8B"><span class="toc-text">在算子总作用下</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF"><span class="toc-text">遗传算法基本实现技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81"><span class="toc-text">编码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%BC%96%E7%A0%81"><span class="toc-text">二进制编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%BC%96%E7%A0%81"><span class="toc-text">浮点数编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E7%BC%96%E7%A0%81"><span class="toc-text">符号编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E5%8F%82%E6%95%B0%E7%BA%A7%E8%81%94%E7%BC%96%E7%A0%81"><span class="toc-text">多参数级联编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E5%8F%82%E6%95%B0%E4%BA%A4%E5%8F%89%E7%BC%96%E7%A0%81%E6%96%B9%E6%B3%95"><span class="toc-text">多参数交叉编码方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E5%BA%A6%E5%87%BD%E6%95%B0"><span class="toc-text">适应度函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">目标函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E5%BA%A6%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2"><span class="toc-text">适应度尺度变换</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E7%AE%97%E5%AD%90"><span class="toc-text">选择算子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AF%94%E4%BE%8B%E9%80%89%E6%8B%A9"><span class="toc-text">比例选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E4%BF%9D%E5%AD%98%E7%AD%96%E7%95%A5"><span class="toc-text">最优保存策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E5%BC%8F%E9%87%87%E6%A0%B7%E9%80%89%E6%8B%A9"><span class="toc-text">确定式采样选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E5%9B%9E%E6%94%BE%E9%9A%8F%E6%9C%BA%E9%80%89%E6%8B%A9"><span class="toc-text">无回放随机选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E5%9B%9E%E6%94%BE%E4%BD%99%E6%95%B0%E9%9A%8F%E6%9C%BA%E9%80%89%E6%8B%A9"><span class="toc-text">无回放余数随机选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E9%80%89%E6%8B%A9"><span class="toc-text">排序选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E8%81%94%E8%B5%9B%E9%80%89%E6%8B%A9"><span class="toc-text">随机联赛选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90"><span class="toc-text">交叉算子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E7%82%B9%E4%BA%A4%E5%8F%89"><span class="toc-text">单点交叉</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E7%82%B9%E4%BA%A4%E5%8F%89"><span class="toc-text">双点交叉</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%82%B9%E4%BA%A4%E5%8F%89"><span class="toc-text">多点交叉</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9D%87%E5%8C%80%E4%BA%A4%E5%8F%89"><span class="toc-text">均匀交叉</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E4%BA%A4%E5%8F%89"><span class="toc-text">算术交叉</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E5%BC%82%E7%AE%97%E5%AD%90"><span class="toc-text">变异算子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%8D%E5%8F%98%E5%BC%82"><span class="toc-text">基本位变异</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9D%87%E5%8C%80%E5%8F%98%E5%BC%82"><span class="toc-text">均匀变异</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%B9%E7%95%8C%E5%8F%98%E5%BC%82"><span class="toc-text">边界变异</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E5%9D%87%E5%8C%80%E5%8F%98%E5%BC%82"><span class="toc-text">非均匀变异</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E6%96%AF%E5%8F%98%E5%BC%82"><span class="toc-text">高斯变异</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E9%AB%98%E7%BA%A7%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF"><span class="toc-text">遗传算法高级实现技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%92%E4%BD%8D%E7%AE%97%E5%AD%90"><span class="toc-text">倒位算子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%80%8D%E4%BD%93"><span class="toc-text">二倍体</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E5%9F%BA%E5%9B%A0%E5%BA%A7%E6%98%BE%E6%80%A7%E6%98%A0%E5%B0%84"><span class="toc-text">双基因座显性映射</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8EGA%E4%B8%8D%E5%90%8C"><span class="toc-text">与GA不同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DiploidyGA%E7%AE%97%E6%B3%95"><span class="toc-text">DiploidyGA算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%95%BF%E5%BA%A6%E6%9F%93%E8%89%B2%E4%BD%93%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="toc-text">变长度染色体遗传算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4-MessyGA"><span class="toc-text">算法步骤(MessyGA)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="toc-text">遗传算法的运行参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-text">约束条件的处理方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E7%A9%BA%E9%97%B4%E9%99%90%E5%AE%9A%E6%B3%95"><span class="toc-text">搜索空间限定法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%A1%8C%E8%A7%A3%E5%8F%98%E6%8D%A2%E6%B3%95"><span class="toc-text">可行解变换法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%9A%E5%87%BD%E6%95%B0%E6%B3%95"><span class="toc-text">罚函数法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%94%9F%E5%A2%83%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="toc-text">小生境遗传算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="toc-text">实现方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E9%A2%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%B0%8F%E7%94%9F%E5%A2%83%E7%AE%97%E6%B3%95"><span class="toc-text">基于预选择的小生境算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%8E%92%E6%8C%A4%E7%9A%84%E5%B0%8F%E7%94%9F%E5%A2%83%E7%AE%97%E6%B3%95"><span class="toc-text">基于排挤的小生境算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%85%B1%E4%BA%AB%E5%87%BD%E6%95%B0%E7%9A%84%E5%B0%8F%E7%94%9F%E5%A2%83%E7%AE%97%E6%B3%95"><span class="toc-text">基于共享函数的小生境算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-text">应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E5%B3%B0%E5%80%BC%E5%87%BD%E6%95%B0%E5%85%A8%E5%B1%80%E6%9C%80%E4%BC%98%E5%8C%96"><span class="toc-text">多峰值函数全局最优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%BF%87%E7%A8%8B-1"><span class="toc-text">算法过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="toc-text">混合遗传算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E7%82%B9-1"><span class="toc-text">特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99"><span class="toc-text">基本原则</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95"><span class="toc-text">*模拟退火算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E6%88%90%E8%A6%81%E7%B4%A0-1"><span class="toc-text">构成要素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%BF%87%E7%A8%8B-2"><span class="toc-text">算法过程</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E5%87%BD%E6%95%B0%E5%92%8C%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96"><span class="toc-text">数值函数和多目标优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E5%87%BD%E6%95%B0%E4%BC%98%E5%8C%96"><span class="toc-text">数值函数优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%AF%E6%95%B0%E5%80%BC%E5%87%BD%E6%95%B0%E4%BC%98%E5%8C%96"><span class="toc-text">纯数值函数优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%B5%8B%E8%AF%95%E5%87%BD%E6%95%B0"><span class="toc-text">常用测试函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96"><span class="toc-text">多目标优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GA%E7%9A%84%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0"><span class="toc-text">*GA的性能评估</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B1%82%E8%A7%A3%E7%AE%97%E6%B3%95"><span class="toc-text">求解算法</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B2%92%E5%AD%90%E7%BE%A4%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-text">粒子群优化算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E7%82%B9-2"><span class="toc-text">特点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-text">算法流程</span></a></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js`,
+    marked: `https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
       });
-    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
-            if (typeof $.fn.lightGallery === 'function') {
-                $('.article').lightGallery({ selector: '.gallery-item' });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
             }
-            if (typeof $.fn.justifiedGallery === 'function') {
-                if ($('.justified-gallery > p > .gallery-item').length) {
-                    $('.justified-gallery > p > .gallery-item').unwrap();
-                }
-                $('.justified-gallery').justifiedGallery();
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
             }
-        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
-            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
-        });</script></body></html>
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.27.0" async></script>
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"></script><script defer src="https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css`,
+    js: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || null
+        }
+      });
+    })
+  }
+</script><script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
