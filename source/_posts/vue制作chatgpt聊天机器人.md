@@ -89,4 +89,4 @@ date: 2023-03-10 18:35:54
 1.  外网IP+国外手机号
 2.  命令限制，只能最高4096tokens
 
-所以，我自己开发了一个聊天室，支持移动端和PC端。单独聊天或群聊都可以和ChatGPT聊天 地址：[https://chat.wangwangyz.site/](https://chat.wangwangyz.site/) ![](https://www.wangwangyz.site/个人图床/image-20230310223018574.png) ![image-20230310223018574](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20230310223018574.png)
+所以，我自己开发了一个聊天室，支持移动端和PC端。单独聊天或群聊都可以和ChatGPT聊天 地址：[https://chat.wangwangyz.site/](https://chat.wangwangyz.site/) ![](https://redamancy9189.oss-cn-beijing.aliyuncs.com/个人图床/image-20230310223018574.png) ![image-20230310223018574](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20230310223018574.png)

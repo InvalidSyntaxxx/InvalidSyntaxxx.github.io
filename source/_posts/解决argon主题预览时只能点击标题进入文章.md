@@ -12,11 +12,11 @@ date: 2022-04-04 18:20:46
 
 ###### 找到自己相对应文章列表卡片布局。比如我的为布局1
 
-![image-20220404181846323](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220404181846323.png)
+![image-20220404181846323](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220404181846323.png)
 
 ###### 进入不同的preview.php文件。
 
-![image-20220404181432492](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220404181432492.png)
+![image-20220404181432492](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220404181432492.png)
 
 ###### 找到 class="post-content", 在后面添加：
 

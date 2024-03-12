@@ -34,13 +34,13 @@ date: 2022-04-08 18:02:48
     
     找到 `<Directory /var/www/>`
     
-    ![image-20220408175414794](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220408175414794.png)
+    ![image-20220408175414794](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220408175414794.png)
     
     将`AllowOverride` 后的 `None` 修改为 `ALL` 。
     
 *   进入Wordpress后台选择自己喜欢的伪静态，并点击保存，自动生成 `.hatccess` 规则并复制，如下：
     
-    ![image-20220408174428359](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220408174428359.png)
+    ![image-20220408174428359](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220408174428359.png)
     
     ```C
     
@@ -67,7 +67,7 @@ date: 2022-04-08 18:02:48
 
 ##### 效果图
 
-![image-20220408180040599](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220408180040599.png)
+![image-20220408180040599](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220408180040599.png)
 
 #### Nginx1.19
 

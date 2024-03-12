@@ -31,13 +31,13 @@ date: 2022-04-17 10:27:53
 
 `echo $PATH` ：提取PATH环境变量并输出
 
-![image-20220407160502862](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160502862.png)
+![image-20220407160502862](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160502862.png)
 
 `$?`：提取最近一次Shell命令的返回值（退出状态）
 
 0表示没有错误，其它表示有错误
 
-![image-20220411172602554](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411172602554.png)
+![image-20220411172602554](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411172602554.png)
 
 ##### 一般变量
 
@@ -52,7 +52,7 @@ Linux下变量无需声明，一般做字符串处理，数值计算时转化为
 *   导出变量名：`export 变量名`
     
 
-![image-20220409195301371](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409195301371.png)
+![image-20220409195301371](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409195301371.png)
 
 ##### 特殊的Shell变量
 
@@ -88,7 +88,7 @@ echo "\$$程序运行的PID值:$$"
 
 分别用`./specialshell.sh`和`source specialshell.sh`执行脚本，结果：
 
-![image-20220411181826008](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411181826008.png)
+![image-20220411181826008](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411181826008.png)
 
 ##### shell脚本
 
@@ -105,7 +105,7 @@ done
 
 执行 `source test.sh`
 
-![image-20220411105352232](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411105352232.png)
+![image-20220411105352232](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411105352232.png)
 
 ##### for语句
 
@@ -401,7 +401,7 @@ user ALL=(ALL) NOPASSWD: ALL
 
 ALL=(ALL)允许用户组user里面的用户执行sudo命令,并且在执行的时候不输入密码.
 
-![image-20220416233152507](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220416233152507.png)
+![image-20220416233152507](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220416233152507.png)
 
 更多信息查看文档 `man useradd`
 
@@ -413,13 +413,13 @@ ALL=(ALL)允许用户组user里面的用户执行sudo命令,并且在执行的�
 
 产看当前shell用户
 
-![image-20220417103032111](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417103032111.png)
+![image-20220417103032111](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417103032111.png)
 
 ##### id
 
 查看当前用户的身份以及权限
 
-![image-20220409194409671](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409194409671.png)
+![image-20220409194409671](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409194409671.png)
 
 ##### make
 
@@ -437,9 +437,9 @@ umask -S #获取当前权限的可读权限信息
 umask 0000 #修改新建初始化目录文件的权限
 ```
 
-![image-20220414102213730](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414102213730.png)
+![image-20220414102213730](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414102213730.png)
 
-![image-20220414102305203](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414102305203.png)
+![image-20220414102305203](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414102305203.png)
 
 666& umask
 
@@ -470,7 +470,7 @@ umask 0000 #修改新建初始化目录文件的权限
 
 `ls -ld /etc` ： 查看目录拥有权限
 
-![image-20220407151622771](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407151622771.png)
+![image-20220407151622771](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407151622771.png)
 
 ##### chmod \[选项\] \[文件或目录\]
 
@@ -527,7 +527,7 @@ chmod 755 a.out
 
 查看命令的安装路径
 
-![image-20220407160526521](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160526521.png)
+![image-20220407160526521](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407160526521.png)
 
 ##### mout \[参数\]
 
@@ -571,7 +571,7 @@ umount实现文件系统的卸载
 
 显示磁盘空间使用情况
 
-![image-20220407141532576](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407141532576.png)
+![image-20220407141532576](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407141532576.png)
 
 `-a` ：显示所有系统文件
 
@@ -597,7 +597,7 @@ source命令通常用于执行刚修改的 `初始化` 文件，使之立即生�
 
 `netstat -ant grep 3306`
 
-![image-20220407233817307](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407233817307.png)
+![image-20220407233817307](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220407233817307.png)
 
 ##### fflush
 
@@ -615,7 +615,7 @@ source命令通常用于执行刚修改的 `初始化` 文件，使之立即生�
 sudo vim /etc/passwd
 ```
 
-![image-20220409193721743](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409193721743.png)
+![image-20220409193721743](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220409193721743.png)
 
 名称
 
@@ -649,7 +649,7 @@ x代表加密密码保存在`/etc/shadow`文件中
 
 代表用户使用Shell的类型
 
-![image-20220415181954137](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220415181954137.png)
+![image-20220415181954137](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220415181954137.png)
 
 ##### /etc/profile
 
@@ -675,7 +675,7 @@ x代表加密密码保存在`/etc/shadow`文件中
     
     将`PermitRootLogin yes`更改为 `no`
     
-    ![image-20220417163830390](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417163830390.png)
+    ![image-20220417163830390](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417163830390.png)
     
 
 ##### 进程
@@ -684,7 +684,7 @@ x代表加密密码保存在`/etc/shadow`文件中
 
 每个进程都有唯一的标识号—— `PID`，进程可以产生新的进程，构成父子关系并形成进程树(pstree)。
 
-![image-20220417164549862](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417164549862.png)
+![image-20220417164549862](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417164549862.png)
 
 进程都有一个 `用户标识`——对应运行此程序的用户ID。如果可执行文件没有设置`suid`和`sgid`，则进程的 `有效用户标识` 为此用户，否则为文件的所有者。
 
@@ -700,8 +700,8 @@ x代表加密密码保存在`/etc/shadow`文件中
 
 ##### 环境变量
 
-全局的环境变量：存放在 `/etc/profile`![image-20220417174359704](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417174359704.png)
+全局的环境变量：存放在 `/etc/profile`![image-20220417174359704](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417174359704.png)
 
-特定用户的环境变量：存放在home目录的 `.profile`或 `.bashhrc`中![image-20220417173635469](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417173635469.png)
+特定用户的环境变量：存放在home目录的 `.profile`或 `.bashhrc`中![image-20220417173635469](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220417173635469.png)
 
 临时的环境变量：`export`定义，特定于此会话

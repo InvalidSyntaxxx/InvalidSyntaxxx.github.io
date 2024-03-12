@@ -32,7 +32,7 @@ date: 2022-05-06 00:57:34
     
     > C:\\Windows\\System32\\drivers\\etc
     
-    ![image-20220505235444028](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220505235444028.png)
+    ![image-20220505235444028](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220505235444028.png)
     
     **Mac OS、Linux及其它类Unix系统：**
     
@@ -100,7 +100,7 @@ date: 2022-05-06 00:57:34
     ipconfig/flushdns
     ```
     
-    ![image-20220505235658796](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220505235658796.png)
+    ![image-20220505235658796](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220505235658796.png)
     
     Linux等系统一般修改后都即刻生效。
     
@@ -205,12 +205,12 @@ date: 2022-05-06 00:57:34
     
     选择任意一个.exe运行程序运行即可
     
-    ![image-20220506003759569](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506003759569.png)我运行`fastgithub.exe`的截图![image-20220506003935842](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506003935842.png)
+    ![image-20220506003759569](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506003759569.png)我运行`fastgithub.exe`的截图![image-20220506003935842](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506003935842.png)
     
 
 接下来进入github的大门吧
 
-## ![image-20220506004312524](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506004312524.png)
+## ![image-20220506004312524](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506004312524.png)
 
 #### 题外话：
 

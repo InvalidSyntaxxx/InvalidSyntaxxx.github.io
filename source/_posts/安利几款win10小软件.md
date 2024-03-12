@@ -15,9 +15,9 @@ date: 2022-05-09 23:19:54
 
 整理后我的桌面：
 
-![image-20220509225456101](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509225456101.png)
+![image-20220509225456101](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509225456101.png)
 <!-- more -->
-![aQXsB07vmA](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/aQXsB07vmA.gif)
+![aQXsB07vmA](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/aQXsB07vmA.gif)
 
 盗用一张效果网图：（[原链](https://zhuanlan.zhihu.com/p/322595348)）
 
@@ -33,7 +33,7 @@ GitHub下载：[Releases · ShareX/ShareX (github.com)](https://github.com/Share
 
 效果图：
 
-![image-20220509225833017](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509225833017.png)
+![image-20220509225833017](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509225833017.png)
 
 开源项目地址：
 
@@ -45,13 +45,13 @@ Markdown笔记神器+图床。在座应该比我知道的还多...不再赘述�
 
 关于typora的主题有一个小推荐：[evgo2017/typora-theme-orange-heart: A Typora Theme - 一个 Typora 主题 (github.com)](https://github.com/evgo2017/typora-theme-orange-heart)
 
-样式效果：![Typora_0mLuPLHphY](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/Typora_0mLuPLHphY.gif)
+样式效果：![Typora_0mLuPLHphY](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/Typora_0mLuPLHphY.gif)
 
 ## 4、TranslucentTB
 
 Win10透明桌面栏，有两种方法一个是MS store下载，
 
-![image-20220509230341736](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509230341736.png)
+![image-20220509230341736](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509230341736.png)
 
 一个是Github下载
 
@@ -59,9 +59,9 @@ Win10透明桌面栏，有两种方法一个是MS store下载，
 
 效果图：
 
-![image-20220509224235748](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509224235748.png)
+![image-20220509224235748](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509224235748.png)
 
-![image-20220509225456101](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509225456101.png)
+![image-20220509225456101](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509225456101.png)
 
 ## 5、drwio
 
@@ -71,7 +71,7 @@ win10下载地址：[Download Draw.io for Windows - Free - 13.9.9 (digitaltrends
 
 官网：[Flowchart Maker & Online Diagram Software (draw.io)](https://www.draw.io/index.html)
 
-![image-20220509230622037](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509230622037.png)
+![image-20220509230622037](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509230622037.png)
 
 ## 6、sourcetree
 
@@ -79,4 +79,4 @@ win10下载地址：[Download Draw.io for Windows - Free - 13.9.9 (digitaltrends
 
 官网及下载地址：[Sourcetree Free Git GUI for Mac and Windows (sourcetreeapp.com)](https://www.sourcetreeapp.com/)
 
-![image-20220509224703903](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509224703903.png)
+![image-20220509224703903](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220509224703903.png)

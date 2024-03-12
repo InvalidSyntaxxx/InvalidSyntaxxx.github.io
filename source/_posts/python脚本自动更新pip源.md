@@ -55,7 +55,7 @@ else:
 
 > 阿里云 [http://mirrors.aliyun.com/pypi/simple/](http://mirrors.aliyun.com/pypi/simple/) 中国科技大学 [https://pypi.mirrors.ustc.edu.cn/simple/](https://pypi.mirrors.ustc.edu.cn/simple/) 豆瓣(douban) [http://pypi.douban.com/simple/](http://pypi.douban.com/simple/) 清华大学 [https://pypi.tuna.tsinghua.edu.cn/simple/](https://pypi.tuna.tsinghua.edu.cn/simple/) 中国科学技术大学 [http://pypi.mirrors.ustc.edu.cn/simple/](http://pypi.mirrors.ustc.edu.cn/simple/)
 
-直接运行源代码即可完成配置 ![image-20220418164541419](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220418164541419.png)
+直接运行源代码即可完成配置 ![image-20220418164541419](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220418164541419.png)
 
 此外，如果pip版本>=10.0.0，可以使用如下命令进行设置：
 

@@ -24,11 +24,11 @@ Github地址：[https://github.com/InvalidSyntaxxx/LiteChat-Client](https://gith
 
 ##### 移动端
 
-![image-20230228141725927](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20230228141725927.png)
+![image-20230228141725927](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20230228141725927.png)
 
 ##### Web端
 
-![image-20230227234317901](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20230227234317901.png)
+![image-20230227234317901](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20230227234317901.png)
 <!-- more -->
 ### 项目功能
 

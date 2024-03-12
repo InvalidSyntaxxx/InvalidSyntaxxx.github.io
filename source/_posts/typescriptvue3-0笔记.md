@@ -25,7 +25,7 @@ date: 2022-05-07 16:46:40
 > *   最新的 Vue 、React 也可以集成 TypeScript。
 >     
 
-![image-20220507164550922](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220507164550922.png)
+![image-20220507164550922](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220507164550922.png)
 
 ### TypeScript特性
 
@@ -98,7 +98,7 @@ TypeScript是完全兼容JavaScript的，他不会修改JavaScript运行时的�
 
 官网地址：[Node.js (nodejs.org)](https://nodejs.org/en/)
 
-![image-20220507113822749](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220507113822749.png)
+![image-20220507113822749](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220507113822749.png)
 
 TypeScript安装命令
 
@@ -107,7 +107,7 @@ npm install -g typescript
 # 通过tsc --version可以查看版本号以确保是否安装成功
 ```
 
-![image-20220507121610924](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220507121610924.png)
+![image-20220507121610924](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220507121610924.png)
 
 安装以后编译ts文件很简单，我们在电脑上新建一个目录`code`，新建一个文件`index.ts`,然后在当前目录下输入：
 

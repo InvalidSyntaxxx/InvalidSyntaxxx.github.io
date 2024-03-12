@@ -8,8 +8,8 @@ categories:
   - - 学习笔记
   - - 工具
 date: 2022-04-24 12:24:26
-# cover: https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424002629616.png
-thumbnail: https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424002629616.png
+# cover: https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424002629616.png
+thumbnail: https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424002629616.png
 toc: true
 ---
 
@@ -70,7 +70,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRes
 
 为了确保所有相关部件都整齐到位，您应该在**此时重启系统**，否则可能会发现事情没按预期进行。
 
-![image-20220424002629616](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424002629616.png)
+![image-20220424002629616](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424002629616.png)
 
 #### 安装WSL2
 
@@ -102,7 +102,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRes
 
   比如我的电脑就可以支持
 
-  ![image-20220423221854978](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220423221854978.png)
+  ![image-20220423221854978](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220423221854978.png)
 
 ##### 安装WSL
 
@@ -121,7 +121,7 @@ wsl --install
 
 [注意](https://docs.microsoft.com/zh-cn/windows/wsl/install)： 上述命令仅在完全未安装 WSL 时才有效，如果运行 `wsl --install` 并查看 WSL 帮助文本，请尝试运行 `wsl --list --online` 以查看可用发行版列表并运行 `wsl --install -d <DistroName>` 以安装发行版。
 
-![image-20220423221123835](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220423221123835.png)
+![image-20220423221123835](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220423221123835.png)
 
 等待一会会，去打局游戏再回来....
 
@@ -131,7 +131,7 @@ wsl --install
 wsl --list --online
 ```
 
-![image-20220423223723552](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220423223723552.png)
+![image-20220423223723552](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220423223723552.png)
 
 ----
 
@@ -143,7 +143,7 @@ wsl --list --online
 wsl --install -d Ubuntu-20.04
 ```
 
-![image-20220423224013320](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220423224013320.png)
+![image-20220423224013320](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220423224013320.png)
 
 重启，然后成功了!
 
@@ -157,7 +157,7 @@ wsl --install -d Ubuntu-20.04
 
 测试一下，用命令 `cd / && ls -la` 查看所有文件，如下（是不是很熟悉）
 
-![image-20220424000945772](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424000945772.png)
+![image-20220424000945772](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424000945772.png)
 
 更新一下镜像源：
 
@@ -276,11 +276,11 @@ Windows Terminal能帮助我们管理命令行工具、PowerShell和WSL等Shell�
 - https://www.microsoft.com/store/productId/9N0DX20HK701
 - MicroSoft Store （微软商店）找关键字 `Windows Terminal`
 
-![image-20220424115803757](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424115803757.png)
+![image-20220424115803757](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424115803757.png)
 
 下载安装即可。功能确实很多哈哈哈，效果：
 
-![WindowsTerminal_HCukprnOs0](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/WindowsTerminal_HCukprnOs0.gif)
+![WindowsTerminal_HCukprnOs0](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/WindowsTerminal_HCukprnOs0.gif)
 
 ---
 
@@ -290,23 +290,23 @@ Windows Terminal能帮助我们管理命令行工具、PowerShell和WSL等Shell�
 
 1. `cat  /etc/os-release`
 
-   ![image-20220424132217753](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424132217753.png) 
+   ![image-20220424132217753](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424132217753.png) 
 
 2. `cat  /proc/version`
 
-   ![image-20220424132605991](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424132605991.png)
+   ![image-20220424132605991](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424132605991.png)
 
 3. `uname -a`
 
-4. ![image-20220424133412380](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424133412380.png)
+4. ![image-20220424133412380](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424133412380.png)
 
 5. `lsb_release -a`
 
-   ![image-20220424133534249](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424133534249.png)
+   ![image-20220424133534249](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220424133534249.png)
 
 6. `neofetch`
 
-   ![image-20220502182008974](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220502182008974.png)
+   ![image-20220502182008974](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220502182008974.png)
 
 #### 总结
 

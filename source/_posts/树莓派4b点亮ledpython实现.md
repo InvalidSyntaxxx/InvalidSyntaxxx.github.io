@@ -13,7 +13,7 @@ date: 2022-03-14 23:43:33
 
 #### 1、树莓派GPIO引脚图
 
-![rpi-pins-40-0](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/rpi-pins-40-0.png)
+![rpi-pins-40-0](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/rpi-pins-40-0.png)
 
 \[admonition title="注意" color="red"\] 先简单了解一下引脚，我们对树莓派引脚的操作是有可能损坏我们的树莓派的。有必要提前了解。\[/admonition\]
 
@@ -91,7 +91,7 @@ date: 2022-03-14 23:43:33
 *   安装rpi.gpio库出现**Requirement already satisfied**问题
     
 
-![image-20220314223217804](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220314223217804.png)
+![image-20220314223217804](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220314223217804.png)
 
 将安装的rpi模块直接指向文件目录
 

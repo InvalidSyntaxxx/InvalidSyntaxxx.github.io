@@ -170,7 +170,7 @@ print(arr2)
 
 **注意**：重构的数组必须是n × m = 原数组总元素个数，否则会报错
 
-![重构的数组必须是n × m = 原数组总元素个数](https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E9%87%8D%E6%9E%84%E7%9A%84%E6%95%B0%E7%BB%84%E5%BF%85%E9%A1%BB%E6%98%AFn%20%C3%97%20m%20=%20%E5%8E%9F%E6%95%B0%E7%BB%84%E6%80%BB%E5%85%83%E7%B4%A0%E4%B8%AA%E6%95%B0.png)
+![重构的数组必须是n × m = 原数组总元素个数](https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E9%87%8D%E6%9E%84%E7%9A%84%E6%95%B0%E7%BB%84%E5%BF%85%E9%A1%BB%E6%98%AFn%20%C3%97%20m%20=%20%E5%8E%9F%E6%95%B0%E7%BB%84%E6%80%BB%E5%85%83%E7%B4%A0%E4%B8%AA%E6%95%B0.png)
 
 `resize()` 改变原数组
 
