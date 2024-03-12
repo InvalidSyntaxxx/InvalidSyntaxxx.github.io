@@ -1,0 +1,772 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.27.0" theme-name="Stellar" theme-version="1.27.0">
+  
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>操作系统学习笔记（一） - 掉发收集站</title>
+
+  
+    <meta name="description" content="进程进程管理什么是进程进程是 进程(Process)包括 程序的代码 、程序的数据、指示下一条运行的指令、一组通用寄存器的当前值、 一组系统资源。 进程特征包括 结构特征、 动态性、 并发性、独立性、 异步性 进程三种基本状态： 就绪状态、执行状态、阻塞状态 （有的为五种：最前为 新建态、最后为 终止态）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统学习笔记（一）">
+<meta property="og:url" content="https://wangwangyz.site/[object%20Object]/2022/03/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%BF%9B%E7%A8%8B%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="掉发收集站">
+<meta property="og:description" content="进程进程管理什么是进程进程是 进程(Process)包括 程序的代码 、程序的数据、指示下一条运行的指令、一组通用寄存器的当前值、 一组系统资源。 进程特征包括 结构特征、 动态性、 并发性、独立性、 异步性 进程三种基本状态： 就绪状态、执行状态、阻塞状态 （有的为五种：最前为 新建态、最后为 终止态）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%85%B3%E7%B3%BB.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E8%BF%9B%E7%A8%8B%E7%BB%88%E6%AD%A2.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/P%E5%8E%9F%E8%AF%AD%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9A%E4%B9%89.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/V%E5%8E%9F%E8%AF%AD%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9A%E4%B9%89.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E4%BF%A1%E5%8F%B7%E9%87%8F%E8%A2%AB%E6%8F%8F%E8%BF%B0%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AE%B0%E5%BD%95.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E5%90%8C%E6%AD%A5%E4%B8%8E%E4%BA%92%E6%96%A5%E7%9A%84%E6%B7%B7%E5%90%88%E9%97%AE%E9%A2%98.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E7%AE%A1%E7%A8%8B%20.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%85%B3%E7%B3%BB%E5%9B%BE.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E7%94%A8%E6%88%B7%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E4%B8%89%E7%A7%8D%E8%B0%83%E5%BA%A6.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411083017883.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220413143429011.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220413143446410.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220413144946937.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220413145021926.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220413152036504.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220410221633012.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414090249801.png">
+<meta property="article:published_time" content="2022-03-08T15:25:25.000Z">
+<meta property="article:modified_time" content="2024-03-12T02:24:18.688Z">
+<meta property="article:author" content="挚夏">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="线程">
+<meta property="article:tag" content="进程">
+<meta property="article:tag" content="锁">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%85%B3%E7%B3%BB.png">
+  
+  
+  
+  <meta name="keywords" content="C,操作系统,线程,进程,锁">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.27.0">
+
+  
+
+  
+
+  
+</head>
+<body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">掉发收集站</div><div class="sub cap">若结局非你所愿，就在尘埃落定前奋力一搏.</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/%5Bobject%20Object%5D/2022/05/07/typescriptvue3-0%E7%AC%94%E8%AE%B0/"><span class="title">TypeScript+Vue3.0笔记</span></a><a class="item title" href="/%5Bobject%20Object%5D/2023/03/10/vue%E5%88%B6%E4%BD%9Cchatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/"><span class="title">制作网页ChatGPT聊天机器人</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/02/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B/"><span class="title">WordPress完整建站过程(一)</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/10/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B%E4%BA%8C/"><span class="title">wordpress完整建站过程(二)</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/01/wordpress%E6%B3%A8%E6%84%8F%E9%97%AE%E9%A2%98/"><span class="title">遇到的Wordpress问题集</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/04/24/%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8WSL2/"><span class="title">优雅地使用WSL2</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/05/09/%E5%AE%89%E5%88%A9%E5%87%A0%E6%AC%BEwin10%E5%B0%8F%E8%BD%AF%E4%BB%B6/"><span class="title">安利几款Win10小软件</span></a><a class="item title" href="/%5Bobject%20Object%5D/2023/03/11/%E5%B8%B8%E8%A7%81http%E7%8A%B6%E6%80%81%E7%A0%81%E5%8F%8A%E7%AE%80%E4%BB%8B/"><span class="title">常见HTTP状态码及简介</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/01/%E5%BB%BA%E7%AB%99%E6%88%90%E5%8A%9F%E4%BA%86%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B/"><span class="title">建站成功了记录一下</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/11/12/%E6%91%84%E5%BD%B1%E5%B1%95-%E5%B0%8F%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/"><span class="title">小网页开发</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2022-03-08T15:25:25.000Z">2022-03-08</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-03-12T02:24:18.688Z">2024-03-12</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>操作系统学习笔记（一）</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><h3 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h3><h4 id="什么是进程"><a href="#什么是进程" class="headerlink" title="什么是进程"></a>什么是进程</h4><p>进程是</p>
+<p>进程(Process)包括 <code>程序的代码</code> 、<code>程序的数据</code>、<code>指示下一条运行的指令</code>、<code>一组通用寄存器的当前值</code>、 <code>一组系统资源</code>。</p>
+<p>进程特征包括 <code>结构特征</code>、 <code>动态性</code>、 <code>并发性</code>、<code>独立性</code>、 <code>异步性</code></p>
+<p>进程三种基本状态： <code>就绪状态</code>、<code>执行状态</code>、<code>阻塞状态</code></p>
+<p>（有的为五种：最前为 <code>新建态</code>、最后为 <code>终止态</code>）</p>
+<span id="more"></span>
+<p>进程状态转换关系</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%85%B3%E7%B3%BB.png" alt="进程状态转换关系"></p>
+<p>挂起状态(基本状态之外): 进程被从内存调出进驻外存，不再接受调度。</p>
+<p>PCB[^PCB]: PCB中记录了操作系统所需的，用于描述进程的当前情况以及控制进程运行的全部信息。<strong>PCB是进程存在的唯一标志</strong>。</p>
+<p>上下文切换: 将CPU切换到另一进程需要保存原来进程的状态并装入新进程的保存状态。上下文切换时间与硬件支持密切相关。</p>
+<h4 id="进程控制"><a href="#进程控制" class="headerlink" title="进程控制"></a>进程控制</h4><ul>
+<li>进程创建：在一个已经存在的进程（用户进程或系统进程）当中，通过系统调用来创建一个新的进程。  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA.png" alt="进程创建"></li>
+<li>创建步骤：1、申请空白PCB 2、新进程分配资源 3、初始化PCB 4、进程插入就绪状态</li>
+<li>进程终止  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E8%BF%9B%E7%A8%8B%E7%BB%88%E6%AD%A2.png" alt="进程终止"></li>
+<li>进程阻塞与唤醒  原因：<code>请求系统服务</code>、<code>新数据尚未到达</code>、<code>无进程新任务</code>  阻塞过程：调用 <code>阻塞原语block</code> 把自己阻塞、将PCB插入阻塞队列、重新调度。  唤醒过程：阻塞队列移出阻塞进程、PCB从阻塞改为就绪、PCB插入就绪队列。</li>
+<li>进程挂起与激活  挂起过程：修改进程状态、PCB复制到指定内存块、（如有必要转调度程序）。  激活状态：进程调入内存、修改进程状态、（如抢占调度考虑是否执行）</li>
+</ul>
+<h4 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h4><ul>
+<li>进程通信[^IPC]</li>
+<li>临界区和临界资源  进程的工作分为两类：1、内部计算 2、对共享内存或共享文件的访问（竞争条件的产生）  完成第二类工作的程序片段就是 <code>临界区</code>， 需要互斥访问的共享资源就是 <code>临界资源</code> 。</li>
+<li>整形信号量：Dijkstra提出：把整形信号量定义为一个整形量，除初始化外，仅能通过两个标准的 <code>原子操作</code> (Atomic Operation) <code>wait(S)</code>和 <code>signal(S)</code>来访问。分别称为P、V操作。  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//P原语操作的定义</span></span><br><span class="line">procedure <span class="title function_">wait</span><span class="params">(S)</span></span><br><span class="line">  var S:semaphore;</span><br><span class="line">begin</span><br><span class="line">  S.value:=S.value<span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">if</span> S.value&lt;<span class="number">0</span> then</span><br><span class="line">      <span class="title function_">block</span><span class="params">(S,L)</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/P%E5%8E%9F%E8%AF%AD%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9A%E4%B9%89.png" alt="P原语操作的定义">  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//V原语操作的定义</span></span><br><span class="line">procedure <span class="title function_">signal</span><span class="params">(S)</span></span><br><span class="line">  var S:semaphore;</span><br><span class="line">begin</span><br><span class="line">  S.value:=S.value+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> S.value&lt;=<span class="number">0</span> then</span><br><span class="line">      wakeup(S,L);</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/V%E5%8E%9F%E8%AF%AD%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9A%E4%B9%89.png" alt="V原语操作的定义"></li>
+<li>记录型信号量  信号量被描述为一个记录(或者结构)  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E4%BF%A1%E5%8F%B7%E9%87%8F%E8%A2%AB%E6%8F%8F%E8%BF%B0%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AE%B0%E5%BD%95.png" alt="信号量被描述为一个记录">  S.value的处置表示为系统中某类资源的数目，因此也称资源信号量。每次wait操作进程请求该一个单位的该类资源；当S.value&lt;0时，进程调用block原语自我阻塞，并插入信号量链表S.L中。</li>
+<li>AND型信号量  一次性将进程所需所有资源分配到进程里，待使用完释放(避免死锁)</li>
+<li>利用信号量实现进程互斥  n个进程互斥地使用某个临界资源是，设定信号量<code>mutex</code> 用于互斥访问，初始化为1。  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5.png" alt="信号量实现进程互斥">  进程互斥还可能出现死锁</li>
+<li>同步与互斥的混合问题  有一个仓库，可以存放A和B 两种产品。要求：1)每次只能存入一种产品(A或B)；2)-N&lt;A产品数量-B产品数量&lt;M。试用PV操作描述产品A与产品B的入库过程。  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E5%90%8C%E6%AD%A5%E4%B8%8E%E4%BA%92%E6%96%A5%E7%9A%84%E6%B7%B7%E5%90%88%E9%97%AE%E9%A2%98.png" alt="同步与互斥的混合问题"></li>
+</ul>
+<h4 id="经典IPC问题"><a href="#经典IPC问题" class="headerlink" title="经典IPC问题"></a>经典IPC问题</h4><ul>
+<li>主要问题：如何选择信号量, 如何安排P、V原语的顺序。  生产者-消费者问题、哲学家进餐问题、读者-写者问题、理发师问题、和尚喝水问题。</li>
+</ul>
+<p>信号量方法的缺点：</p>
+<ul>
+<li>  逻辑关系复杂，可读性差、维护困难、容易导致竞争状态或者死锁严重问题。</li>
+</ul>
+<h4 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h4><p>由Hoare和Hansen提出，基本思想：<code>将共享变量以及对共享变量所进行的操作封装在一个模块中</code>。</p>
+<ul>
+<li>结构  由一组变量、数据结构和函数构成的软件模块。  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E7%AE%A1%E7%A8%8B%20.png" alt="管程 "></li>
+<li>特性  封装性、互斥性、语言相关性</li>
+<li>等待与唤醒  条件变量[^条件变量] 用于描述等待的原因，通过 <code>wait</code> 和 <code>signal</code> 操作条件变量。<code>wait</code> 和 <code>signal</code> 类似P、V原语，但条件变量不取具体数值，不进行累加。</li>
+<li>send 和 receive  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">send(target,&amp;msg)<span class="comment">//将消息msg发送到目标(进程)target中</span></span><br><span class="line">receive(src,&amp;msg)<span class="comment">//接收src传来的msg,如果无消息可用，阻塞接受者</span></span><br></pre></td></tr></table></figure>
+  有可能面临<code>ACK</code> [^ACK]丢失问题</li>
+</ul>
+<h3 id="进程高级通信"><a href="#进程高级通信" class="headerlink" title="进程高级通信"></a>进程高级通信</h3><h4 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h4><ul>
+<li>线程与进程  进程=资源平台+线程<ul>
+<li>  一个进程中可以同时存在多个线程;</li>
+<li>  各个线程之间可以并发地执行;</li>
+<li>  各个线程之间可以共享地址空间。</li>
+</ul>
+  进程是资源分配单位，线程是CPU调度单位；线程可实现进程级的并发。  单线程与多线程的关系图：  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%85%B3%E7%B3%BB%E5%9B%BE.png" alt="单线程与多线程的关系图"></li>
+<li>用户线程  在用户空间实现，不依赖操作系统的内核。  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E7%94%A8%E6%88%B7%E7%BA%BF%E7%A8%8B.png" alt="用户线程"></li>
+<li>内核线程  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B.png" alt="内核线程">  由内核来维护进程和线程的上下文信息（PCB[^PCB]和TCB[^TCB]）。线程的创建、终止和切换都是通过系统调用的方式来进行，需要从用户态转换到系统态，由内核来完成，系统开销较大。</li>
+</ul>
+<h3 id="用户态和内核态"><a href="#用户态和内核态" class="headerlink" title="用户态和内核态"></a>用户态和内核态</h3><p>两种CPU状态：内核态（Kernel Mode，运行操作系统程序）、用户态（User Mode，运行用户程序 ）</p>
+<h4 id="指令划分"><a href="#指令划分" class="headerlink" title="指令划分"></a>指令划分</h4><p>特权指令：只能由操作系统使用、用户程序不能使用的指令。 举例：启动I/O 内存清零 修改程序状态字 设置时钟 允许/禁止终端 停机</p>
+<p>非特权指令：用户程序可以使用的指令。 举例：控制转移 算数运算 取数指令 访管指令（使用户程序从用户态陷入内核态）</p>
+<h4 id="特权级别"><a href="#特权级别" class="headerlink" title="特权级别"></a>特权级别</h4><p>特权环：R0、R1、R2和R3</p>
+<p>R0相当于内核态，R3相当于用户态；</p>
+<p>不同级别能够运行不同的指令集合；</p>
+<h4 id="CPU状态之间的转换"><a href="#CPU状态之间的转换" class="headerlink" title="CPU状态之间的转换"></a>CPU状态之间的转换</h4><p><strong>用户态 -&gt;内核态：</strong>唯一途径是通过中断、异常、陷入机制（访管指令）</p>
+<p><strong>内核态 -&gt;用户态：</strong>设置程序状态字PSW</p>
+<h4 id="内核态与用户态的区别"><a href="#内核态与用户态的区别" class="headerlink" title="内核态与用户态的区别"></a>内核态与用户态的区别</h4><p>内核态与用户态是操作系统的两种运行级别，当程序运行在3级特权级上时，就可以称之为运行在用户态。因为这是最低特权级，是普通的用户进程运行的特权级，大部分用户直接面对的程序都是运行在用户态；当程序运行在0级特权级上时，就可以称之为运行在内核态。</p>
+<p>运行在用户态下的程序不能直接访问操作系统内核数据结构和程序。当我们在系统中执行一个程序时，大部分时间是运行在用户态下的，在其需要操作系统帮助完成某些它没有权力和能力完成的工作时就会切换到内核态。</p>
+<p>这两种状态的主要差别是：处于用户态执行时，进程所能访问的内存空间和对象受到限制，其所处于占有的处理机是可被抢占的 ；而处于核心态执行中的进程，则能访问所有的内存空间和对象，且所占有的处理机是不允许被抢占的</p>
+<h3 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h3><h4 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h4><p>Concurrent，在操作系统中，一个时间段里有几个程序都处于已启动运行到运行完成之间，且这几个程序在同一个处理机上完成。</p>
+<h4 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h4><p>Parallel，当系统有一个以上CPU时，一个CPU执行一个进程，另一个CPU可以执行另一个进程，两个进程互不抢夺CPU资源，可以同时进行。</p>
+<h3 id="课后作业"><a href="#课后作业" class="headerlink" title="课后作业"></a>课后作业</h3><ol>
+<li><h5 id="操作系统的四个特征是什么？分别是什么含义？"><a href="#操作系统的四个特征是什么？分别是什么含义？" class="headerlink" title="操作系统的四个特征是什么？分别是什么含义？"></a>操作系统的四个特征是什么？分别是什么含义？</h5></li>
+</ol>
+<ul>
+<li>  答：1、并发：两个或者多个事件在同一时间间隔内发生；2、共享：系统内资源可供多个并发进程共同使用；3、异步：进程以不可预知的速度向前推进；4、虚拟：通过某种技术把一个物理实体变成若干个逻辑上的对应物。</li>
+</ul>
+<ol start="2">
+<li><h5 id="什么是操作系统内核？内核的主要功能是什么？"><a href="#什么是操作系统内核？内核的主要功能是什么？" class="headerlink" title="什么是操作系统内核？内核的主要功能是什么？"></a>什么是操作系统内核？内核的主要功能是什么？</h5></li>
+</ol>
+<ul>
+<li>  答：内核是操作系统最基本部分。主要功能是为众多应用程序提供对计算机硬件的安全访问。</li>
+</ul>
+<ol start="3">
+<li><h5 id="什么是系统调用？系统调用与一般程序有什么不同？"><a href="#什么是系统调用？系统调用与一般程序有什么不同？" class="headerlink" title="什么是系统调用？系统调用与一般程序有什么不同？"></a>什么是系统调用？系统调用与一般程序有什么不同？</h5></li>
+</ol>
+<ul>
+<li>  答：系统调用是操作系统内核和用户运行程序之间的接口。不同：<code>运行的状态不同</code>，在程序中的过程一般或都是用户程序，或都是系统程序，都是运行在同一个系统状态的（用户态或内核态）。<code>进入的方式不同</code>，一般程序可以直接由调用过程直接转换到被调用过程，而系统调用则不允许，只能通过一条能产生异常的机器指令（”自陷指令”或叫”访管指令”）进入操作系统，再转到相应的应用处理程序。<code>返回的方式不同</code>。<code>代码层次不同</code>，一般程序是用户级程序，而系统调用是操作系统的代码程序，是系统级程序。<a href="%5B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%92%8C%E4%B8%80%E8%88%AC%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB_%E7%99%BE%E5%BA%A6%E7%9F%A5%E9%81%93" title="baidu.com)](https://zhidao.baidu.com/question/436653622.html">^1</a></li>
+</ul>
+<ol start="4">
+<li><h5 id="什么是进程，为什么OS要引入进程"><a href="#什么是进程，为什么OS要引入进程" class="headerlink" title="什么是进程，为什么OS要引入进程?"></a>什么是进程，为什么OS要引入进程?</h5></li>
+</ol>
+<ul>
+<li>  答：进程是一个<strong>具有一定独立功能的程序在一个数据集上的一次动态执行的过程</strong>；引入进程是为了提高计算机资源的利用率。</li>
+</ul>
+<ol start="5">
+<li><h5 id="进程的基本状态有哪些？会由什么事件导致进程状态的转化？"><a href="#进程的基本状态有哪些？会由什么事件导致进程状态的转化？" class="headerlink" title="进程的基本状态有哪些？会由什么事件导致进程状态的转化？"></a>进程的基本状态有哪些？会由什么事件导致进程状态的转化？</h5></li>
+</ol>
+<ul>
+<li>  答：就绪(Ready)状态、执行(Running)状态、阻塞(Block)状态。等待I/O的结果、等待某一进程提供输入、运行进程用完时间片、高优先级进中断低优先级线程、调度程序选择新进程运行、等待事件发生。</li>
+</ul>
+<ol start="6">
+<li><h5 id="什么是临界资源？什么是临界区？"><a href="#什么是临界资源？什么是临界区？" class="headerlink" title="什么是临界资源？什么是临界区？"></a>什么是临界资源？什么是临界区？</h5></li>
+</ol>
+<ul>
+<li>  答：需要互斥访问的共享资源为临界资源。完成对共享内存和共享资源的访问工作叫做临界区。</li>
+</ul>
+<ol start="7">
+<li><h5 id="什么是忙等？它有什么缺点？"><a href="#什么是忙等？它有什么缺点？" class="headerlink" title="什么是忙等？它有什么缺点？"></a>什么是忙等？它有什么缺点？</h5></li>
+</ol>
+<ul>
+<li>  答：一个进程位于其临界区内时，任何试图进入其临界区的进程都必须在其进入代码中持续地循环。容易造成资源利用率低，系统阻塞。</li>
+</ul>
+<ol start="8">
+<li><h5 id="m个共享进程共享一个临界资源，问信号量的变化范围。"><a href="#m个共享进程共享一个临界资源，问信号量的变化范围。" class="headerlink" title="m个共享进程共享一个临界资源，问信号量的变化范围。"></a>m个共享进程共享一个临界资源，问信号量的变化范围。</h5></li>
+</ol>
+<ul>
+<li>  答：信号量初始值为1，每进行一次P操作则其值减1，每进行一次V操作则其值加1，当有一个进程获得资源，其他m–1个进程在等待队列中时，其值为-(m-1)</li>
+</ul>
+<ol start="9">
+<li> 什么是进程的同步？它包含哪两种形式？什么是临界资源、临界区？</li>
+</ol>
+<ul>
+<li>  答：进程的同步是指：在多道程序环境下，进程是并发执行的，不同进程之间具有不同的互相制约条件。两种形式：<code>同步代码块</code>(被同步关键字封装的代码) 、<code>同步函数</code>(被同步关键字修饰的函数)。</li>
+</ul>
+<ol start="9">
+<li> 男女生共同使用公共洗澡间。规则是：洗澡间门上有可以翻的牌子，牌子分别为“无人”、“男”“女”。若来洗澡的同学发现牌子显示为“无人”，则可以把牌子翻成和自己一样的性别，然后入室洗澡。若来洗澡的同学发现牌子和自己的性别相同，可以直接入室洗澡。若来洗澡的同学发现牌子和自己的性别不同，则须在室外等待。最后一个洗澡的同学离开洗澡间时需要将牌子翻成“无人”。请使用信号量和PV操作，设计男生和女生的同步机制。</li>
+</ol>
+<ul>
+<li>答：  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//空闲资源数</span></span><br><span class="line">semaph mutex=<span class="number">1</span>;</span><br><span class="line"><span class="comment">//占用浴室男生数，占用浴室女生数</span></span><br><span class="line"><span class="type">int</span> S_man=<span class="number">0</span>,S_women=<span class="number">0</span>;</span><br><span class="line"><span class="comment">//等待的男生数,等待的女生数</span></span><br><span class="line"><span class="type">int</span> man_wait = <span class="number">0</span>,women_wait = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//男生想要进入浴室</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">man_want_entry</span><span class="params">()</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(S_women==<span class="number">0</span>)&#123;</span><br><span class="line">     P(mutex);</span><br><span class="line">     S_man++;</span><br><span class="line">     洗澡...</span><br><span class="line">     man_leave_bathroom();</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      man_wait++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//男生离开浴室</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">man_leave_bathroom</span><span class="params">()</span>&#123;</span><br><span class="line">  S_man--;</span><br><span class="line">  V(mutex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//女生想要进入浴室</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">woman_want_entry</span><span class="params">()</span>&#123;</span><br><span class="line">  P(mutex);</span><br><span class="line">  <span class="keyword">if</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="9">
+<li>某机房有N台电脑。门口有一个刷卡机。学生上机时，必须在刷卡机上刷卡登录，下机时也必须在刷卡机上刷卡结算费用。请用信号量方法给来上机的同学设计同步机制。</li>
+<li> 线程是什么？线程主要包含什么内容？内核级线程和用户级线程是什么？</li>
+</ol>
+<pre><code>答：线程是操作系统能够进行运算调度的最小单位。主要包含线程ID、程序计数器、寄存器组合堆栈。内核级线程是由内核管理的线程。用户级线程是指不需要内核支持而在用户程序中实现的线程。
+</code></pre>
+<h2 id="处理机调度和死锁"><a href="#处理机调度和死锁" class="headerlink" title="处理机调度和死锁"></a>处理机调度和死锁</h2><h3 id="处理机调度的基本概念"><a href="#处理机调度的基本概念" class="headerlink" title="处理机调度的基本概念"></a>处理机调度的基本概念</h3><p>处理 一个CPU中有多个进程的竞争(选择一个进程将处理机分配给它) 称为 <code>调度程序</code>, 该程序使用的算法叫做 <code>调度算法</code>。</p>
+<h4 id="三种调度"><a href="#三种调度" class="headerlink" title="三种调度"></a>三种调度</h4><p>进程调度(初级调度)、内存调度(中级调度)、作业调度(高级调度)</p>
+<ul>
+<li>进程调度(内存—&gt;CPU)  频率最高。按照某种调度算法，从就绪队列选择一个进程分配给处理机。</li>
+<li>内存调度(外存—&gt;内存)  频率中等。按照某种调度算法，从 <strong>挂起队列</strong> 选择合适进程将其数据调回内存。</li>
+<li>作业调度(外存—&gt;内存)  频率最低。按照某种调度算法，从 <strong>后备队列</strong> 中选择合适的作业将其调入内存，并为其创建进程(PCB)。</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/%E4%B8%89%E7%A7%8D%E8%B0%83%E5%BA%A6.png" alt="image-20220324100005952"></p>
+<h4 id="进程行为"><a href="#进程行为" class="headerlink" title="进程行为"></a>进程行为</h4><p>进程分为计算密集型(CPU-Bound)和I/O密集型(I/O-Bound)。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220411083017883.png" alt="image-20220411083017883"></p>
+<p>CPU的提高比磁盘更快？越来越多的进程倾向于IO密集型</p>
+<h3 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h3><h4 id="FCFS调度算法"><a href="#FCFS调度算法" class="headerlink" title="FCFS调度算法"></a>FCFS调度算法</h4><p>批处理系统的先来先服务调度算法(FCFS, First come First Served或叫FIFO First In First Out)，按照作业到达的先后次序进行调度。</p>
+<p>优点：简单，易于实现，如排队。</p>
+<p>缺点：若出现长作业出现在短作业之前的情况，会增加平均周转时间</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220413143429011.png" alt="image-20220413143429011"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220413143446410.png" alt="image-20220413143446410"></p>
+<h4 id="SJF调度算法"><a href="#SJF调度算法" class="headerlink" title="SJF调度算法"></a>SJF调度算法</h4><p>批处理系统的短作业优先调度算法(SJF, Shortest Job First)。</p>
+<p>优点：减少了平均周转时间</p>
+<p>缺点：大作业的的周转时间变长，不适合一些大项目？？</p>
+<p>两种实现方案</p>
+<ul>
+<li>不可抢占方式  当前作业运行时不会被打断直到运行完毕或阻塞时，才让出CPU。</li>
+<li>可抢占方式  当一个新的短作业到来时，若其运行时间小于当前正在运行作业的 <code>剩余时间</code>，则抢占CPU运行。（此方式也叫SRTF，Shortest Remaining Time First）</li>
+</ul>
+<p>不可抢占式SJF例题，求平均周转时间</p>
+<p>作业</p>
+<p>进入时刻（H）</p>
+<p>运行时间（H）</p>
+<p>1</p>
+<p>8</p>
+<p>2</p>
+<p>2</p>
+<p>8.5</p>
+<p>0.5</p>
+<p>3</p>
+<p>9</p>
+<p>0.1</p>
+<p>4</p>
+<p>9.5</p>
+<p>0.2</p>
+<p>​ 例题作业</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220413144946937.png" alt="image-20220413144946937"></p>
+<p>抢占式SJF例题，求平均等待时间</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220413145021926.png" alt="image-20220413145021926"></p>
+<h4 id="HRRN调度算法"><a href="#HRRN调度算法" class="headerlink" title="HRRN调度算法"></a>HRRN调度算法</h4><p>批处理系统的最高响应比作业优先算法(HRRN, Highest Response Ratio Next)</p>
+<p>优点：综合平衡了FCFS和SJF</p>
+<p>响应比 R = 响应时间/需运行时间=1＋已等待时间 / 需运行时间。</p>
+<p>作业</p>
+<p>进入时刻（H）</p>
+<p>运行时间（H）</p>
+<p>1</p>
+<p>8</p>
+<p>2</p>
+<p>2</p>
+<p>8.5</p>
+<p>0.5</p>
+<p>3</p>
+<p>9</p>
+<p>0.1</p>
+<p>4</p>
+<p>9.5</p>
+<p>0.2</p>
+<p>​ 例题作业</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220413152036504.png" alt="image-20220413152036504"></p>
+<p>RR调度算法</p>
+<p>交互式系统的时间片轮转调度算法（RR，Round-Robin）</p>
+<p>MQ调度算法</p>
+<p>多级队列调度算法（MQ，Multilevel Queue）</p>
+<p>多级反馈算法</p>
+<h3 id="实时调度"><a href="#实时调度" class="headerlink" title="实时调度"></a>实时调度</h3><h3 id="多处理系统的调度"><a href="#多处理系统的调度" class="headerlink" title="多处理系统的调度"></a>多处理系统的调度</h3><h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><h4 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h4><p>每个进程都占用着若干个资源，同时又在等待得到该组进程中另一进程所占用的资源，因而造成的所有进程都无法进展下去的现象。这一组进程就称为死锁进程。</p>
+<h4 id="计算机资源"><a href="#计算机资源" class="headerlink" title="计算机资源"></a>计算机资源</h4><p>有：CPU、时钟、IO设备、内存空间、数据库记录等。</p>
+<p>资源分为两大类：</p>
+<ul>
+<li>可抢占的  存储器、内存、CPU等。当进程正在使用该类型资源时，抢占不会造成任何不良影响。</li>
+<li>不可抢占的  刻录机、光盘、磁带机、打印机等。当一个进程正在使用该类型资源时，不可强行抢占，否则会导致进程运行失败。</li>
+</ul>
+<p><strong>注意</strong>:不可抢占性资源是临界资源，但是临界资源不是不可抢占性资源</p>
+<p>死锁主要由不可抢占资源引起</p>
+<h4 id="死锁产生的原因"><a href="#死锁产生的原因" class="headerlink" title="死锁产生的原因"></a>死锁产生的原因</h4><ul>
+<li>资源有限  进程中有多个共享资源如打印机、公共队列等</li>
+<li>并发进程间的推进顺序不当  请求和释放资源的顺序不当，会导致产生进程死锁</li>
+</ul>
+<h3 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h3><h3 id="死锁的检测和解除"><a href="#死锁的检测和解除" class="headerlink" title="死锁的检测和解除"></a>死锁的检测和解除</h3><h3 id="课后作业-1"><a href="#课后作业-1" class="headerlink" title="课后作业"></a>课后作业</h3><ol>
+<li>线程是什么？线程主要包含什么内容？内核级线程和用户级线程是什么？ 答：线程是操作系统能够进行运算调度的最小单位。线程的实体包括程序、数据和TCB。内核级线程是，用户级线程是在用户空间上实现，不依赖于系统内核。内核级线程是系统内核管理的线程，由内核完成调度。</li>
+<li>假定在一台处理机上执行下表所示的作业，假定这些作业在0时刻，以1,2,3,4,5的次序顺序到达。说明分别用FCFS、RR（时间片1）、SJF、以及非抢占式优先级（优先级1最高）调度算法，给出平均周转时间。 <strong>作业</strong> <strong>执行时间</strong> <strong>优先级</strong> <strong>1</strong> 10 3 <strong>2</strong> 1 1 <strong>3</strong> 2 3 <strong>4</strong> 1 4 <strong>5</strong> 5 2 FCFS： T = (10+10+11+11+15)/5=11.4 RR: T = (19+1+5+1+10)/5 = 11.2 SJF:<ul>
+<li>抢占式：T = ()</li>
+<li>  非抢占式: T = ()</li>
+</ul>
+ 非抢占式优先级：T = (10+10+17+17+12)/5 = 13.2</li>
+<li>一带闸门的运河，其上有两架吊桥。吊桥坐落在一条公路上，为使该公路避开一块沼泽地而令其横跨运河两次。运河和公路的交通都是单方向的。运河上的基本运输由驳船担负。在一艘驳船接近吊桥A时就拉汽笛警告，若桥上无车辆，吊桥就吊起，直到驳船尾部通过此桥为止。对吊桥B也按同样次序处理。<ul>
+<li>一艘典型驳船的长度为200米，当它在河上航行时是否会产生死锁？若会，其理由是什么？  答：会产生，假设A无车辆，迪奥条吊起驳船通过100米到达B，若此时B上有车辆，会发生A处吊桥不放下，汽车无法通过，B处吊桥不吊起驳船无法通过的现象。</li>
+<li>如何能克服一个可能的死锁？请提出一个防止死锁的办法。  答：限制驳船的大小不超过100米；当AB上无车辆时且有驳船通过时，同时吊起AB桥。</li>
+<li>如何利用信号灯上的P、V操作实现车辆和驳船的同步？  答：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int p,v</span><br></pre></td></tr></table></figure>
+  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220410221633012.png" alt="image-20220410221633012"></li>
+</ul>
+</li>
+<li>设系统中有三种类型的资源（A、B、C）和五个进程（P1、P2、P3、P4、P5），A资源的数量为17，B资源的数量为5，C资源的数量为20。在T0时刻系统状态如下表所示。系统采用银行家算法实施死锁避免策略。<ul>
+<li>  T0时刻是否为安全状态若是，请给出安全序列。</li>
+<li>  在T0时刻若进程P2请求资源（0, 3, 4），是否能实施资源分配为什么</li>
+<li>  在（2）的基础上，若进程P4请求资源（2, 0, 1），是否能实施资源分配，为什么</li>
+<li>在（3）的基础上，若进程P2请求资源（0, 2, 0），是否能实施资源分配，为什么</li>
+<li><em>MAX</em>*</li>
+<li><em>ALLOCTION</em>*</li>
+</ul>
+ A B C A B C <strong>P1</strong> 5 5 9 2 1 2 <strong>P2</strong> 5 3 6 4 0 2 <strong>P3</strong> 4 0 11 4 0 5 <strong>P4</strong> 4 2 5 2 0 4 <strong>P5</strong> 4 2 4 3 1 4</li>
+</ol>
+<h2 id="存储器管理"><a href="#存储器管理" class="headerlink" title="存储器管理"></a>存储器管理</h2><h3 id="程序的装入和链接"><a href="#程序的装入和链接" class="headerlink" title="程序的装入和链接"></a>程序的装入和链接</h3><p>buffer和cache的解释</p>
+<ul>
+<li>A buffer is something that has yet to be “written” to disk.</li>
+<li>A cache is something that has been “read” from the disk and stored for later use.</li>
+</ul>
+<p>也就是说buffer是用于存放要输出到disk（块设备）的数据的，而cache存放从disk上读出的数据。这二者是为了提高IO性能的，并由OS管理。</p>
+<h3 id="连续分配方式"><a href="#连续分配方式" class="headerlink" title="连续分配方式"></a>连续分配方式</h3><h3 id="分页存储管理"><a href="#分页存储管理" class="headerlink" title="分页存储管理"></a>分页存储管理</h3><p>分页系统的地址转换机制</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220414090249801.png" alt="image-20220414090249801"></p>
+<h3 id="分段存储管理"><a href="#分段存储管理" class="headerlink" title="分段存储管理"></a>分段存储管理</h3><h3 id="虚拟存储器的基本概念"><a href="#虚拟存储器的基本概念" class="headerlink" title="虚拟存储器的基本概念"></a>虚拟存储器的基本概念</h3><h3 id="请求分页存储管理方式"><a href="#请求分页存储管理方式" class="headerlink" title="请求分页存储管理方式"></a>请求分页存储管理方式</h3><h3 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h3><h3 id="请求分段存储管理方式"><a href="#请求分段存储管理方式" class="headerlink" title="请求分段存储管理方式"></a>请求分段存储管理方式</h3><h3 id="课后作业-2"><a href="#课后作业-2" class="headerlink" title="课后作业"></a>课后作业</h3><ol>
+<li>什么是逻辑地址，什么是物理地址？ 答：逻辑地址是CPU所生成的地址。加载到内存地址寄存器中的地址，内存单元的真正地址。</li>
+<li>什么是地址重定位？动态分区存储和分页存储如何进行地址重定位？ 答：地址重定向是把程序的逻辑地址空间转变为内存中的实际物理地址空间的过程。动态分区存储在程序运行时CPU每次访问内存单元才进行地址变换。分页存储</li>
+<li>相对于分区存储管理，分页存储管理的优势是什么？分页过大或过小会带来什么问题？ 答：使得一个程序的逻辑地址可以分布在若干个离散的内存块上，减少内碎片和外碎片，提高内存利用率。过大会导致页内碎片增多。过小导致进程页表过长，占用大量内存，还降低页面换进换出的效率。</li>
+<li>如何管理内存块的分配与回收？分别以内存分区表和位图来说明。 答：</li>
+<li>编程题：求m个进程（序号0到m-1）, n个资源情况下，所有的安全序列。 输入<blockquote>
+<p>m,n m*n 矩阵 max m*n 矩阵 allo n维向量 avai</p>
+</blockquote>
+ 输出所有安全序列</li>
+</ol>
+<p>[^PCB]: (Process Control Block,PCB,进程控制块) [^IPC]: (InterProcess Communication,IPC,) [^条件变量]: (Condition Variables,条件变量) [^ACK]: (Acknowledge character,ACK,确认字符) [^TCB]: (Thread Control Block,TCB,线程控制块 )</p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/%5Bobject%20Object%5D/2022/03/10/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B%E4%BA%8C/">wordpress完整建站过程(二)</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/%5Bobject%20Object%5D/2022/03/05/421/">Javascript实现点击特效</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">挚夏</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.27.0">Stellar 1.27.0</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-text">进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B"><span class="toc-text">什么是进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="toc-text">进程控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-text">进程同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8IPC%E9%97%AE%E9%A2%98"><span class="toc-text">经典IPC问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%A1%E7%A8%8B"><span class="toc-text">管程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E9%AB%98%E7%BA%A7%E9%80%9A%E4%BF%A1"><span class="toc-text">进程高级通信</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B"><span class="toc-text">线程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%80%81%E5%92%8C%E5%86%85%E6%A0%B8%E6%80%81"><span class="toc-text">用户态和内核态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E5%88%92%E5%88%86"><span class="toc-text">指令划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E6%9D%83%E7%BA%A7%E5%88%AB"><span class="toc-text">特权级别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CPU%E7%8A%B6%E6%80%81%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-text">CPU状态之间的转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E4%B8%8E%E7%94%A8%E6%88%B7%E6%80%81%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">内核态与用户态的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C"><span class="toc-text">并发和并行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91"><span class="toc-text">并发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C"><span class="toc-text">并行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A"><span class="toc-text">课后作业</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9B%9B%E4%B8%AA%E7%89%B9%E5%BE%81%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%E5%90%AB%E4%B9%89%EF%BC%9F"><span class="toc-text">操作系统的四个特征是什么？分别是什么含义？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%EF%BC%9F%E5%86%85%E6%A0%B8%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">什么是操作系统内核？内核的主要功能是什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%EF%BC%9F%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E4%B8%8E%E4%B8%80%E8%88%AC%E7%A8%8B%E5%BA%8F%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="toc-text">什么是系统调用？系统调用与一般程序有什么不同？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88OS%E8%A6%81%E5%BC%95%E5%85%A5%E8%BF%9B%E7%A8%8B"><span class="toc-text">什么是进程，为什么OS要引入进程?</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%8A%B6%E6%80%81%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E4%BC%9A%E7%94%B1%E4%BB%80%E4%B9%88%E4%BA%8B%E4%BB%B6%E5%AF%BC%E8%87%B4%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E7%9A%84%E8%BD%AC%E5%8C%96%EF%BC%9F"><span class="toc-text">进程的基本状态有哪些？会由什么事件导致进程状态的转化？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%B4%E7%95%8C%E8%B5%84%E6%BA%90%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%B4%E7%95%8C%E5%8C%BA%EF%BC%9F"><span class="toc-text">什么是临界资源？什么是临界区？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BF%99%E7%AD%89%EF%BC%9F%E5%AE%83%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="toc-text">什么是忙等？它有什么缺点？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#m%E4%B8%AA%E5%85%B1%E4%BA%AB%E8%BF%9B%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%80%E4%B8%AA%E4%B8%B4%E7%95%8C%E8%B5%84%E6%BA%90%EF%BC%8C%E9%97%AE%E4%BF%A1%E5%8F%B7%E9%87%8F%E7%9A%84%E5%8F%98%E5%8C%96%E8%8C%83%E5%9B%B4%E3%80%82"><span class="toc-text">m个共享进程共享一个临界资源，问信号量的变化范围。</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6%E5%92%8C%E6%AD%BB%E9%94%81"><span class="toc-text">处理机调度和死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">处理机调度的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E8%B0%83%E5%BA%A6"><span class="toc-text">三种调度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E8%A1%8C%E4%B8%BA"><span class="toc-text">进程行为</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-text">调度算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FCFS%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-text">FCFS调度算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SJF%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-text">SJF调度算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HRRN%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-text">HRRN调度算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E8%B0%83%E5%BA%A6"><span class="toc-text">实时调度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%B0%83%E5%BA%A6"><span class="toc-text">多处理系统的调度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-text">死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AB%E4%B9%89"><span class="toc-text">含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%B5%84%E6%BA%90"><span class="toc-text">计算机资源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-text">死锁产生的原因</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E9%98%B2%E6%AD%BB%E9%94%81"><span class="toc-text">预防死锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E6%A3%80%E6%B5%8B%E5%92%8C%E8%A7%A3%E9%99%A4"><span class="toc-text">死锁的检测和解除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A-1"><span class="toc-text">课后作业</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86"><span class="toc-text">存储器管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%A3%85%E5%85%A5%E5%92%8C%E9%93%BE%E6%8E%A5"><span class="toc-text">程序的装入和链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="toc-text">连续分配方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-text">分页存储管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%AE%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-text">分段存储管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">虚拟存储器的基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%88%86%E9%A1%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-text">请求分页存储管理方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-text">页面置换算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%88%86%E6%AE%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-text">请求分段存储管理方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A-2"><span class="toc-text">课后作业</span></a></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js`,
+    marked: `https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.27.0" async></script>
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"></script><script defer src="https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css`,
+    js: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || null
+        }
+      });
+    })
+  }
+</script><script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

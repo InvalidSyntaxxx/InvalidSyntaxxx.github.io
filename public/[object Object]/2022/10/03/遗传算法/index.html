@@ -1,0 +1,945 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.27.0" theme-name="Stellar" theme-version="1.27.0">
+  
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>遗传算法 - 掉发收集站</title>
+
+  
+    <meta name="description" content="数学公式完整版：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_51245887&#x2F;article&#x2F;details&#x2F;126918727 遗传算法概述背景知识生物遗传概念 遗传算法中的作用 适应度（Fitness）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="遗传算法">
+<meta property="og:url" content="https://wangwangyz.site/[object%20Object]/2022/10/03/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="掉发收集站">
+<meta property="og:description" content="数学公式完整版：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_51245887&#x2F;article&#x2F;details&#x2F;126918727 遗传算法概述背景知识生物遗传概念 遗传算法中的作用 适应度（Fitness）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220917173131637.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213710525.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213726845.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012221848724.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220928234410284.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220929083709177.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172723469.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172903979.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003173710535.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221007234228946.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008143428436.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008152328932.png">
+<meta property="article:published_time" content="2022-10-03T15:18:36.000Z">
+<meta property="article:modified_time" content="2024-03-12T02:24:18.688Z">
+<meta property="article:author" content="挚夏">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220917173131637.png">
+  
+  
+  
+  <meta name="keywords" content="算法">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.27.0">
+
+  
+
+  
+
+  
+</head>
+<body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">掉发收集站</div><div class="sub cap">若结局非你所愿，就在尘埃落定前奋力一搏.</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/%5Bobject%20Object%5D/2022/05/07/typescriptvue3-0%E7%AC%94%E8%AE%B0/"><span class="title">TypeScript+Vue3.0笔记</span></a><a class="item title" href="/%5Bobject%20Object%5D/2023/03/10/vue%E5%88%B6%E4%BD%9Cchatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/"><span class="title">制作网页ChatGPT聊天机器人</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/02/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B/"><span class="title">WordPress完整建站过程(一)</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/10/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B%E4%BA%8C/"><span class="title">wordpress完整建站过程(二)</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/01/wordpress%E6%B3%A8%E6%84%8F%E9%97%AE%E9%A2%98/"><span class="title">遇到的Wordpress问题集</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/04/24/%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8WSL2/"><span class="title">优雅地使用WSL2</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/05/09/%E5%AE%89%E5%88%A9%E5%87%A0%E6%AC%BEwin10%E5%B0%8F%E8%BD%AF%E4%BB%B6/"><span class="title">安利几款Win10小软件</span></a><a class="item title" href="/%5Bobject%20Object%5D/2023/03/11/%E5%B8%B8%E8%A7%81http%E7%8A%B6%E6%80%81%E7%A0%81%E5%8F%8A%E7%AE%80%E4%BB%8B/"><span class="title">常见HTTP状态码及简介</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/01/%E5%BB%BA%E7%AB%99%E6%88%90%E5%8A%9F%E4%BA%86%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B/"><span class="title">建站成功了记录一下</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/11/12/%E6%91%84%E5%BD%B1%E5%B1%95-%E5%B0%8F%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/"><span class="title">小网页开发</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2022-10-03T15:18:36.000Z">2022-10-03</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-03-12T02:24:18.688Z">2024-03-12</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>遗传算法</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>数学公式完整版：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51245887/article/details/126918727">https://blog.csdn.net/weixin_51245887/article/details/126918727</a></p>
+<h1 id="遗传算法概述"><a href="#遗传算法概述" class="headerlink" title="遗传算法概述"></a>遗传算法概述</h1><h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><p>生物遗传概念</p>
+<p>遗传算法中的作用</p>
+<p>适应度（Fitness）</p>
+<span id="more"></span>
+<p>适应函数值。度量某个物种对于生存环境的适应程度</p>
+<p>选择（Selection）</p>
+<p>决定以一定的概率从种群中选择若干个个体的操作</p>
+<p>交叉（Crossover）</p>
+<p>通过交配原则产生一组新解的过程</p>
+<p>变异（Mutation）</p>
+<p>编码的某一个分量发生变化的过程</p>
+<p>编码（Coding）</p>
+<p>表现型到基因型的映射</p>
+<p>解码（Decoding）</p>
+<p>基因型到表现型的映射</p>
+<p>群体（population）</p>
+<p>选定的一组解</p>
+<p>种群（reproduction）</p>
+<p>根据适应函数值选取的一组解</p>
+<p>适者生存</p>
+<p>算法停止时，最优目标值的解有最大的可能被保留</p>
+<p>个体</p>
+<p>解</p>
+<p>染色体（chromosome）</p>
+<p>解的编码（字符串、向量等）</p>
+<p>基因（gene）</p>
+<p>解中每一分量的特征（如各分量的值）</p>
+<h2 id="遗传算法（GA）"><a href="#遗传算法（GA）" class="headerlink" title="遗传算法（GA）"></a>遗传算法（GA）</h2><h4 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h4><ul>
+<li>  枚举法</li>
+<li>  启发式算法</li>
+<li>  搜索算法</li>
+</ul>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><ol>
+<li> 是模拟生物在自然环境下的进化和遗传过程而形成的一种 <strong>自适应全局优化概率方法</strong></li>
+<li> 其采纳了 <strong>自然进化模型</strong>，从代表问题可能潜在解集的一个 <strong>种群</strong> 开始</li>
+<li> <strong>适者生存、优胜劣汰</strong></li>
+</ol>
+<h4 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h4><ol>
+<li>初始化。设置进化代数计数器t⭠0；设置最大进化代数T；随机生成M个个体作为初始群体P(0)。</li>
+<li>个体评价。计算群体P(t)中各个个体的适应度。</li>
+<li>选择运算。将选择算子作用于群体。</li>
+<li>交叉运算。将交叉算子作用于群体。</li>
+<li>变异运算。将变异算子作用于群体。群体P(t)经过选择、交叉、变异运算之后得到下一代群体P(t+1)。</li>
+<li>终止条件判断。若t≤T，则：t⭠t+1，转到步骤二；若t&gt;T，则以进化过程中所得到的具有最大适应度的个体作为最优解输出，终止计算。</li>
+<li>示意图 <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220917173131637.png" alt="image-20220917173131637"></li>
+</ol>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
+<li><strong>遗传算法以 决策变量的编码 作为运算对象</strong></li>
+<li><strong>遗传算法直接以 目标函数值 作为搜索信息</strong></li>
+<li><strong>遗传算法同时使用 多个搜索点 的搜索信息</strong></li>
+<li><strong>遗传算法使用 概率搜索技术</strong></li>
+</ul>
+<h2 id="基本遗传算法"><a href="#基本遗传算法" class="headerlink" title="基本遗传算法"></a>基本遗传算法</h2><p>由 Holland 提出，简称 SGA（Simple Genetic Algorithm）。</p>
+<h4 id="构成要素"><a href="#构成要素" class="headerlink" title="构成要素"></a>构成要素</h4><ol>
+<li>染色体编码方法 使用 <strong>固定长度的二进制符号串</strong> 来表示群体中的个体</li>
+<li>个体适应度评价</li>
+<li>基本遗传算子</li>
+<li>算法的运行参数</li>
+</ol>
+<h4 id="伪代码描述"><a href="#伪代码描述" class="headerlink" title="伪代码描述"></a>伪代码描述</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Procedure SGA</span><br><span class="line">begin</span><br><span class="line"><span class="comment">// 初始值，M为个体总数，t为代数，T为最大进化数 </span></span><br><span class="line">M=PopulationSize, t=<span class="number">0</span>, T=maxGeneration;</span><br><span class="line">init <span class="title function_">P</span><span class="params">(t)</span>; <span class="comment">// 初始化群体P，一开始为第0代</span></span><br><span class="line"><span class="keyword">while</span>(t&lt;=T):</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span> to M <span class="keyword">do</span>:</span><br><span class="line">        Evaluate Fitness of P(t);</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span> to M <span class="keyword">do</span>:</span><br><span class="line">        Selection Operation to P(t);</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span> to M/<span class="number">2</span> <span class="keyword">do</span>:</span><br><span class="line">        Crossover Operation to P(t);</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span> to M <span class="keyword">do</span>:</span><br><span class="line">        Mutation operation to P(t);</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span> to M <span class="keyword">do</span>:</span><br><span class="line">        P(t+<span class="number">1</span>)=P(t)</span><br><span class="line">     t=t+<span class="number">1</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>算法图解参考上图</p>
+<h2 id="个体适应度评价"><a href="#个体适应度评价" class="headerlink" title="个体适应度评价"></a>个体适应度评价</h2><blockquote>
+<p>所有个体适应度必须为正数或零，不能为负数。</p>
+</blockquote>
+<h4 id="适应度函数变换常用方法"><a href="#适应度函数变换常用方法" class="headerlink" title="适应度函数变换常用方法"></a>适应度函数变换常用方法</h4><p>但实际优化问题中的目标函数值有正也有负，优化目标有求函数最大 值，也有求函数最小值，显然上面两式保证不了所有情况下个体的适应度 都是非负数这个要求，需要进行适应度函数尺度转换，将 <strong>目标函数值 f(x) 变换为个体的适应度F(x) 。</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213710525.png" alt="image-20221012213710525"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012213726845.png" alt="image-20221012213726845"></p>
+<p>比例选择又称为轮盘赌选择（Roulette Wheel ）</p>
+<h2 id="遗传算法的应用步骤"><a href="#遗传算法的应用步骤" class="headerlink" title="遗传算法的应用步骤"></a>遗传算法的应用步骤</h2><ol>
+<li> 确定决策变量及其各种约束条件，即确定出个体的表现型 X 和问题的解空间。</li>
+<li> 建立优化模型，即确定出目标函数的类型及其数学描述形式或量化方法。</li>
+<li> 确定表示可行解的染色体编码方法，也即确定个体的基因型 X 及遗传算法的搜索空间。</li>
+<li> 确定解码方法，即确定出由个体基因型 X 到个体表现型 X 的对应关系或转换方法。</li>
+<li> 确定个体适应度的量化评价方法，即确定由目标函数值 $f(x)$ 到个体适应度 $F(x)$ 的转换规则。</li>
+<li> 设计遗传算子，即确定选择运算、交叉运算和变异运算等遗传算子的操作方法。</li>
+<li> 确定遗传算法的有关运行参数，即确定出遗传算法的 $M,T,p_{c},p_{m}$ 等参数。</li>
+</ol>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221012221848724.png" alt="image-20221012221848724"></p>
+<h2 id="模式定理"><a href="#模式定理" class="headerlink" title="模式定理"></a>模式定理</h2><p><strong>模式</strong></p>
+<p>模式（schema）表示一些相似的模块。他描述了在某些位置上的具有相似结构特征的个体编码串的一个子集。</p>
+<p>例如：模式 $H = 1**11$，模式 $H = 00**<em>$ ，“$</em>$”代表通配符。</p>
+<p><strong>模式阶</strong></p>
+<p>在模式H中具有确定基因值的位置数目称该模式的模式阶（schema order），记为 $ o(H)$。</p>
+<p>例如：$o(100_01_)=5，o(*******0)=1$</p>
+<p><strong>模式定义长度</strong></p>
+<p>模式 H 中第一个确定基因值的位置和最后一个确定基因值的位置之间的距离称为该模式的模式定义长度（Schema Defining Length），记为 $δ(H)$。</p>
+<p>例如：$δ(11*0**_) = 3，δ(0_**1) = 4，δ(**0***) = 1$</p>
+<h4 id="在选择算子的作用下"><a href="#在选择算子的作用下" class="headerlink" title="在选择算子的作用下"></a>在选择算子的作用下</h4><p>$$ \frac{m(H,t)}{m(H,t+1)}=\frac{\bar{F}(t)}{f(H,t)}\ \Longleftrightarrow m(H,t+1)=m(H,t)\frac{f(H,t)}{ \bar{F}(t)}\ let \quad \frac{f(H,t)}{\bar{F}(t)}=1+C \ \Longrightarrow m(H,t+1)=m(H,t)(1+C)\ \Longrightarrow m(H,t)=m(H,O)·(1+C)^{t} $$</p>
+<p>其中</p>
+<p>符号</p>
+<p>含义</p>
+<p>$t$</p>
+<p>在进化过程中的第 $t$ 代</p>
+<p>$H$</p>
+<p>模式 $H$</p>
+<p>$m(H, t)$</p>
+<p>当前群体 $P(t)$ 中与 $H$ 匹配的个体数</p>
+<p>$\bar F(t)$</p>
+<p>第 t 代群体的平均适应度</p>
+<p>$f(H,t)$</p>
+<p>群体中 H 隐含的总个体的平均适应度</p>
+<p><strong>结论</strong>：在选择算子作用下，对于平均适应度高于群体平均适应度的模式，其样本数将呈指数级增长：而对于平均适应度低于群体平均适应度的模式，其样本数将呈指数级减少。</p>
+<h4 id="在交叉算子的作用下"><a href="#在交叉算子的作用下" class="headerlink" title="在交叉算子的作用下"></a>在交叉算子的作用下</h4><p>$$ m(H,t+1)≥m(H,t)·(1+C)·[1-p_{c}·\frac{δ(H)}{l-1}] $$</p>
+<p>$δ(H)$越小，则$m(H,t)$越容易呈指数级增长；</p>
+<p>$δ(H)$越大，则$m(H,t)$越不容易呈指数级增长。</p>
+<h4 id="在变异算子的作用下"><a href="#在变异算子的作用下" class="headerlink" title="在变异算子的作用下"></a>在变异算子的作用下</h4><p>某一模式被破坏的概率： $$ 1-(1-p_{m})^{o(H)} $$ 当 $p_{m}&lt;&lt;1$ 时： $$ 1-(1-p_{m})^{o(H)}≈o(H)·p_{m} $$ 在变异算子的作用下，模式 H 的生存概率： $$ p_{s}≈1-o(H)·p_{m} $$ $o(H)$越小，模式 H 越易于生存；</p>
+<p>$o(H)$越大，模式 H 越易于被破坏。</p>
+<h4 id="在算子总作用下"><a href="#在算子总作用下" class="headerlink" title="在算子总作用下"></a>在算子总作用下</h4><p>$$ m(H,t+1)≥m(H,t)·\frac{f(H,t)}{\bar F(t)}·[1-p_{c}·\frac{δ(H)}{l-1}-o(H)·p_{m}] $$</p>
+<p>⭐总结：<strong>遗传算法中，在选择、交叉和变异算子的作用下，具有低阶、短的定义长度，并且平均适应度高于群体平均适应度的模式将按指数级增长。</strong></p>
+<blockquote>
+<p>【积木块假设】</p>
+<p>个体的基因块通过选择、交叉、变异等遗传算子的作用，能够相互拼接在一起，形成适应度更高的个体编码串。</p>
+</blockquote>
+<h1 id="遗传算法基本实现技术"><a href="#遗传算法基本实现技术" class="headerlink" title="遗传算法基本实现技术"></a>遗传算法基本实现技术</h1><h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>编码方法很大程度上决定了如何进行群体的遗传进化运算以及遗传进化运算的效率。</p>
+<p>常见的编码分类：<strong>二进制编码、浮点编码、符号编码</strong>。</p>
+<h4 id="二进制编码"><a href="#二进制编码" class="headerlink" title="二进制编码"></a>二进制编码</h4><p><strong>编码</strong></p>
+<p>假设某一参数的取值范围 [$U_{min},U_{max}$ ] , 我们用长度为 n 的二进制编码符号串来表示参数，共产生 $2^{n}$ 种不同的编码，δ为二进制编码的编码精度。则： $$ δ = \frac{U_{max}-U_{min}}{2^{n}-1} $$ <strong>解码</strong></p>
+<p>假设某一个体的编码是： $$ X:b_{i}b_{i-1}b_{i-2}····b_{2}b_{1} $$ 则解码公式为： $$ x = U_{min}+(\sum_{i=1}^{n}b·2^{i-1})· \frac{U_{max}-U_{min}}{2^{n}-1} $$</p>
+<p><strong>[例]</strong> 设 -3.0 ≤ x ≤ 12.1 , 精度要求 δ = 1/10000</p>
+<p>由编码公式</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220928234410284.png" alt="image-20220928234410284"></p>
+<blockquote>
+<p><strong>格雷码编码</strong></p>
+<p>格雷码特点：两个相邻的编码串之间只有一位编码值不同。</p>
+<p>解码和编码过程：决策变量 ↔二进制↔格雷码</p>
+</blockquote>
+<h4 id="浮点数编码"><a href="#浮点数编码" class="headerlink" title="浮点数编码"></a>浮点数编码</h4><p>个体的每个基因值用_某一范围内_的一个浮点数来表示，个体的编码长度等于其决策变量的个数。</p>
+<p><strong>编码方法</strong></p>
+<p>某一个优化问题含有5个变量 $x_{i}(i=1,2, … ,5)$，每个变量都有其对应的上下限$[U_{min}^{i}, U_{max}^{i}]$，则：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220929083709177.png" alt="image-20220929083709177"></p>
+<p>就表示一个个体的基因型，其对应的表现型是： $x = [5.80,6.90,3.50,3.80,5.00]^{T}$</p>
+<h4 id="符号编码"><a href="#符号编码" class="headerlink" title="符号编码"></a>符号编码</h4><p>个体染色体编码串中基因值取自一个无数值含义、只有代码含义的符号集。</p>
+<h4 id="多参数级联编码"><a href="#多参数级联编码" class="headerlink" title="多参数级联编码"></a>多参数级联编码</h4><p>将各个参数分别以某种编码方法进行编码，然后再将它们的编码按一 定顺序联接在一起就组成了表示全部参数的个体编码。这种编码方法 称为多参数级联编码方法。 $$ \underbrace{b_{11}b_{12}···b_{1l_{1}}}<em>{x</em>{1}}\underbrace{b_{21}b_{22}···b_{2l_{2 }}}<em>{x</em>{2}}····\underbrace{b_{n1}b_{n2}···b_{nl_{1}}}<em>{x</em>{n}} $$</p>
+<h4 id="多参数交叉编码方法"><a href="#多参数交叉编码方法" class="headerlink" title="多参数交叉编码方法"></a>多参数交叉编码方法</h4><p>将各个参数中起主要作用的码位集中在一起。</p>
+<p><strong>编码方法</strong></p>
+<ol>
+<li> 先对各个参数进行分组编码</li>
+<li> 取各个参数编码串中的最高位联接在一起作为前n位编码；再取次高位同上……</li>
+</ol>
+<p>参数编码： $$ \overbrace{b_{11}b_{12}b_{13}···b_{1m}}^{x_{1}}\overbrace{b_{21}b_{22}b_{23}···b_{2m}}^{x_{2}}····\overbrace{b_{n1}b_{n2}b_{n3}···b_{nm}}^{x_{n}} $$ 个体编码串： $$ b_{11}b_{21}b_{31}···b_{n1} b_{12}b_{22}b_{32}···b_{n2} ··· b_{1m}b_{2m}b_{3m}···b_{nm} $$</p>
+<h2 id="适应度函数"><a href="#适应度函数" class="headerlink" title="适应度函数"></a>适应度函数</h2><p>度量个体适应度的函数称为适应度函数。</p>
+<h4 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h4><p>是指所关心的目标 (某一变量y) 与相关的因素 ( 某些变量$x_{i}$ ) 的函数关系。</p>
+<h4 id="适应度尺度变换"><a href="#适应度尺度变换" class="headerlink" title="适应度尺度变换"></a>适应度尺度变换</h4><p>对个体适应度所做的扩大或者缩小变换</p>
+<p>常见变换方法：</p>
+<ul>
+<li>线性尺度变换  $F^{‘}=aF+b$</li>
+<li>乘幂尺度变换  $F^{‘}=F^{k}$</li>
+<li>指数尺度变换  $F^{‘}=exp(-βF)$</li>
+</ul>
+<p><strong>（$F$：原适应度，$F’$：尺度变换后的新适应度）</strong></p>
+<h2 id="选择算子"><a href="#选择算子" class="headerlink" title="选择算子"></a>选择算子</h2><p>遗传算法使用选择算子（或称复制算子， Reproduction Operator）来对群体中的个体进行优胜劣汰操作；适应度 较高的个体被遗传到下一代群体中的概率较大；适应度较 低的个体被遗传到下一代群体中的概率较小.</p>
+<h4 id="比例选择"><a href="#比例选择" class="headerlink" title="比例选择"></a>比例选择</h4><p>各个个体被选中的概率与其适应度大小成正比。设群体大小为M，个体 i 的适应度为$F_{i}$，则个体i被选中的概率$p_{is}$为: $$ p_{is}=F_{i}/\sum_{i=1}^{M}F_{i} \quad\quad (i=1,2,3,…,M) $$</p>
+<h4 id="最优保存策略"><a href="#最优保存策略" class="headerlink" title="最优保存策略"></a>最优保存策略</h4><ol>
+<li> 找出当前群体中适应度最高的个体和适应度最低的个体。</li>
+<li> 若当前群体中最佳个体的适应度比总的迄今为止的最好个体的适应度还要高，则以当前种群中的最佳个体作为新的迄今为止的最好个体。</li>
+<li> 用迄今为止的最好个体替换掉当前群体中的最差个体</li>
+</ol>
+<h4 id="确定式采样选择"><a href="#确定式采样选择" class="headerlink" title="确定式采样选择"></a>确定式采样选择</h4><ol>
+<li>计算群体中各个个体在下一代群体中的期望生存数目$N_{i}$: $$ N_{i} = M · F_{i}/\sum^{M}_{i=1}F_{i}\quad\quad (i=1,2,3,…,M) $$</li>
+<li>用$N_{i}$的整数部分确定各个对应个体在下一代群体中的生存数目。</li>
+<li>按照$N_{i}$的小数部分对个体进行降序排序，顺序取前 $M-\sum ^{M}_{i=1}[N_{i}]$ 个个体加入到下一代群体中。</li>
+</ol>
+<h4 id="无回放随机选择"><a href="#无回放随机选择" class="headerlink" title="无回放随机选择"></a>无回放随机选择</h4><p>亦称期望值选择方法(Expected Value Model)。</p>
+<ol>
+<li>计算群体中各个个体在下一代群体中的期望生存数目$N_{i}$: $$ N_{i} = M · F_{i}/\sum^{M}_{i=1}F_{i}\quad\quad (i=1,2,3,…,M) $$</li>
+<li>若某一个体被选中参与交叉运算，则它在下一代中的生存期望数目减去0.5，若未参与交叉运算，则它在下一代中的生存期望数目减去1.0。</li>
+<li>随着选择过程的进行，若某一个个体的生存期望数目小于0时，则该个体就不在有机会被选中。</li>
+</ol>
+<h4 id="无回放余数随机选择"><a href="#无回放余数随机选择" class="headerlink" title="无回放余数随机选择"></a>无回放余数随机选择</h4><ol>
+<li>计算群体中各个个体在下一代群体中的期望生存数目$N_{i}$: $$ N_{i} = M · F_{i}/\sum^{M}_{i=1}F_{i}\quad\quad (i=1,2,3,…,M) $$</li>
+<li>用$N_{i}$的整数部分$N_{i}$确定各个对应个体在下一代群体中的生存数目。</li>
+<li>以$F_{i}-N_{i}·\sum^{M}<em>{i=1}F/M$ 为各个个体的新的适应度，用比例选择方法来确定下一代群体中还未确定的 $M-\sum ^{M}</em>{i=1}N_{i}$ 个体。</li>
+</ol>
+<h4 id="排序选择"><a href="#排序选择" class="headerlink" title="排序选择"></a>排序选择</h4><p>对群体中各个个体按其适应度大小来进行排序，基于这个排序来分配各个个体被选中的概率。</p>
+<ol>
+<li> 对群体中的所有个体按其适应度大小进行降序排序。</li>
+<li> <strong>根据具体求解问题，设计一个概率分配表，将各个概率值按上述排列次序分配给各个个体</strong>。</li>
+<li> 以各个个体所分配到的概率值作为其能够被遗传到下一代的概率，基于这些概率值用比例选择的方法来产生下一代群体。</li>
+</ol>
+<h4 id="随机联赛选择"><a href="#随机联赛选择" class="headerlink" title="随机联赛选择"></a>随机联赛选择</h4><p>每次选取几个个体之中适应值最高的一个个体遗传到下一代群体。</p>
+<ol>
+<li> 从群体中随机选取N个个体进行适应度大小的比较，将其中适应度最高的个体遗传到下一代群体中。</li>
+<li> 将上述过程重复M次，就可得到下一代群体中的M个个体。</li>
+</ol>
+<h2 id="交叉算子"><a href="#交叉算子" class="headerlink" title="交叉算子"></a>交叉算子</h2><p>交叉算子是指对两个相互配对的染色体按某种方式相互交换其部分基因，从而形成两个新的个体</p>
+<h4 id="单点交叉"><a href="#单点交叉" class="headerlink" title="单点交叉"></a>单点交叉</h4><p>在个体编码串中<strong>只随机设置一个交叉点</strong>，然后在该点相互交换两个配对的部分染色体。</p>
+<p>特点：若邻接基因座之间的关系能提供较好的个体性状和较高的个体适应度的话，则这种单点交叉操作破坏这种个体性状和降低个体适应度的可能性最小。</p>
+<h4 id="双点交叉"><a href="#双点交叉" class="headerlink" title="双点交叉"></a>双点交叉</h4><p>在个体编码串中<strong>随机设置两个交叉点</strong>，然后再进行部分基因交换。</p>
+<ol>
+<li>在相互配对的两个个体编码串中随机设置两个交叉点</li>
+<li>交换两个个体在所设定的两个交叉点之间的部分染色体 <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172723469.png" alt="image-20221003172723469"></li>
+</ol>
+<h4 id="多点交叉"><a href="#多点交叉" class="headerlink" title="多点交叉"></a>多点交叉</h4><p>在个体编码串中 <strong>随机设置两个交叉点</strong>，然后进行基因交换。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003172903979.png" alt="image-20221003172903979"></p>
+<h4 id="均匀交叉"><a href="#均匀交叉" class="headerlink" title="均匀交叉"></a>均匀交叉</h4><p>两个配对个体的每一个基因座上的基因都以相同的交叉概率进行交换。</p>
+<ol>
+<li>随机产生一个与个体编码串长度等长的屏蔽字 $W=w_{1}w_{2}…w_{i}…w_{l}$，其中 $l$ 为个体编码串长度。</li>
+<li>由下述规则从 A 和 B 两个父代个体中产生出两个新的子代个体 A’ 和 B’。<ul>
+<li>  若 $w_{i}=0$，则 A’ 在第 i 个基因座上的基因值继承 A 的对应基因值，B’ 在第 i 个基因座上的基因值继承 B 的对应基因值。</li>
+<li>  若 $w_{i} =1$，则 A’ 在第 i 个基因座上的基因值继承 B 的对应基因值，B’ 在第 i 个基因座上的基因值继承 A 的对应基因值。</li>
+</ul>
+ <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221003173710535.png" alt="image-20221003173710535"></li>
+</ol>
+<h4 id="算术交叉"><a href="#算术交叉" class="headerlink" title="算术交叉"></a>算术交叉</h4><p>由两个个体的线性组合而产生出两个新的个体。</p>
+<p>假设有两个个体$X_{A}$和$X_{B}$之间进行算术交叉，则交叉运算后所产生的两个新个体是: $$ \left{\begin{matrix}</p>
+<p>X_{A}^{t+1} = \alpha X_{B}^{t} + (1 - \alpha )X_{A}^{t} \ X_{B}^{t+1} = \alpha X_{A}^{t} + (1 - \alpha )X_{B}^{t} \end{matrix}\right. $$ 其中 α 是一参数，如果 α (0&lt; α &lt;1)是一个常数，则为 <strong>均匀算术交叉</strong>；如果 α 是一个由进化代数所决定的变量，则称为非均匀算术交叉。</p>
+<ol>
+<li> 确定两个个体进行线性组合的系数 α。</li>
+<li> 依据上式生成新的两个个体。</li>
+</ol>
+<h2 id="变异算子"><a href="#变异算子" class="headerlink" title="变异算子"></a>变异算子</h2><p>变异算子是指将个体染色体编码串中的某些基因座上的基因值用该基因座的其它等位基因来替换，从而形成一个新的个体。</p>
+<h4 id="基本位变异"><a href="#基本位变异" class="headerlink" title="基本位变异"></a>基本位变异</h4><p>个体编码串中以变异概率 $P_{c}$ 随机指定的某一位或某几位基因座上的基因值作变异运算。</p>
+<h4 id="均匀变异"><a href="#均匀变异" class="headerlink" title="均匀变异"></a>均匀变异</h4><p>分别用符合某一范围内均匀分布的随机数，以某一较小的概率来替换个体编码串中各个基因座上的原有基因值。</p>
+<p>假设有一个个体为$X = x_{1}x_{2}…x_{k}…x_{l}$，若$x_{k}$为变异点，其取值范围为$[U^{k}<em>{min}, U^{k}</em>{max}]$，在该点对个体 X 进行均匀变异操作后，可得到一个新的个体 $X’= x_{1}x_{2}…x’_{k}…x_{l}$，其变异的新基因值是： $$ x’<em>{k} = U^{k}</em>{min}+r·(U_{max}^{k}-U_{min}^{k}) $$ 其中，r 为 [0,1] 范围内符合均匀分布的一个随机数。</p>
+<ol>
+<li> 依次指定个体编码串中的没个基因座为变异点。</li>
+<li> 对每一个变异点，以变异概率 $P_{m}$ 从对应基因的取值范围内取一随机数来替代原有基因值。</li>
+</ol>
+<h4 id="边界变异"><a href="#边界变异" class="headerlink" title="边界变异"></a>边界变异</h4><p>随机地取基因座的两个对应边界基因值之一去替代原有基因值。(是均匀变异操作的一个变形)</p>
+<p>在进由$X = x_{1}x_{2}…x_{k}…x_{l}$向$X’= x_{1}x_{2}…x’_{k}…x_{l}$的边界变异操作时，若变异点xk的基因取值范围为$[U^{k}<em>{min}, U^k</em>{max}]$，则新的$x’_{k}$由下式确定： $$ x’<em>{k}=\left{\begin{matrix} U^{k}</em>{min} \quad ,\quad if \quad random(0,1) =0 \ U^{k}_{max} \quad ,\quad if \quad random(0,1) =1 \end{matrix}\right. $$ 式中，random(0，1) 表示以均等的概率从0、1中任取其一。</p>
+<h4 id="非均匀变异"><a href="#非均匀变异" class="headerlink" title="非均匀变异"></a>非均匀变异</h4><p>不是取均匀分布的随机数去替换原有的基因值，而是对原有基因作一<strong>随机扰动</strong>，以扰动后的结果作为变异后的新基因值。</p>
+<p>在进由$X = x_{1}x_{2}…x_{k}…x_{l}$向$X’= x_{1}x_{2}…x’_{k}…x_{l}$的边界变异操作时，若变异点xk的基因取值范围为$[U^{k}<em>{min}, U^k</em>{max}]$，则新的$x’_{k}$由下式确定： $$ x’<em>{k}=\left{\begin{matrix} x</em>{k}+ \Delta (t,U^{k}<em>{max}-x</em>{k}) \quad ,\quad if \quad random(0,1) =0 \ x_{k}- \Delta (t,x_{k}-U^{k}_{min}) \quad ,\quad if \quad random(0,1) =1 \end{matrix}\right. $$ △(t, y)表示 [0,y] 范围内符合非均匀分布的一个随机数，<strong>要求随着进化代数t的增加，△(t, y)接近于0的概率也逐渐增加。</strong> 例如，△(t, y)可按下式定义： $$ \Delta (t, y) = y·(1-r^{(1-t/T)b}) $$ 其中，r为 [0,1] 范围内符合均匀分布的一个随机数，T是最大进化代数，b是一个系统参数。它决定了随机扰动对进化代数t的依赖程度。</p>
+<h4 id="高斯变异"><a href="#高斯变异" class="headerlink" title="高斯变异"></a>高斯变异</h4><p>进行变异操作时，用符合<strong>均值为μ、方差为$σ^{2}$的正态分布</strong>的一个随机数来替换原有基因值。</p>
+<p>假定有12个在[0,1]范围内均匀分布的随机数$r_{i}(i=1,2,..,12)$，则符合$N(μ,σ^{2})$正态分布的一个随机数Q可由下式求得: $$ Q=μ+σ(\sum_{i=1}^{12}r_{i}-6) $$</p>
+<h1 id="遗传算法高级实现技术"><a href="#遗传算法高级实现技术" class="headerlink" title="遗传算法高级实现技术"></a>遗传算法高级实现技术</h1><h2 id="倒位算子"><a href="#倒位算子" class="headerlink" title="倒位算子"></a>倒位算子</h2><p>倒位算子是颠倒个体编码中随机指定的两个基因座之间的基因排列顺序，从而形成一个新的染色体。</p>
+<p>过程：</p>
+<ol>
+<li> 在个体编码串中随机指定两个基因座之后的位置为倒位点。</li>
+<li> 以倒位概率 $P_{i}$ 颠倒这两个倒位点之间的基因排列顺序。</li>
+</ol>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221007234228946.png" alt="image-20221007234228946"></p>
+<h2 id="二倍体"><a href="#二倍体" class="headerlink" title="二倍体"></a>二倍体</h2><blockquote>
+<p>生物学中，二倍体是指含有两个同源基因组的个体。</p>
+<p><strong>重要特性</strong></p>
+<ol>
+<li>二倍体的记忆能力 能够记忆以前经历过的环境及变化。</li>
+<li>显性操作的鲁棒性 在显性操作的作用下，能够用其另一同源染色体对其进行校正。</li>
+</ol>
+</blockquote>
+<h4 id="双基因座显性映射"><a href="#双基因座显性映射" class="headerlink" title="双基因座显性映射"></a>双基因座显性映射</h4><p>由 Hollstien 提出，每个二进制基因用两个基因来描述，一个称为 <strong>函数基因</strong>，取通常含义的 1 或 0；另一个称为 <strong>修饰基因</strong>，取值为 M（显性） 或 m（隐形）。当两个同源染色体中至少有一个修饰基因是M时，呈显性，否则为隐性。</p>
+<p>之后 Hollstien 简化为 单基因座显性映射 ，描述基 因的字符集为${0, 1, 1_{0}}$，其中 $1_{0}$ 为隐性的 1，1 为显性的 1。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008143428436.png" alt="image-20221008143428436"></p>
+<h4 id="与GA不同"><a href="#与GA不同" class="headerlink" title="与GA不同"></a>与GA不同</h4><ol>
+<li> 显性形状也能进化，同源染色体之间需进行交叉操作</li>
+<li> 变异操作需考虑隐性性状</li>
+<li> 对个体进行交叉、变异运算后，需进行显性操作</li>
+</ol>
+<h4 id="DiploidyGA算法"><a href="#DiploidyGA算法" class="headerlink" title="DiploidyGA算法"></a>DiploidyGA算法</h4><ol>
+<li>初始化，并设置进化代数计数器初值：t=1 。</li>
+<li>随机产生具有二倍体结构的初始群体 P(0)。</li>
+<li>对初始群体 P(0) 进行显性操作。</li>
+<li>评价初始群体P(0)中各个个体的适应度。</li>
+<li>交叉操作：$P’(t)⬅Crossover[p(t)]$。由每两个随机配对的二倍体个体进行交叉操作时，共可产生四个单倍体个体。</li>
+<li>变异操作：$P’’(t)⬅Mutation[p’(t)]$ 。在对群体中各个个体进行变异操作时，需要考虑隐性基因的作用。</li>
+<li>对群体$P’’(t)$进行显性操作。</li>
+<li>评价群体$P’’(t)$中各个个体的适应度。</li>
+<li>个体选择、复制操作。</li>
+<li>终止条件判断。若不满足终止条件，则：ｔ⬅ｔ＋１，转到第３步，继续进行进化操作过程；若满足终止条件，则输出当前最优个体，结束。</li>
+</ol>
+<h4 id="变长度染色体遗传算法"><a href="#变长度染色体遗传算法" class="headerlink" title="变长度染色体遗传算法"></a>变长度染色体遗传算法</h4><ul>
+<li>编码 $$ X^{m}:(i_{1},v_{i})(i_{2},v_{2})···(i_{k},v_{k})···(i_{n},v_{n}) $$ $i_{k}$是所描述的基因在原常规染色体中的 <strong>基因座编号</strong>，$v_{k}$为对应的基因值。  例：  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20221008152328932.png" alt="image-20221008152328932"></li>
+<li>解码  这能有什么用？？？？这么能扯</li>
+</ul>
+<h4 id="算法步骤-MessyGA"><a href="#算法步骤-MessyGA" class="headerlink" title="算法步骤(MessyGA)"></a>算法步骤(MessyGA)</h4><ol>
+<li> 初始化。随机产生M个染色体，长度全部为 k的个体，以它们作为变长度遗传算法的初始个体集合P(0)，其中k为根据问题的不同而设定的一个参数，并且 $k ≤ l $。</li>
+<li> 适应度评价。</li>
+<li> 基本处理阶段。对群体P(t)施加选择算子，以保留适应度较高的个体。</li>
+<li> 并列处理阶段。对群体P(t)世家变异算子、切断算子和拼接算子，以生成新的个体。</li>
+<li> 重复2-4步，直到满足终止条件为止。</li>
+</ol>
+<blockquote>
+<p><strong>切断算子</strong></p>
+<p>切断算子以某一预先指定的概率，在变长度染色 体中随机选择一个基因座，在该处将个体的基因型 切断，使之成为二个个体的基因型 。</p>
+<p><strong>拼接算子</strong></p>
+<p>拼接算子以某一预先指定的概率，将二个个体的 基因型连接在一起，使它们合并为一个个体的基因型。</p>
+</blockquote>
+<h2 id="遗传算法的运行参数"><a href="#遗传算法的运行参数" class="headerlink" title="遗传算法的运行参数"></a>遗传算法的运行参数</h2><ul>
+<li>编码串的长度 l</li>
+<li>群体大小M（一般建议取值20~100）</li>
+<li>交叉概率$P_{c}$（一般建议取值0.4~0.99）</li>
+<li>变异概率$P_{m}$（一般建议取值0.0001~0.1）</li>
+<li>终止代数T（一般建议取值100~1000）<ul>
+<li>  规定最大迭代次数T</li>
+<li>  规定最小的偏差</li>
+<li>  观察适应度的变化趋势</li>
+</ul>
+</li>
+<li>代沟G<ul>
+<li>表示每一代群体中被替换掉的个体在全部个体中所占的百分比。</li>
+<li>G=1.0表示群体中的全部个体都是新产生的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="约束条件的处理方法"><a href="#约束条件的处理方法" class="headerlink" title="约束条件的处理方法"></a>约束条件的处理方法</h2><h4 id="搜索空间限定法"><a href="#搜索空间限定法" class="headerlink" title="搜索空间限定法"></a>搜索空间限定法</h4><p><strong>对遗传算法的搜索空间的大小加以限制</strong>，使得搜索空间中表示一个个体的点与解空间中表示一个可行解的点有一一对应关系。</p>
+<p>实现方法：1、用编码方法来保证总是能够产生出在解空间中有对应可行解的染色体。</p>
+<p>2、用程序来保证直到产生出在解空间中有对应可行解的染色体之前，一直进行交叉运算和变异运算。</p>
+<h4 id="可行解变换法"><a href="#可行解变换法" class="headerlink" title="可行解变换法"></a>可行解变换法</h4><p>寻找出一种个体基因型个个体表现型之间的<strong>多对一的变换关系</strong>，使进化过程中所产生的个体总能够通过这个变化而转化成解空间中满足约束条件的一个可行解。</p>
+<h4 id="罚函数法"><a href="#罚函数法" class="headerlink" title="罚函数法"></a>罚函数法</h4><p>对在解空间中无对应的可行解的个体，计算其适应度时，处以一个罚函数，从而降低个体适应度，使该个体被遗传到下一代群体中的机会减少。</p>
+<p>下式对个体适应度进行调整： $$ F’(X)=\left{\begin{matrix} F(X) \quad \quad \qquad X 满足约束条件\ F(X)-P(X) \quad X不满足约束条件 \end{matrix}\right. $$ F(X)为原适应度，F’(X)为新适应度，P(X)为罚函数。</p>
+<h2 id="小生境遗传算法"><a href="#小生境遗传算法" class="headerlink" title="小生境遗传算法"></a>小生境遗传算法</h2><p>在生物学上，**小生境(Niche)**是指特定环境下的一种生存环境。</p>
+<blockquote>
+<p>生物在 其进化过程中，一般总是与自己相同的物种生活在一起，共同繁衍后 代；它们也都是在某一特定的地理区域中生存。</p>
+</blockquote>
+<h3 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h3><ol>
+<li> <a href="#%E5%9F%BA%E4%BA%8E%E9%A2%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%B0%8F%E7%94%9F%E5%A2%83%E7%AE%97%E6%B3%95">基于预选择的小生境———（Cavicchio，1970）</a></li>
+<li> <a href="#%E5%9F%BA%E4%BA%8E%E6%8E%92%E6%8C%A4%E7%9A%84%E5%B0%8F%E7%94%9F%E5%A2%83%E7%AE%97%E6%B3%95">基于排挤的小生境————（De Jong，1975）</a></li>
+<li> <a href="#%E5%9F%BA%E4%BA%8E%E5%85%B1%E4%BA%AB%E5%87%BD%E6%95%B0%E7%9A%84%E5%B0%8F%E7%94%9F%E5%A2%83%E7%AE%97%E6%B3%95">基于共享函数的小生境——（Goldberg和Richardson，1987）</a></li>
+</ol>
+<h4 id="基于预选择的小生境算法"><a href="#基于预选择的小生境算法" class="headerlink" title="基于预选择的小生境算法"></a>基于预选择的小生境算法</h4><p>仅当新产生的子代个体的适应度 <strong>超过其父代个体的适应度</strong> 时，所产生出的子代个体才能替换其父代个体而遗传到下 一代群体中，否则父代个体仍保留在下一代群体中。</p>
+<h4 id="基于排挤的小生境算法"><a href="#基于排挤的小生境算法" class="headerlink" title="基于排挤的小生境算法"></a>基于排挤的小生境算法</h4><p>算法步骤：</p>
+<ol>
+<li> 初始化。建立初始群体，确定遗传参数，设定排挤银子CF。</li>
+<li> 计算个体适应度。</li>
+<li> 遗传操作（选择、交叉和变异）</li>
+<li> 从当前群体中随机选取群体规模的1/CF个个体组成<strong>排挤因子成员</strong>。</li>
+<li> 比较新产生的个体与排挤因子成员中最相似的个体，形成新的当前群体。</li>
+<li> 重复2-6步，直到满足终止条件。</li>
+</ol>
+<p><strong>特点</strong>：随着排挤过程的进行，群体中的个体逐渐被分类，从而形成各个小的生存环 境，并维持了群体的多样性。</p>
+<h4 id="基于共享函数的小生境算法"><a href="#基于共享函数的小生境算法" class="headerlink" title="基于共享函数的小生境算法"></a>基于共享函数的小生境算法</h4><blockquote>
+<p><strong>共享函数</strong>(sharing function)：用来确定每个个体在群体中的 <strong>共享度</strong>。一个个体的共享度等于该个体与群体内的 各个其它个体之间的共享函数值的总和。</p>
+<p>设 $d_{ij}$ 表示个体 i 和个体 j 之间的关系密切程度，S为共享函数，$S_{i}$ 表示个体 i 在群体中的共享度: $$ S_{i}=\sum_{j=1}^{n}S(d_{ij}) $$ 个体适应度$f(i)$: $$ f_{s}(i)=f(i)/S_{i} $$</p>
+</blockquote>
+<p>通过反映个体之间相似程度的 <strong>共享函数</strong> 来调整群体中各个个体的适应度，从而在这以后的群体进化过程中，算法能够依据这个调整后的新适应度来进行选择运算，以维护群体的多样性，创造出小生境的进化环境。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><h4 id="多峰值函数全局最优化"><a href="#多峰值函数全局最优化" class="headerlink" title="多峰值函数全局最优化"></a>多峰值函数全局最优化</h4><p>在多峰值函数全局最优化中的应用：（没啥用。。。）</p>
+<ul>
+<li>  首先两两比较群体中各个个体之间的距离，若这个距离在 预先指定的距离L之内的话，再比较两者之间的适应度大 小，并对其中适应度较低的个体施加一个较强的罚函数， 极大地降低其适应度，这样，对于在预先指定的某一距离 L之内的两个个体，其中较差的个体经处理后其适应度变 得更差，它在后面的进化过程中被淘汰掉的概率就极大。</li>
+<li>  也就是说，在距离L之内将只存在一个优良的个体，从而 既维护了群体的多样性，又使得各个个体之间保持一定的 距离，并使得个体能够在整个约束空间中分散开来，这样就实现了一种小生境遗传算法。</li>
+</ul>
+<h4 id="算法过程-1"><a href="#算法过程-1" class="headerlink" title="算法过程"></a>算法过程</h4><ol>
+<li>设置进化代数计数器t⬅1；随机生成M个初始个体组成初始群体P(t)，并求出各个个体的适应度$F_{i}\quad(i=1,2,···,M)$。</li>
+<li>依据各个个体的适应度对其进行降序排序，记忆前N个个体(N&lt;M)。</li>
+<li>遗传运算（选择算子、交叉算子和变异算子）</li>
+<li>小生境淘汰。将变异算子得到的 M 个个体和②中所记忆的N个个体合并在一起，得到一个含有M+N个个体的新群体；对这M+N个个体，求出每两个个体$X_{i}$和$X_{j}$之间的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B5%B7%E6%98%8E%E8%B7%9D%E7%A6%BB">海明距离</a>。当 $X_{i}-X_{j}&lt;L$ 时，比较个体$X_{i}和X_{j}$的适应度大小，并对其中适应度较低的个体处以罚函数： $$ F_{min}(x_{i},x_{j})=Penalty $$</li>
+<li>依据这M+N个个体的新适应度对各个个体进行降序排序，记忆前N个个体。</li>
+<li>结束判定</li>
+</ol>
+<h2 id="混合遗传算法"><a href="#混合遗传算法" class="headerlink" title="混合遗传算法"></a>混合遗传算法</h2><h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>  引入了局部搜索过程</li>
+<li>  增加了编码变换操作过程</li>
+</ul>
+<h4 id="基本原则"><a href="#基本原则" class="headerlink" title="基本原则"></a>基本原则</h4><ol>
+<li> 尽量采用原有算法的编码</li>
+<li> 利用原有算法的优点</li>
+<li> 改进遗传算子</li>
+</ol>
+<h2 id="模拟退火算法"><a href="#模拟退火算法" class="headerlink" title="*模拟退火算法"></a>*模拟退火算法</h2><p>基于金属退火的机理而建立起的一种全局最优化方法，它能够以随机搜索技术从概率的意义上找出目标函数的全局最小点。</p>
+<h4 id="构成要素-1"><a href="#构成要素-1" class="headerlink" title="构成要素"></a>构成要素</h4><ol>
+<li> 搜索空间</li>
+<li> 能量函数E(x)</li>
+<li> 状态转移规则P</li>
+<li> 冷却进度表T(t)</li>
+</ol>
+<h4 id="算法过程-2"><a href="#算法过程-2" class="headerlink" title="算法过程"></a>算法过程</h4><ol>
+<li> 随机产生一个初始解，以它作为当前最优解，并计算目标函数值。</li>
+<li> 设置初始温度：$T=T_{0}$。</li>
+<li> 设置循环计数器初值：t=1。</li>
+<li> 对当前最优解作一随机变动,产生一新的解。计算新的目标函数值，并计算 目标函数值的增量D。</li>
+<li> 如果D＜0，则接受该新产生的解为当前最优解； 如果D＞0，则以概率p = exp(-D/T)接受该新产生的解为当前最优解。</li>
+<li> 如果t＜终止步数，则：t=t+1，转向第4步。</li>
+<li> 如果未到达冷却状态，则：T=T(t)，转向第3步； 如果已到达冷却状态，则：输出当前最优点，计算结束。</li>
+</ol>
+<p>略。。。</p>
+<h1 id="数值函数和多目标优化"><a href="#数值函数和多目标优化" class="headerlink" title="数值函数和多目标优化"></a>数值函数和多目标优化</h1><h2 id="数值函数优化"><a href="#数值函数优化" class="headerlink" title="数值函数优化"></a>数值函数优化</h2><h4 id="纯数值函数优化"><a href="#纯数值函数优化" class="headerlink" title="纯数值函数优化"></a>纯数值函数优化</h4><p>专门设计了一些具有复杂数学特征的<strong>纯数学函数</strong>，通过遗传算法对这些函数的优化计算情况来测试各种遗传算法的性能。</p>
+<h4 id="常用测试函数"><a href="#常用测试函数" class="headerlink" title="常用测试函数"></a>常用测试函数</h4><ol>
+<li> 连续函数或离散函数</li>
+<li> 凹函数或凸函数</li>
+<li> 二次函数或非二次函数</li>
+<li> 低维函数或高维函数</li>
+<li> 确定性函数或随机性函数</li>
+<li> 单峰值函数或多峰值函数</li>
+</ol>
+<h2 id="多目标优化"><a href="#多目标优化" class="headerlink" title="多目标优化"></a>多目标优化</h2><h4 id="GA的性能评估"><a href="#GA的性能评估" class="headerlink" title="*GA的性能评估"></a>*GA的性能评估</h4><ol>
+<li>适应值函数计算次数 发现同样适应性的个体，或者找到同样质 量的可行解，所需要的关于个体评价的适应值函数的计算次数（function evaluations）。<blockquote>
+<p>该值越小说明相应GA的搜索效率越高。</p>
+</blockquote>
+</li>
+<li>在线和离线性能指标<ul>
+<li>在线性能指标  含义：表示了算法从开始运行一直到当前为止的 时间段内性能值的平均值，它反映了算法的<strong>动态性能</strong>。  在环境e下策略s的在线性能 $X_{e}(s)$定义为： $$ X_{e}(s)=\frac{1}{T}\sum_{t=1}^{T}f_{e}(t) $$ $f_{e}(t)$是在环境e下第t时刻的平均目标函数值或平均适应度。</li>
+<li>离线性能指标  含义：表示了算法运行过程中各进 化代的最佳性能值的累积平均，它反映了算法的<strong>收敛性能</strong>。  在环境e下策略s的在线性能 $X_{e}^{*}(s)$定义为： $$ X_{e}^{<em>}(s)=\frac{1}{T}\sum</em>{t=1}^{T}f_{e}^{_}(t) $$ $f_{e}^{ *}(s)$是在环境 e 下［0, t］时间段内最好的目标函数值或最大的适应度。</li>
+</ul>
+</li>
+<li>最优解搜索性能 GA用于函数优化的目的就是发现问题的全局最优解， 所以通常采用当前群体发现的最佳可行解的改善情况作为度量GA搜索能力的基本指标。</li>
+</ol>
+<h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><ol>
+<li>设$𝑋 ⊆ 𝑅^{𝑚}$是多目标优化模型的约束集， $𝑓(𝑥) ∈ 𝑅^{𝑝}$是多目标优化时的向量目标函数，$ 𝑥1 ∈ 𝑋, 𝑥2 ∈ 𝑋$ 。若 $$ 𝑓_{𝑘}(𝑥_{1}) ≤ 𝑓_{𝑘}(𝑥_{2}) (∀𝑘 = 1,2, ⋯ 𝑝) $$ 并且 $$ 𝑓_{𝑘}(𝑥1) &lt; 𝑓_{𝑘}(𝑥2) (∃𝑘 = 1,2, ⋯ 𝑝) $$ 则称解𝑥1比解𝑥2优越。</li>
+<li>设$𝑋 ⊆ 𝑅^{𝑚}$ 是多目标优化模型的约束集， $𝑓(𝑥) ∈ 𝑅^{𝑝}$ 是向量目标函数。若 $𝑥^{∗} ∈ 𝑋$，并且$x^{<em>}$比 X 中的所有其他点都优越，则称 $x^{</em>}$是多目标极小化模型的最优解。</li>
+<li>设$𝑋 ⊆ 𝑅^{𝑚}$ 是多目标优化模型的约束集，$ 𝑓(𝑥) ∈ 𝑅^{𝑝}$ 是向量目标函数。若 $\tilde{𝑥}∈ 𝑋$，并且不存在比 $\tilde{𝑥}$ 更优越的 $x $，则称 $\tilde{𝑥}$ 为多目标极小化模型的 <strong>Pareto最优解</strong>，或称为非劣解。</li>
+</ol>
+<blockquote>
+<p>多目标优化问题的最优解x *就是使向量目标函数f(x) 的每一个子目标函数都同时到达最优点的解.</p>
+<p>多目标优化问题的Pareto最优解仅仅只是它的一个可以接受的“不坏”的解，并且通常的多目标优化问题大多都具有很多个Pareto最优解.</p>
+<p><strong>求解多目标优化问题的首要步骤和关键步骤是求出其 所有的Pareto最优解</strong>.</p>
+</blockquote>
+<h4 id="求解算法"><a href="#求解算法" class="headerlink" title="求解算法"></a>求解算法</h4><ol>
+<li>权重系数变化法 对于一个多目标优化问题，若给其各个子目标函数 $𝑓_{𝑖 }(𝑥)\quad (i＝1，2，…，p)$，赋予不同的权重$𝑤_{i}(i＝1，2，… ，p)$，其中各$𝑤_{𝑖}$的大小代表相应子目标$𝑓_{𝑖}(𝑥)$ 在多目标优化问题中的重要程度。则各个子目标函数的线性加权和可表示为: $$ u(f(x))=\sum_{i=1}^{p}w_{i}f_{i}(x) $$ 以这个线性加权和作为多目标优化问题的评价函数，则多目标优化问题就可转化为单目标优化问题。</li>
+<li>并列选择法<ol>
+<li> 先将群体中的全部个体按子目标函数的数目均等地划分为一些子群体</li>
+<li> 对每个子群体分配一个子目标函数，各个子目标函数在其相应的子群体中独立地进行选择运算</li>
+<li> 各自选择出一些适应度较高的个体组成一个新的子群体</li>
+<li> 所有这些新生成的子群体合并为一个完整的群体，在这个完 整的群体中进行交叉运算和变异运算</li>
+<li> 不断地进行“分割—并列选择—合并”过程</li>
+</ol>
+ 最终可求出多目标优化问题的Pareto最优解。</li>
+<li>排序选择法 基于“Pareto最优个体”的概念来对群体中的各个个体进行排序，依据这个排列次序来进行进化过程中的选择运算。从而使得排在前面的Pareto最优个体将有更多的机会遗传到下一代群体中。如此这样经过一定代数的循环之后，最终就可求出多目标优化问题的Pareto最优解。</li>
+<li>*共享函数法</li>
+<li>*混合法</li>
+</ol>
+<h1 id="粒子群优化算法"><a href="#粒子群优化算法" class="headerlink" title="粒子群优化算法"></a>粒子群优化算法</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>粒子群优化算法（Particle Swarm Optimization，PSO）是进化计算的一个分支，是一种模拟自然界的生物活动的随机搜索算法。</p>
+<blockquote>
+<p>PSO 模拟了自然界鸟群捕食和鱼群捕食的过程。通过群体中的协作寻找到问题的全局最优解。它是 1995 年由美国学者 <strong>Eberhart</strong> 和 <strong>Kennedy</strong> 提出的。</p>
+<p>设想这样一个场景：一群鸟在随机搜索食物。已知在这块区域里只有一块食物，所有的鸟都不知道食物在哪里，但它们能感受到当前的位置离食物还有多远。</p>
+<p>那么，找到食物的最优策略是什么呢？</p>
+<ul>
+<li>  搜寻目前离食物最近的鸟的周围区域</li>
+<li>  根据自己飞行的经验判断食物的所在</li>
+</ul>
+<p><strong>PSO的基础——信息的社会共享</strong></p>
+</blockquote>
+<p>每个寻优的问题解都被想像成一只鸟，称为“粒子”，所有粒子都在一个 N 维空间进行搜索； 所有的粒子都由一个fitness function 确定适应值以判断目前的位置好坏； 每一个粒子必须赋予记忆功能，能记住所搜寻到的最佳位置；每一个粒子还有一个速度以决定飞行的距离和方向。这个速度根据它本身的飞 行经验以及同伴的飞行经验进行动态调整。</p>
+<h4 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>优点<ol>
+<li> 设置参数较少</li>
+<li> 易于理解和描述</li>
+<li> 收敛速度较好</li>
+<li> 实现容易</li>
+</ol>
+</li>
+<li>缺点<ol>
+<li> 容易陷入局部最优</li>
+<li> 收敛精度不高</li>
+<li> 后期收敛速度较慢</li>
+</ol>
+</li>
+</ul>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><ol>
+<li>初始化 初始化粒子群体（群体规模为n），包括随机位置和速度。</li>
+<li>评估 根据适应度函数，评估每个粒子的适应度。</li>
+<li>找到局部最优 对每个粒子，将其当前适应值与其个体历史最佳位置（Pbest）对应的适应度作比较，如果当前的适应度更高，则将用当前位置更新历史最佳位置Pbest。</li>
+<li>找到全局最优 对每个粒子，将其当前适应值与全局最佳位置（Gbest）对应的适应度作比较，如果当前的适应度更高，则将用当前粒子的位置更新全局最佳位置Gbest。</li>
+<li>更新 根据公式 $$ v_{k+1}=c_{0}v_{k}+c_{1}\xi (p_{k}-x_{k})+c_{2}\eta(p_{g}-x_{k})\ x_{k+1}=x_{k}+v_{k+1} $$ 更新每个粒子的速度和位置</li>
+<li> 若未达终止条件，则回到第2步</li>
+</ol>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/%5Bobject%20Object%5D/2022/11/06/less%E5%88%9D%E5%AD%A6/">Less初学</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/%5Bobject%20Object%5D/2022/05/09/%E5%AE%89%E5%88%A9%E5%87%A0%E6%AC%BEwin10%E5%B0%8F%E8%BD%AF%E4%BB%B6/">安利几款Win10小软件</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">挚夏</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.27.0">Stellar 1.27.0</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-text">遗传算法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-text">背景知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%EF%BC%88GA%EF%BC%89"><span class="toc-text">遗传算法（GA）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E8%A6%81"><span class="toc-text">概要</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%BF%87%E7%A8%8B"><span class="toc-text">算法过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-text">特点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="toc-text">基本遗传算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E6%88%90%E8%A6%81%E7%B4%A0"><span class="toc-text">构成要素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E4%BB%A3%E7%A0%81%E6%8F%8F%E8%BF%B0"><span class="toc-text">伪代码描述</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AA%E4%BD%93%E9%80%82%E5%BA%94%E5%BA%A6%E8%AF%84%E4%BB%B7"><span class="toc-text">个体适应度评价</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E5%BA%A6%E5%87%BD%E6%95%B0%E5%8F%98%E6%8D%A2%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-text">适应度函数变换常用方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84%E5%BA%94%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-text">遗传算法的应用步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%AE%9A%E7%90%86"><span class="toc-text">模式定理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E9%80%89%E6%8B%A9%E7%AE%97%E5%AD%90%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8B"><span class="toc-text">在选择算子的作用下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8B"><span class="toc-text">在交叉算子的作用下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E5%8F%98%E5%BC%82%E7%AE%97%E5%AD%90%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8B"><span class="toc-text">在变异算子的作用下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E7%AE%97%E5%AD%90%E6%80%BB%E4%BD%9C%E7%94%A8%E4%B8%8B"><span class="toc-text">在算子总作用下</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF"><span class="toc-text">遗传算法基本实现技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81"><span class="toc-text">编码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%BC%96%E7%A0%81"><span class="toc-text">二进制编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%BC%96%E7%A0%81"><span class="toc-text">浮点数编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E7%BC%96%E7%A0%81"><span class="toc-text">符号编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E5%8F%82%E6%95%B0%E7%BA%A7%E8%81%94%E7%BC%96%E7%A0%81"><span class="toc-text">多参数级联编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E5%8F%82%E6%95%B0%E4%BA%A4%E5%8F%89%E7%BC%96%E7%A0%81%E6%96%B9%E6%B3%95"><span class="toc-text">多参数交叉编码方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E5%BA%A6%E5%87%BD%E6%95%B0"><span class="toc-text">适应度函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">目标函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E5%BA%A6%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2"><span class="toc-text">适应度尺度变换</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E7%AE%97%E5%AD%90"><span class="toc-text">选择算子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AF%94%E4%BE%8B%E9%80%89%E6%8B%A9"><span class="toc-text">比例选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E4%BF%9D%E5%AD%98%E7%AD%96%E7%95%A5"><span class="toc-text">最优保存策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E5%BC%8F%E9%87%87%E6%A0%B7%E9%80%89%E6%8B%A9"><span class="toc-text">确定式采样选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E5%9B%9E%E6%94%BE%E9%9A%8F%E6%9C%BA%E9%80%89%E6%8B%A9"><span class="toc-text">无回放随机选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E5%9B%9E%E6%94%BE%E4%BD%99%E6%95%B0%E9%9A%8F%E6%9C%BA%E9%80%89%E6%8B%A9"><span class="toc-text">无回放余数随机选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E9%80%89%E6%8B%A9"><span class="toc-text">排序选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E8%81%94%E8%B5%9B%E9%80%89%E6%8B%A9"><span class="toc-text">随机联赛选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90"><span class="toc-text">交叉算子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E7%82%B9%E4%BA%A4%E5%8F%89"><span class="toc-text">单点交叉</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E7%82%B9%E4%BA%A4%E5%8F%89"><span class="toc-text">双点交叉</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%82%B9%E4%BA%A4%E5%8F%89"><span class="toc-text">多点交叉</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9D%87%E5%8C%80%E4%BA%A4%E5%8F%89"><span class="toc-text">均匀交叉</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E4%BA%A4%E5%8F%89"><span class="toc-text">算术交叉</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E5%BC%82%E7%AE%97%E5%AD%90"><span class="toc-text">变异算子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%8D%E5%8F%98%E5%BC%82"><span class="toc-text">基本位变异</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9D%87%E5%8C%80%E5%8F%98%E5%BC%82"><span class="toc-text">均匀变异</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%B9%E7%95%8C%E5%8F%98%E5%BC%82"><span class="toc-text">边界变异</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E5%9D%87%E5%8C%80%E5%8F%98%E5%BC%82"><span class="toc-text">非均匀变异</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E6%96%AF%E5%8F%98%E5%BC%82"><span class="toc-text">高斯变异</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E9%AB%98%E7%BA%A7%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF"><span class="toc-text">遗传算法高级实现技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%92%E4%BD%8D%E7%AE%97%E5%AD%90"><span class="toc-text">倒位算子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%80%8D%E4%BD%93"><span class="toc-text">二倍体</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E5%9F%BA%E5%9B%A0%E5%BA%A7%E6%98%BE%E6%80%A7%E6%98%A0%E5%B0%84"><span class="toc-text">双基因座显性映射</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8EGA%E4%B8%8D%E5%90%8C"><span class="toc-text">与GA不同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DiploidyGA%E7%AE%97%E6%B3%95"><span class="toc-text">DiploidyGA算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%95%BF%E5%BA%A6%E6%9F%93%E8%89%B2%E4%BD%93%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="toc-text">变长度染色体遗传算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4-MessyGA"><span class="toc-text">算法步骤(MessyGA)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="toc-text">遗传算法的运行参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-text">约束条件的处理方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E7%A9%BA%E9%97%B4%E9%99%90%E5%AE%9A%E6%B3%95"><span class="toc-text">搜索空间限定法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%A1%8C%E8%A7%A3%E5%8F%98%E6%8D%A2%E6%B3%95"><span class="toc-text">可行解变换法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%9A%E5%87%BD%E6%95%B0%E6%B3%95"><span class="toc-text">罚函数法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%94%9F%E5%A2%83%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="toc-text">小生境遗传算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="toc-text">实现方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E9%A2%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%B0%8F%E7%94%9F%E5%A2%83%E7%AE%97%E6%B3%95"><span class="toc-text">基于预选择的小生境算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%8E%92%E6%8C%A4%E7%9A%84%E5%B0%8F%E7%94%9F%E5%A2%83%E7%AE%97%E6%B3%95"><span class="toc-text">基于排挤的小生境算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%85%B1%E4%BA%AB%E5%87%BD%E6%95%B0%E7%9A%84%E5%B0%8F%E7%94%9F%E5%A2%83%E7%AE%97%E6%B3%95"><span class="toc-text">基于共享函数的小生境算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-text">应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E5%B3%B0%E5%80%BC%E5%87%BD%E6%95%B0%E5%85%A8%E5%B1%80%E6%9C%80%E4%BC%98%E5%8C%96"><span class="toc-text">多峰值函数全局最优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%BF%87%E7%A8%8B-1"><span class="toc-text">算法过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="toc-text">混合遗传算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E7%82%B9-1"><span class="toc-text">特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99"><span class="toc-text">基本原则</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95"><span class="toc-text">*模拟退火算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E6%88%90%E8%A6%81%E7%B4%A0-1"><span class="toc-text">构成要素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%BF%87%E7%A8%8B-2"><span class="toc-text">算法过程</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E5%87%BD%E6%95%B0%E5%92%8C%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96"><span class="toc-text">数值函数和多目标优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E5%87%BD%E6%95%B0%E4%BC%98%E5%8C%96"><span class="toc-text">数值函数优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%AF%E6%95%B0%E5%80%BC%E5%87%BD%E6%95%B0%E4%BC%98%E5%8C%96"><span class="toc-text">纯数值函数优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%B5%8B%E8%AF%95%E5%87%BD%E6%95%B0"><span class="toc-text">常用测试函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96"><span class="toc-text">多目标优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GA%E7%9A%84%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0"><span class="toc-text">*GA的性能评估</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B1%82%E8%A7%A3%E7%AE%97%E6%B3%95"><span class="toc-text">求解算法</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B2%92%E5%AD%90%E7%BE%A4%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-text">粒子群优化算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E7%82%B9-2"><span class="toc-text">特点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-text">算法流程</span></a></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js`,
+    marked: `https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.27.0" async></script>
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"></script><script defer src="https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css`,
+    js: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || null
+        }
+      });
+    })
+  }
+</script><script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

@@ -1,0 +1,609 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.27.0" theme-name="Stellar" theme-version="1.27.0">
+  
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>MySQL性能优化 - 掉发收集站</title>
+
+  
+    <meta name="description" content="MySQL性能调优 存储数据类型优化  尽量避免使用 NULL  尽量使用可以的最小数据类型。但也要确保没有低估需要存储的范围  整型比字符串操作代价更低  使用 MySQL 内建的数据类型（比如date、time、datetime），比用字符串更快  基本数据类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL性能优化">
+<meta property="og:url" content="https://wangwangyz.site/[object%20Object]/2023/03/10/mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="掉发收集站">
+<meta property="og:description" content="MySQL性能调优 存储数据类型优化  尽量避免使用 NULL  尽量使用可以的最小数据类型。但也要确保没有低估需要存储的范围  整型比字符串操作代价更低  使用 MySQL 内建的数据类型（比如date、time、datetime），比用字符串更快  基本数据类型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://n.sinaimg.cn/games/3ece443e/20161013/MySQLXingNenDiaoYou.jpg">
+<meta property="og:image" content="http://n.sinaimg.cn/games/3ece443e/20160916/MySQLJiaGouTu1.png">
+<meta property="article:published_time" content="2023-03-10T10:24:11.000Z">
+<meta property="article:modified_time" content="2024-03-12T02:24:18.684Z">
+<meta property="article:author" content="挚夏">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://n.sinaimg.cn/games/3ece443e/20161013/MySQLXingNenDiaoYou.jpg">
+  
+  
+  
+  <meta name="keywords" content="MySQL">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.27.0">
+
+  
+
+  
+
+  
+</head>
+<body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">掉发收集站</div><div class="sub cap">若结局非你所愿，就在尘埃落定前奋力一搏.</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/%5Bobject%20Object%5D/2022/05/07/typescriptvue3-0%E7%AC%94%E8%AE%B0/"><span class="title">TypeScript+Vue3.0笔记</span></a><a class="item title" href="/%5Bobject%20Object%5D/2023/03/10/vue%E5%88%B6%E4%BD%9Cchatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/"><span class="title">制作网页ChatGPT聊天机器人</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/02/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B/"><span class="title">WordPress完整建站过程(一)</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/10/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B%E4%BA%8C/"><span class="title">wordpress完整建站过程(二)</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/01/wordpress%E6%B3%A8%E6%84%8F%E9%97%AE%E9%A2%98/"><span class="title">遇到的Wordpress问题集</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/04/24/%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8WSL2/"><span class="title">优雅地使用WSL2</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/05/09/%E5%AE%89%E5%88%A9%E5%87%A0%E6%AC%BEwin10%E5%B0%8F%E8%BD%AF%E4%BB%B6/"><span class="title">安利几款Win10小软件</span></a><a class="item title" href="/%5Bobject%20Object%5D/2023/03/11/%E5%B8%B8%E8%A7%81http%E7%8A%B6%E6%80%81%E7%A0%81%E5%8F%8A%E7%AE%80%E4%BB%8B/"><span class="title">常见HTTP状态码及简介</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/01/%E5%BB%BA%E7%AB%99%E6%88%90%E5%8A%9F%E4%BA%86%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B/"><span class="title">建站成功了记录一下</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/11/12/%E6%91%84%E5%BD%B1%E5%B1%95-%E5%B0%8F%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/"><span class="title">小网页开发</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2023-03-10T10:24:11.000Z">2023-03-10</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-03-12T02:24:18.684Z">2024-03-12</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>MySQL性能优化</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="MySQL性能调优"><a href="#MySQL性能调优" class="headerlink" title="MySQL性能调优"></a>MySQL性能调优</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="http://n.sinaimg.cn/games/3ece443e/20161013/MySQLXingNenDiaoYou.jpg" alt="MYSQL性能优化"></p>
+<h3 id="存储数据类型优化"><a href="#存储数据类型优化" class="headerlink" title="存储数据类型优化"></a>存储数据类型优化</h3><ol>
+<li> 尽量避免使用 NULL</li>
+<li> 尽量使用可以的最小数据类型。但也要确保没有低估需要存储的范围</li>
+<li> 整型比字符串操作代价更低</li>
+<li> 使用 MySQL 内建的数据类型（比如date、time、datetime），比用字符串更快</li>
+</ol>
+<h4 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h4><span id="more"></span>
+<ol>
+<li>数字</li>
+<li>整数 - TINYINT (8) - SMALLINT (16) - MEDIUMINT (24) - INT (32) - BIGINT (64)<ul>
+<li>  整数类型有可选的 unsigned 属性</li>
+<li>  int(1)与int(11)，对于存储和计算来说，这两者本质是没有区别的</li>
+</ul>
+</li>
+<li>实数（存储小数、存储比 BIGINT 更大的数）<ul>
+<li>float</li>
+<li>double<blockquote>
+<p>float 和 double支持使用标准的浮点运算进行近似的计算。</p>
+</blockquote>
+</li>
+<li>decimal<blockquote>
+<p>decimal 类型用于存储精确的小数，支持精确的计算。 因为在进行精确计算时需要额外的空间和计算开销，所以尽量只对小数才使用decimal。比如，财务数据。另外如果数据量大的话，可以考虑使用bigint代替decimal，只需将存储的货币单位根据小数的位数乘以相应的倍数即可。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>字符串<ul>
+<li>CHAR<blockquote>
+<p>1、char 类型是定长的；2、适合存储很短的字符串，例如：密码的 md5 值；3、适合存储经常进行变更的值。</p>
+</blockquote>
+</li>
+<li>VARCHAR<blockquote>
+<p>1、字符串列的长度比平均长度大很多；2、列的更新很少，所以碎片不是问题；3、使用了像 UTF-8 这样复杂的字符集，因为该字符集中每个字符可能使用不同的字节来进行存储；4、存储可变长的字符串。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>BLOB 和 TEXT 两者都是为存储很大的数据而设计的字符串数据类型，不同的是两者分别采用二进制和字符方式存储。 MySQL 在处理两个类型的值时，处理基本相同，仅有的不同是 BLOB 类型是以二进制格式来存储的，所以没有排序规则和字符集，而 text 类型有排序规则和字符集。</li>
+<li>枚举 枚举可以把一些不重复的字符串存储成一个预定义的集合。 MySQL 会在存储枚举类型时粉肠紧凑，会根据列的值的数量压缩到一个或者两个字节中。 MySQL 会在内部将每个值在列表中的位置保存成整数，而这些『数字–字符串』的对应关系，会保存在 .frm 文件中。 所以当该列需要新添加一个新的枚举值时，必须添加在之前枚举列表的最后面，否则就会出现数据错乱的问题。切记。</li>
+<li>日期类型<ul>
+<li>DATETIME<blockquote>
+<p>该类型能保存大范围的值，从 1001 年到 9999 年，精度为秒。他会把时间封装到 YYYYMMDDHHIISS 的整数中，没有时区概念。使用 8 个字节的存储空间。</p>
+</blockquote>
+</li>
+<li>TIMESTAMP<blockquote>
+<p>该类型保存了从 1970-01-01 00：00：00（格林威治时间）以来的秒数。该类型使用 4 个字节的存储空间，所以只能表示 1970 到 2023 年，其值还具有时区的概念。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>BIT 存储更紧凑。但所有这些位类型，不管底层存储格式和存储方式，从技术上来说都是字符串类型。虽然用它存储数据更紧凑，但是对于大部分应用来说，最好避免使用该类型。</li>
+<li>SET 特殊类型的数据<blockquote>
+<p>某些数据的类型并不直接和内置的类型一致。所以需要一定的转换进行存储。</p>
+</blockquote>
+ 低于秒级的时间戳<blockquote>
+<p>低于秒级的时间需要在引用层做处理，一般可以通过存储两个或者多个列来存储（一个存储秒级的时间戳，另外的存储秒级以下的）</p>
+</blockquote>
+ ipv4 地址<blockquote>
+<p>我们常见到有人会用 varchar (15) 来存错一个 IP 地址，IP 地址实际是一个 32 位的无符号整数，所以应该用无符号整数来存储 IP 地址。MySQL 提供了 INET_ATON () 和 INET_NTOA () 函数在这两表示方法之间转换。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="IP地址存储"><a href="#IP地址存储" class="headerlink" title="IP地址存储"></a>IP地址存储</h4><p>通过在应用程序中进行 <strong>字符型</strong> 到 <strong>无符号整型</strong> 的转换，而不是使用MySQL的 <code>INET_ATON()</code> 函数，插入整数IP时MySQL的负载可能会稍微降低。</p>
+<p><a target="_blank" rel="noopener" href="https://bafford.com/2009/03/09/mysql-performance-benefits-of-storing-integer-ip-addresses/">https://bafford.com/2009/03/09/mysql-performance-benefits-of-storing-integer-ip-addresses/</a></p>
+<h2 id="三层架构说明"><a href="#三层架构说明" class="headerlink" title="三层架构说明"></a>三层架构说明</h2><ul>
+<li>  第一层，用于连接处理、授权认证、安全认证等等。大多数基于客户端 / 服务器端的工具或者服务器都有类似架构。</li>
+<li>  第二层，是 MySQL 架构的核心部分。MySQL 的大部分核心服务功能大都在这一层。包括查询解析、分析、优化、缓存以及所有的内置函数的实现，还有所有的跨存储引擎的功能都在这一层实现：存储过程、触发器、试图等。</li>
+<li>  第三层，存储引擎层。存储引擎负责 MySQL 中数据的存储和读取。每个存储引擎都有自己的优势和劣势。MySQL 服务器层通过 API 与存储引擎进行通信。存储引擎本身是不会解析 SQL，且不同的存储引擎之间也是不会相互通信。</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="http://n.sinaimg.cn/games/3ece443e/20160916/MySQLJiaGouTu1.png" alt="img"></p>
+<h2 id="MySQL-服务器接收-处理一个查询请求的过程"><a href="#MySQL-服务器接收-处理一个查询请求的过程" class="headerlink" title="MySQL 服务器接收 / 处理一个查询请求的过程"></a>MySQL 服务器接收 / 处理一个查询请求的过程</h2><ol>
+<li> 当 MySQL 服务器接收到一个查询请求，首先会对当前的连接请求进行认证，认证其用户名和密码信息。</li>
+<li> 连接成功之后，会继续验证该连接是否具有执行某个特定查询的权限。</li>
+<li> 所有的验证都通过，如果是 select 操作，MySQL 会先检查查询缓存中是否存在该缓存，如果存在直接返回结果。不存在继续下一步。</li>
+<li> 解析查询，并创建内部数据结构（生成 解析树），然后对解析树进行各种优化（包括，重写查询，决定表的读取顺序、选择合适的索引等等）。</li>
+<li> 通过存储引擎存储或者提取结果。</li>
+<li> 如果是 select 操作，生成查询缓存。</li>
+<li> 返回结果。</li>
+</ol>
+<p>根据控制的不同层次，MySQL 的并发控制可以分为：</p>
+<ul>
+<li>  服务器层</li>
+<li>  存储引擎层</li>
+</ul>
+<p>实现并发控制的方法策略：**<em>锁机制</em>**</p>
+<ul>
+<li>  共享锁（shared lock）&lt;======&gt; 读锁（read lock）</li>
+<li>  排它锁（exclusive lock） &lt;======&gt; 写锁（write lock）</li>
+</ul>
+<p>如何选择适合的锁？**<em>锁策略</em>**</p>
+<ul>
+<li>锁的粒度越小，系统的并发性越高</li>
+<li>所得操作越多，系统的开销越大<blockquote>
+<p>所以所谓的锁策略，就是在锁的开销和数据的安全性之间寻求平衡。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="MySQL并发控制"><a href="#MySQL并发控制" class="headerlink" title="MySQL并发控制"></a>MySQL并发控制</h2><h3 id="MySQL-中锁策略类型"><a href="#MySQL-中锁策略类型" class="headerlink" title="MySQL 中锁策略类型"></a>MySQL 中锁策略类型</h3><p>MySQL 不同的存储引擎中用到的锁策略基本有两种。一种是表级锁，另一种是行级锁。</p>
+<ul>
+<li>表锁，一种开销最小的锁策略。<blockquote>
+<p>一个用户对表进行写操作时，需要先获得写锁，这是其他用户读该表进行的读写操作都会进行阻塞。只有当前写操作被释放之后，其他人才能活的读锁。当当前表有读锁时，其他人也可以继续获得读锁。读锁是共享性的不同的读锁之间是互相不阻塞的。 另外，写锁的优先级高于读锁。所以当有多个锁请求存在是，读锁的请求会被优先插入到锁队列的前边。</p>
+</blockquote>
+</li>
+<li>行锁，最大程度支持并发处理，同时也是锁开销最大的锁策略。<blockquote>
+<p>顾名思义，行级锁只在将要修改的记录行上进行锁操作，对其他的行的操作没有影响。</p>
+</blockquote>
+</li>
+</ul>
+<p>尽管我们一般提到的锁，都处于存储引擎这一层，但是 MySQL 本身在某些情况下，也会对锁策略进行控制。比如表的 alter table 操作，会对表本身使用表锁，而直接忽略存储引擎的锁机制。</p>
+<h3 id="MySQL-中死锁问题解决方法"><a href="#MySQL-中死锁问题解决方法" class="headerlink" title="MySQL 中死锁问题解决方法"></a>MySQL 中死锁问题解决方法</h3><blockquote>
+<p>死锁，即两个或者多个事务在同一资源上相互占用，并请求占用对方已经占用的资源的情况。</p>
+</blockquote>
+<p>既然有锁存在，当然就会有死锁的情况发生。那么 MySQL 中是如何处理死锁问题的呢？ 死锁的通常解决方案有两种，即：</p>
+<ul>
+<li>  死锁检测机制</li>
+<li>  超时机制</li>
+</ul>
+<p>InnoDB 存储引擎在检测到有死锁发生的处理方法是，将当前持有最少的行级锁的事务进行回滚。待打破死锁后，重新执行因为死锁而回滚的事务。</p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/%5Bobject%20Object%5D/2023/03/10/vue%E5%88%B6%E4%BD%9Cchatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/">制作网页ChatGPT聊天机器人</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/%5Bobject%20Object%5D/2023/03/08/nginx%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%EF%BC%88%E4%B8%80%EF%BC%89/">Nginx原理剖析（一）</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">挚夏</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.27.0">Stellar 1.27.0</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98"><span class="toc-text">MySQL性能调优</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BC%98%E5%8C%96"><span class="toc-text">存储数据类型优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">基本数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IP%E5%9C%B0%E5%9D%80%E5%AD%98%E5%82%A8"><span class="toc-text">IP地址存储</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E"><span class="toc-text">三层架构说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E6%94%B6-%E5%A4%84%E7%90%86%E4%B8%80%E4%B8%AA%E6%9F%A5%E8%AF%A2%E8%AF%B7%E6%B1%82%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">MySQL 服务器接收 &#x2F; 处理一个查询请求的过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-text">MySQL并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-%E4%B8%AD%E9%94%81%E7%AD%96%E7%95%A5%E7%B1%BB%E5%9E%8B"><span class="toc-text">MySQL 中锁策略类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-%E4%B8%AD%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">MySQL 中死锁问题解决方法</span></a></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js`,
+    marked: `https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.27.0" async></script>
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"></script><script defer src="https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css`,
+    js: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || null
+        }
+      });
+    })
+  }
+</script><script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

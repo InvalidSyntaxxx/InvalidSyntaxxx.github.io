@@ -1,0 +1,573 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.27.0" theme-name="Stellar" theme-version="1.27.0">
+  
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>GitHub三种方法加速访问 - 掉发收集站</title>
+
+  
+    <meta name="description" content="一、镜像网站(不推荐)这里提供两个最常用的镜像地址：    https:&#x2F;&#x2F;github.com.cnpmjs.org   https:&#x2F;&#x2F;hub.fastgit.org   GitHub: Where the world builds software · GitHub (fastgit.xyz)  有时候并不生效，依然被q，而且镜像网站随时可能跑路 二、修改hosts文件(安全、快速、不稳定)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub三种方法加速访问">
+<meta property="og:url" content="https://wangwangyz.site/[object%20Object]/2022/05/06/github%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95%E5%8A%A0%E9%80%9F%E8%AE%BF%E9%97%AE/index.html">
+<meta property="og:site_name" content="掉发收集站">
+<meta property="og:description" content="一、镜像网站(不推荐)这里提供两个最常用的镜像地址：    https:&#x2F;&#x2F;github.com.cnpmjs.org   https:&#x2F;&#x2F;hub.fastgit.org   GitHub: Where the world builds software · GitHub (fastgit.xyz)  有时候并不生效，依然被q，而且镜像网站随时可能跑路 二、修改hosts文件(安全、快速、不稳定)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220505235444028.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220505235658796.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506003759569.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506003935842.png">
+<meta property="og:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506004312524.png">
+<meta property="article:published_time" content="2022-05-05T16:57:34.000Z">
+<meta property="article:modified_time" content="2024-03-12T02:24:18.684Z">
+<meta property="article:author" content="挚夏">
+<meta property="article:tag" content="分享">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220505235444028.png">
+  
+  
+  
+  <meta name="keywords" content="分享">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.27.0">
+
+  
+
+  
+
+  
+</head>
+<body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">掉发收集站</div><div class="sub cap">若结局非你所愿，就在尘埃落定前奋力一搏.</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/%5Bobject%20Object%5D/2022/05/07/typescriptvue3-0%E7%AC%94%E8%AE%B0/"><span class="title">TypeScript+Vue3.0笔记</span></a><a class="item title" href="/%5Bobject%20Object%5D/2023/03/10/vue%E5%88%B6%E4%BD%9Cchatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/"><span class="title">制作网页ChatGPT聊天机器人</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/02/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B/"><span class="title">WordPress完整建站过程(一)</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/10/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B%E4%BA%8C/"><span class="title">wordpress完整建站过程(二)</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/01/wordpress%E6%B3%A8%E6%84%8F%E9%97%AE%E9%A2%98/"><span class="title">遇到的Wordpress问题集</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/04/24/%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8WSL2/"><span class="title">优雅地使用WSL2</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/05/09/%E5%AE%89%E5%88%A9%E5%87%A0%E6%AC%BEwin10%E5%B0%8F%E8%BD%AF%E4%BB%B6/"><span class="title">安利几款Win10小软件</span></a><a class="item title" href="/%5Bobject%20Object%5D/2023/03/11/%E5%B8%B8%E8%A7%81http%E7%8A%B6%E6%80%81%E7%A0%81%E5%8F%8A%E7%AE%80%E4%BB%8B/"><span class="title">常见HTTP状态码及简介</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/03/01/%E5%BB%BA%E7%AB%99%E6%88%90%E5%8A%9F%E4%BA%86%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B/"><span class="title">建站成功了记录一下</span></a><a class="item title" href="/%5Bobject%20Object%5D/2022/11/12/%E6%91%84%E5%BD%B1%E5%B1%95-%E5%B0%8F%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/"><span class="title">小网页开发</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2022-05-05T16:57:34.000Z">2022-05-06</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-03-12T02:24:18.684Z">2024-03-12</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>GitHub三种方法加速访问</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="一、镜像网站-不推荐"><a href="#一、镜像网站-不推荐" class="headerlink" title="一、镜像网站(不推荐)"></a>一、镜像网站(不推荐)</h2><p>这里提供两个最常用的镜像地址：</p>
+<ul>
+<li>  <a target="_blank" rel="noopener" href="https://github.com.cnpmjs.org/">https://github.com.cnpmjs.org</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://hub.fastgit.org/">https://hub.fastgit.org</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://hub.fastgit.xyz/">GitHub: Where the world builds software · GitHub (fastgit.xyz)</a></li>
+</ul>
+<p>有时候并不生效，依然被q，而且镜像网站随时可能跑路</p>
+<h2 id="二、修改hosts文件-安全、快速、不稳定"><a href="#二、修改hosts文件-安全、快速、不稳定" class="headerlink" title="二、修改hosts文件(安全、快速、不稳定)"></a>二、修改hosts文件(安全、快速、不稳定)</h2><p>关于<code>hosts</code>文件：<code>hosts</code> 文件本来是用来<strong>提高解析效率</strong>。 在进行 DNS 请求以前，系统会先检查自己的 <code>hosts</code> 文件中是否有这个地址映射关系，如果有则调用这个 IP 地址映射，如果没有再向已知的 DNS 服务器提出域名解析。</p>
+<p>也就是 <code>hosts</code>&gt; <code>DNS</code></p>
+<span id="more"></span>
+<ol>
+<li>找到hosts文件 <code>hosts</code>文件在不同操作系统中的存放路径： <strong>Windows系统：</strong><blockquote>
+<p>C:\Windows\System32\drivers\etc</p>
+</blockquote>
+ <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220505235444028.png" alt="image-20220505235444028"> <strong>Mac OS、Linux及其它类Unix系统：</strong><blockquote>
+<p>/etc/</p>
+</blockquote>
+ <strong>Android系统：</strong><blockquote>
+<p>/system/etc/</p>
+</blockquote>
+</li>
+<li>添加域名解析 在<code>hosts</code>文件末尾添加上以下内容：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment"># GitHub Start</span></span><br><span class="line"><span class="number">140.82</span><span class="number">.113</span><span class="number">.25</span>                 alive.github.com</span><br><span class="line"><span class="number">140.82</span><span class="number">.114</span><span class="number">.26</span>                 live.github.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.154</span>               github.githubassets.com</span><br><span class="line"><span class="number">140.82</span><span class="number">.114</span><span class="number">.21</span>                 central.github.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               desktop.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.153</span>               assets-cdn.github.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               camo.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               github.<span class="built_in">map</span>.fastly.net</span><br><span class="line"><span class="number">199.232</span><span class="number">.69</span><span class="number">.194</span>                github.<span class="keyword">global</span>.ssl.fastly.net</span><br><span class="line"><span class="number">140.82</span><span class="number">.113</span><span class="number">.3</span>                  gist.github.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.153</span>               github.io</span><br><span class="line"><span class="number">140.82</span><span class="number">.114</span><span class="number">.3</span>                  github.com</span><br><span class="line"><span class="number">192.0</span><span class="number">.66</span><span class="number">.2</span>                    github.blog</span><br><span class="line"><span class="number">140.82</span><span class="number">.114</span><span class="number">.6</span>                  api.github.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               raw.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               user-images.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               favicons.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               avatars5.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               avatars4.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               avatars3.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               avatars2.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               avatars1.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               avatars0.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               avatars.githubusercontent.com</span><br><span class="line"><span class="number">140.82</span><span class="number">.113</span><span class="number">.9</span>                  codeload.github.com</span><br><span class="line"><span class="number">52.216</span><span class="number">.137</span><span class="number">.116</span>                github-cloud.s3.amazonaws.com</span><br><span class="line"><span class="number">52.217</span><span class="number">.203</span><span class="number">.169</span>                github-com.s3.amazonaws.com</span><br><span class="line"><span class="number">52.217</span><span class="number">.105</span><span class="number">.68</span>                 github-production-release-asset-2e65be.s3.amazonaws.com</span><br><span class="line"><span class="number">52.217</span><span class="number">.203</span><span class="number">.169</span>                github-production-user-asset-<span class="number">62</span>10df.s3.amazonaws.com</span><br><span class="line"><span class="number">52.216</span><span class="number">.241</span><span class="number">.132</span>                github-production-repository-file-5c1aeb.s3.amazonaws.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.153</span>               githubstatus.com</span><br><span class="line"><span class="number">64.71</span><span class="number">.144</span><span class="number">.211</span>                 github.community</span><br><span class="line"><span class="number">40.68</span><span class="number">.78</span><span class="number">.177</span>                  github.dev</span><br><span class="line"><span class="number">140.82</span><span class="number">.113</span><span class="number">.21</span>                 collector.github.com</span><br><span class="line"><span class="number">13.107</span><span class="number">.42</span><span class="number">.16</span>                   pipelines.actions.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               media.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               cloud.githubusercontent.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.133</span>               objects.githubusercontent.com</span><br><span class="line"> <span class="comment"># GitHub End</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：这些ip可能会发生改变，具体可自行百度搜索相关ip信息，该记录我使用了半年之久都有效。</p>
+<ol start="3">
+<li>刷新DNS缓存使之生效： Windows系统在cmd命令行中执行命令： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig/flushdns</span><br></pre></td></tr></table></figure>
+ <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220505235658796.png" alt="image-20220505235658796"> Linux等系统一般修改后都即刻生效。</li>
+<li>Github查看效果</li>
+<li>总结 这种方法其实也不稳定，大部分时候是能正常快速访问，我也用了一年左右，但是还是会有时不时被墙。个人更喜欢这个~</li>
+</ol>
+<h2 id="三、代理-稳定高速、部分收费"><a href="#三、代理-稳定高速、部分收费" class="headerlink" title="三、代理(稳定高速、部分收费)"></a>三、代理(稳定高速、部分收费)</h2><p>在这里我只是介绍一个使用代理服务快速访问github的方法，由该方法导致任何的后果概不负责。</p>
+<p>有很多种方式加速访问github，听过的就有stream++、epic++、XXXX等，自行百度吧。在这里我介绍使用github上的一个项目<a target="_blank" rel="noopener" href="https://github.com/dotnetcore/FastGithub">Fastgithub</a>来加速访问github，特点：免费高效、开源。</p>
+<ol>
+<li>其实github上面就有很详细的教程，我只是复制一遍，方便目前还访问不了的人，以下是原文档，如有侵权请联系我删除：<blockquote>
+<h4 id="2-1-windows-x64桌面"><a href="#2-1-windows-x64桌面" class="headerlink" title="2.1 windows-x64桌面"></a>2.1 windows-x64桌面</h4><ul>
+<li>  双击运行FastGithub.UI.exe</li>
+</ul>
+<h4 id="2-2-windows-x64服务"><a href="#2-2-windows-x64服务" class="headerlink" title="2.2 windows-x64服务"></a>2.2 windows-x64服务</h4><ul>
+<li>  <code>fastgithub.exe start</code> // 以windows服务安装并启动</li>
+<li>  <code>fastgithub.exe stop</code> // 以windows服务卸载并删除</li>
+</ul>
+<h4 id="2-3-linux-x64终端"><a href="#2-3-linux-x64终端" class="headerlink" title="2.3 linux-x64终端"></a>2.3 linux-x64终端</h4><ul>
+<li>  <code>sudo ./fastgithub</code></li>
+<li>  设置系统自动代理为<code>http://127.0.0.1:38457</code>，或手动代理http/https为<code>127.0.0.1:38457</code></li>
+</ul>
+<h4 id="2-4-linux-x64服务"><a href="#2-4-linux-x64服务" class="headerlink" title="2.4 linux-x64服务"></a>2.4 linux-x64服务</h4><ul>
+<li>  <code>sudo ./fastgithub start</code> // 以systemd服务安装并启动</li>
+<li>  <code>sudo ./fastgithub stop</code> // 以systemd服务卸载并删除</li>
+<li>  设置系统自动代理为<code>http://127.0.0.1:38457</code>，或手动代理http/https为<code>127.0.0.1:38457</code></li>
+</ul>
+<h4 id="2-5-macOS-x64"><a href="#2-5-macOS-x64" class="headerlink" title="2.5 macOS-x64"></a>2.5 macOS-x64</h4><ul>
+<li>  双击运行fastgithub</li>
+<li>  安装cacert/fastgithub.cer并设置信任</li>
+<li>  设置系统自动代理为<code>http://127.0.0.1:38457</code>，或手动代理http/https为<code>127.0.0.1:38457</code></li>
+<li>  <a target="_blank" rel="noopener" href="https://github.com/dotnetcore/FastGithub/blob/master/MacOSXConfig.md">具体配置详情</a></li>
+</ul>
+<h4 id="2-6-docker-compose一键部署"><a href="#2-6-docker-compose一键部署" class="headerlink" title="2.6 docker-compose一键部署"></a>2.6 docker-compose一键部署</h4><ul>
+<li>  准备好docker 18.09, docker-compose.</li>
+<li>  在源码目录下，有一个docker-compose.yaml 文件，专用于在实际项目中，临时使用github.com源码，而做的demo配置。</li>
+<li>  根据自己的需要更新docker-compose.yaml中的sample和build镜像即可完成拉github.com源码加速，并基于源码做后续的操作。</li>
+</ul>
+<h3 id="3-软件功能"><a href="#3-软件功能" class="headerlink" title="3 软件功能"></a>3 软件功能</h3><ul>
+<li>  提供域名的纯净IP解析；</li>
+<li>  提供IP测速并选择最快的IP；</li>
+<li>  提供域名的tls连接自定义配置；</li>
+<li>  google的CDN资源替换，解决大量国外网站无法加载js和css的问题；</li>
+</ul>
+<h3 id="4-证书验证"><a href="#4-证书验证" class="headerlink" title="4 证书验证"></a>4 证书验证</h3><h4 id="4-1-git"><a href="#4-1-git" class="headerlink" title="4.1 git"></a>4.1 git</h4><p>git操作提示<code>SSL certificate problem</code> 需要关闭git的证书验证：<code>git config --global http.sslverify false</code></p>
+<h4 id="4-2-firefox"><a href="#4-2-firefox" class="headerlink" title="4.2 firefox"></a>4.2 firefox</h4><p>firefox提示<code>连接有潜在的安全问题</code> 设置-&gt;隐私与安全-&gt;证书-&gt;查看证书-&gt;证书颁发机构，导入cacert/fastgithub.cer，勾选“信任由此证书颁发机构来标识网站”</p>
+<h3 id="5-安全性说明"><a href="#5-安全性说明" class="headerlink" title="5 安全性说明"></a>5 安全性说明</h3><p>FastGithub为每台不同的主机生成自颁发CA证书，保存在cacert文件夹下。客户端设备需要安装和无条件信任自颁发的CA证书，请不要将证书私钥泄露给他人，以免造成损失。</p>
+<h3 id="6-合法性说明"><a href="#6-合法性说明" class="headerlink" title="6 合法性说明"></a>6 合法性说明</h3><p>《国际联网暂行规定》第六条规定：“计算机信息网络直接进行国际联网，必须使用邮电部国家公用电信网提供的国际出入口信道。任何单位和个人不得自行建立或者使用其他信道进行国际联网。” FastGithub本地代理使用的都是“公用电信网提供的国际出入口信道”，从国外Github服务器到国内用户电脑上FastGithub程序的流量，使用的是正常流量通道，其间未对流量进行任何额外加密（仅有网页原有的TLS加密，区别于VPN的流量加密），而FastGithub获取到网页数据之后发生的整个代理过程完全在国内，不再适用国际互联网相关之规定。</p>
+</blockquote>
+</li>
+<li>下载文件 这是总的下载链接：<a target="_blank" rel="noopener" href="https://github.com/dotnetcore/FastGithub/releases/latest">https://github.com/dotnetcore/FastGithub/releases/latest</a> 截止到2022年5月6号最新的版本： <a target="_blank" rel="noopener" href="https://github.com/dotnetcore/FastGithub/releases/download/2.1.4/fastgithub_linux-arm64.zip">fastgithub_linux-arm64.zip</a> <a target="_blank" rel="noopener" href="https://github.com/dotnetcore/FastGithub/releases/download/2.1.4/fastgithub_linux-x64.zip">fastgithub_linux-x64.zip</a> <a target="_blank" rel="noopener" href="https://github.com/dotnetcore/FastGithub/releases/download/2.1.4/fastgithub_osx-arm64.zip">fastgithub_osx-arm64.zip</a> <a target="_blank" rel="noopener" href="https://github.com/dotnetcore/FastGithub/releases/download/2.1.4/fastgithub_osx-x64.zip">fastgithub_osx-x64.zip</a> <a target="_blank" rel="noopener" href="https://github.com/dotnetcore/FastGithub/releases/download/2.1.4/fastgithub_win-x64.zip">fastgithub_win-x64.zip</a> 对于下载慢的可以试着用<a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=github%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E7%BD%91%E7%AB%99">github文件下载加速网站</a>进行下载，这里推荐几个当前可用的加速下载网站 <a target="_blank" rel="noopener" href="https://gh.api.99988866.xyz/">https://gh.api.99988866.xyz</a> <a target="_blank" rel="noopener" href="https://ghproxy.com/">https://ghproxy.com/</a> <a target="_blank" rel="noopener" href="https://toolwa.com/github/">https://toolwa.com/github/</a></li>
+<li>运行解压后的文件，以我的Windows10 64位系统为例 选择任意一个.exe运行程序运行即可 <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506003759569.png" alt="image-20220506003759569">我运行<code>fastgithub.exe</code>的截图<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506003935842.png" alt="image-20220506003935842"></li>
+</ol>
+<p>接下来进入github的大门吧</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.wangwangyz.site/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-20220506004312524.png" alt="image-20220506004312524"></h2><h4 id="题外话："><a href="#题外话：" class="headerlink" title="题外话："></a>题外话：</h4><p>github被 ‘半墙’是很让人恼火的，有时候PC访问不了，但是移动端又稳定得一批（没改hosts、没开代理）不管怎样，上面有很多很好地项目源码，我们学习离不开它。不过最近github上面开始出现了一些zz因素、传教等等，我们有义务保持理性的态度去面对，也不知道哪一天github也参与zz中来，搞的我们的项目代码不能正常使用。（本人开始试试自己搭建属于自己的git服务了，比如gitlab好像是不错的选择，后期更新看看）</p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/%5Bobject%20Object%5D/2022/05/07/typescriptvue3-0%E7%AC%94%E8%AE%B0/">TypeScript+Vue3.0笔记</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/%5Bobject%20Object%5D/2022/04/27/python3%E7%88%ACbing%E6%89%80%E6%9C%89%E5%A3%81%E7%BA%B8/">Python3爬Bing所有壁纸</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">挚夏</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.27.0">Stellar 1.27.0</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99-%E4%B8%8D%E6%8E%A8%E8%8D%90"><span class="toc-text">一、镜像网站(不推荐)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BF%AE%E6%94%B9hosts%E6%96%87%E4%BB%B6-%E5%AE%89%E5%85%A8%E3%80%81%E5%BF%AB%E9%80%9F%E3%80%81%E4%B8%8D%E7%A8%B3%E5%AE%9A"><span class="toc-text">二、修改hosts文件(安全、快速、不稳定)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BB%A3%E7%90%86-%E7%A8%B3%E5%AE%9A%E9%AB%98%E9%80%9F%E3%80%81%E9%83%A8%E5%88%86%E6%94%B6%E8%B4%B9"><span class="toc-text">三、代理(稳定高速、部分收费)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-windows-x64%E6%A1%8C%E9%9D%A2"><span class="toc-text">2.1 windows-x64桌面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-windows-x64%E6%9C%8D%E5%8A%A1"><span class="toc-text">2.2 windows-x64服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-linux-x64%E7%BB%88%E7%AB%AF"><span class="toc-text">2.3 linux-x64终端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-linux-x64%E6%9C%8D%E5%8A%A1"><span class="toc-text">2.4 linux-x64服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-macOS-x64"><span class="toc-text">2.5 macOS-x64</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-docker-compose%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2"><span class="toc-text">2.6 docker-compose一键部署</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%BD%AF%E4%BB%B6%E5%8A%9F%E8%83%BD"><span class="toc-text">3 软件功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81"><span class="toc-text">4 证书验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-git"><span class="toc-text">4.1 git</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-firefox"><span class="toc-text">4.2 firefox</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%89%E5%85%A8%E6%80%A7%E8%AF%B4%E6%98%8E"><span class="toc-text">5 安全性说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%90%88%E6%B3%95%E6%80%A7%E8%AF%B4%E6%98%8E"><span class="toc-text">6 合法性说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%98%E5%A4%96%E8%AF%9D%EF%BC%9A"><span class="toc-text">题外话：</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js`,
+    marked: `https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.27.0" async></script>
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"></script><script defer src="https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css`,
+    js: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || null
+        }
+      });
+    })
+  }
+</script><script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
