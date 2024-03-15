@@ -1,11 +1,12 @@
-title: 掉发收集站
-subtitle: '若结局非你所愿，就在尘埃落定前奋力一搏.'
+title: Wtoy's Blog
+subtitle: '十年饮冰，难凉热血'
 description: ''
 keywords: null
-author: 挚夏
+author: wtoy
+avatar: https://redamancy9189.oss-cn-beijing.aliyuncs.com/Icons/%E7%AB%99%E7%82%B9logo.png
 language: zh-CN
 timezone: 'Asia/Shanghai'
-url: 'https://wangwangyz.site'
+url: 'https://blog.wtoy.top'
 permalink: '/:categories/:year/:month/:day/:title/'
 permalink_defaults: null
 pretty_urls:

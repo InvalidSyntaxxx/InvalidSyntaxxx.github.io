@@ -3,7 +3,7 @@ title: C++实现LRU算法
 date: 2024-03-15 17:58:25
 tags: C++
 thumbnail: https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/LRU.png
-cover: https://redamancy9189.oss-cn-beijing.aliyuncs.com/Icons/%E7%AB%99%E7%82%B9logo.png
+cover: https://redamancy9189.oss-cn-beijing.aliyuncs.com/%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/LRU.png
 ---
 
 # C++实现LRU算法
