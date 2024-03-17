@@ -16,33 +16,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>网站性能测试 - Wtoy's Blog</title>
+  <title>C++ map排序 - Wtoy's Blog</title>
 
   
-    <meta name="description" content="使用webbench测试网站，结果网站被自己搞挂了这几天一直想测试自己的网站性能，网上搜了一下教程，发现linux下有个webbench可以用来简单测试，挺好用的，就是我的破站承受不了… 首先按照教程 👉参考 先是测试150个客户，60秒内完成。结果看样子我的网站还不错？能承受150个并发访问✌">
+    <meta name="description" content="C++ map按key或按value排序map按key排序（1）map默认按照 key 从小到大排序 12map&lt;string,int&gt; hash;&#x2F;&#x2F;等价于 map&lt;string,int, less&lt;string&gt;&gt; hash;  （2）map按照 key 从大到小排序 1map&lt;string,int, greater&lt;string&gt; &amp;gt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网站性能测试">
-<meta property="og:url" content="https://blog.wtoy.top/[object%20Object]/2022/03/12/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:title" content="C++ map排序">
+<meta property="og:url" content="https://blog.wtoy.top/[object%20Object]/2024/03/17/map%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="Wtoy&#39;s Blog">
-<meta property="og:description" content="使用webbench测试网站，结果网站被自己搞挂了这几天一直想测试自己的网站性能，网上搜了一下教程，发现linux下有个webbench可以用来简单测试，挺好用的，就是我的破站承受不了… 首先按照教程 👉参考 先是测试150个客户，60秒内完成。结果看样子我的网站还不错？能承受150个并发访问✌">
+<meta property="og:description" content="C++ map按key或按value排序map按key排序（1）map默认按照 key 从小到大排序 12map&lt;string,int&gt; hash;&#x2F;&#x2F;等价于 map&lt;string,int, less&lt;string&gt;&gt; hash;  （2）map按照 key 从大到小排序 1map&lt;string,int, greater&lt;string&gt; &amp;gt">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141625684.png">
-<meta property="og:image" content="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141525635.png">
-<meta property="og:image" content="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141414456.png">
-<meta property="og:image" content="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141258954.png">
-<meta property="og:image" content="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141959324.png">
-<meta property="article:published_time" content="2022-03-12T06:26:38.000Z">
-<meta property="article:modified_time" content="2024-03-12T02:24:18.688Z">
+<meta property="article:published_time" content="2024-03-17T13:40:24.000Z">
+<meta property="article:modified_time" content="2024-03-17T13:43:34.929Z">
 <meta property="article:author" content="wtoy">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="MySQL">
-<meta property="article:tag" content="C">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141625684.png">
   
   
   
-  <meta name="keywords" content="Linux,MySQL,C">
+  <meta name="keywords" content="C++">
 
   <!-- feed -->
   
@@ -85,36 +77,31 @@
 <div class="article banner top">
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/">专业技术</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2022-03-12T06:26:38.000Z">2022-03-12</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-03-12T02:24:18.688Z">2024-03-12</time></span></div></div></div>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-03-17T13:40:24.000Z">2024-03-17</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-03-17T13:43:34.929Z">2024-03-17</time></span></div></div></div>
     
     <div class="bottom only-title">
       
       <div class="text-area">
-        <h1 class="text title"><span>网站性能测试</span></h1>
+        <h1 class="text title"><span>C++ map排序</span></h1>
         
       </div>
     </div>
     
   </div>
-  </div><article class="md-text content"><h2 id="使用webbench测试网站，结果网站被自己搞挂了"><a href="#使用webbench测试网站，结果网站被自己搞挂了" class="headerlink" title="使用webbench测试网站，结果网站被自己搞挂了"></a>使用webbench测试网站，结果网站被自己搞挂了</h2><p>这几天一直想测试自己的网站性能，网上搜了一下教程，发现linux下有个webbench可以用来简单测试，挺好用的，就是我的破站承受不了…</p>
-<p>首先按照教程 👉<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fightformylife/p/4140329.html">参考</a></p>
-<p>先是测试150个客户，60秒内完成。结果看样子我的网站还不错？能承受150个并发访问✌</p>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141625684.png" alt="image-20220312141625684"></p>
-<span id="more"></span>
-<p>我觉得七百个应该小破站受不了了,然后……居然???还可以???</p>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141525635.png" alt="image-20220312141525635"></p>
-<p>然后是模拟客户 1000个 ，时间 60秒，开始有failed了</p>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141414456.png" alt="image-20220312141414456"></p>
-<p>这时候我再网页上访问我的主页,出问题了…</p>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141258954.png" alt="image-20220312141258954"></p>
-<p>上服务器上面看我的数据库</p>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitee.com/wang-yuanzhao/personal-drawing-bed/raw/master/images/image-20220312141959324.png" alt="image-20220312141959324"></p>
-<p>果然数据库被搞挂了….</p>
-<p>最后，重启一下mysql服务器就好了</p>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>其实我的小破站还是小破站，各位大佬别拿我的小破站进行测试，千万别搞什么DDos、SQL注入之类的啊，球球了🙏🙏🙏</p>
-<!-- more -->
-<p>不过有个缺点就是不支持HTTPS</p>
+  </div><article class="md-text content"><h1 id="C-map按key或按value排序"><a href="#C-map按key或按value排序" class="headerlink" title="C++ map按key或按value排序"></a>C++ map按key或按value排序</h1><h3 id="map按key排序"><a href="#map按key排序" class="headerlink" title="map按key排序"></a>map按key排序</h3><p>（1）map默认按照 key 从小到大排序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string,<span class="type">int</span>&gt; hash;</span><br><span class="line"><span class="comment">//等价于 map&lt;string,int, less&lt;string&gt;&gt; hash;</span></span><br></pre></td></tr></table></figure>
+
+<p>（2）map按照 key 从大到小排序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string,<span class="type">int</span>, greater&lt;string&gt; &gt; hash;</span><br></pre></td></tr></table></figure>
+
+<h3 id="map按value值排序"><a href="#map按value值排序" class="headerlink" title="map按value值排序"></a>map按value值排序</h3><p>按 value 值排序没有直接的方法，但我们可以把 map 存到 vector 中，再对 vector 进行自定义排序</p>
+<p>重写 vector 的 cmp 函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(pair&lt;string,<span class="type">int</span>&gt; a, pair&lt;string, <span class="type">int</span>&gt; b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.second &lt; b.second;<span class="comment">//从小到大排序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把 map 存到 vector 中进行排序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string,<span class="type">int</span>&gt; m;</span><br><span class="line">m[<span class="string">&quot;a&quot;</span>] = <span class="number">2</span>;</span><br><span class="line">m[<span class="string">&quot;b&quot;</span>] = <span class="number">3</span>;</span><br><span class="line">m[<span class="string">&quot;c&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">vector&lt;pair&lt;string,<span class="type">int</span>&gt; &gt; <span class="built_in">vec</span>(m.<span class="built_in">begin</span>(),m.<span class="built_in">end</span>());</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *vec(m.begin(),m.end()代表用map的所有元素创建vector</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">sort</span>(vec.<span class="built_in">begin</span>(),vec.<span class="built_in">end</span>(),cmp);</span><br></pre></td></tr></table></figure>
+
 
 <div class="article-footer fs14">
     <section id="license">
@@ -124,7 +111,7 @@
     </section>
     </div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/%5Bobject%20Object%5D/2022/03/13/argon%E4%B8%BB%E9%A2%98%E6%96%87%E6%A1%A3/">Argon主题文档</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/%5Bobject%20Object%5D/2022/03/10/wordpress%E5%AE%8C%E6%95%B4%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B%E4%BA%8C/">wordpress完整建站过程(二)</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/%5Bobject%20Object%5D/2024/03/16/99%E8%A1%8C%E5%AE%9E%E7%8E%B0C-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%B1%BB/">99行实现C++线程池类</a></div></section></div>
 
 
 
@@ -153,7 +140,7 @@
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8webbench%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99%EF%BC%8C%E7%BB%93%E6%9E%9C%E7%BD%91%E7%AB%99%E8%A2%AB%E8%87%AA%E5%B7%B1%E6%90%9E%E6%8C%82%E4%BA%86"><span class="toc-text">使用webbench测试网站，结果网站被自己搞挂了</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-text">总结：</span></a></li></ol></li></ol></div><div class="widget-footer">
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-map%E6%8C%89key%E6%88%96%E6%8C%89value%E6%8E%92%E5%BA%8F"><span class="toc-text">C++ map按key或按value排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#map%E6%8C%89key%E6%8E%92%E5%BA%8F"><span class="toc-text">map按key排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map%E6%8C%89value%E5%80%BC%E6%8E%92%E5%BA%8F"><span class="toc-text">map按value值排序</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer">
 
 <a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel blur'>
