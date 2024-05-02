@@ -40,3 +40,16 @@ comments:
   service: beaudar
   beaudar:
     repo: invalidsyntaxxx/invalidsyntaxxx.github.io
+
+footer:
+  content: 
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?6370921ce400c5d93138974cc79784ac";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);})();
+    </script>
+
+    <span>桂ICP备2024024328号</span>
